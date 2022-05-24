@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32414.318
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkNetwork", "WorkNetwork\WorkNetwork.csproj", "{68B31E1E-2C0E-4098-BD2D-EED482485871}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{68B31E1E-2C0E-4098-BD2D-EED482485871}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68B31E1E-2C0E-4098-BD2D-EED482485871}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68B31E1E-2C0E-4098-BD2D-EED482485871}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68B31E1E-2C0E-4098-BD2D-EED482485871}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {758D3994-BC03-4E9C-9E83-BFF94ECA1598}
+	EndGlobalSection
+EndGlobal
