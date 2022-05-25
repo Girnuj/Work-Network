@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WorkNetwork.Data;
 
@@ -11,9 +12,10 @@ using WorkNetwork.Data;
 namespace WorkNetwork.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220525000921_Primer_Migracion")]
+    partial class Primer_Migracion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -224,70 +226,6 @@ namespace WorkNetwork.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("WorkNetwork.Models.Localidad", b =>
-                {
-                    b.Property<int>("idLocalidad")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idLocalidad"), 1L, 1);
-
-                    b.Property<int>("CP")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProvinciaidProvincia")
-                        .HasColumnType("int");
-
-                    b.Property<string>("nombreLocalidad")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("idLocalidad");
-
-                    b.HasIndex("ProvinciaidProvincia");
-
-                    b.ToTable("Localidad");
-                });
-
-            modelBuilder.Entity("WorkNetwork.Models.Pais", b =>
-                {
-                    b.Property<int>("idPais")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idPais"), 1L, 1);
-
-                    b.Property<string>("nombrePais")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("idPais");
-
-                    b.ToTable("Pais");
-                });
-
-            modelBuilder.Entity("WorkNetwork.Models.Provincia", b =>
-                {
-                    b.Property<int>("idProvincia")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idProvincia"), 1L, 1);
-
-                    b.Property<int>("PaisidPais")
-                        .HasColumnType("int");
-
-                    b.Property<string>("nombreProvincia")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("idProvincia");
-
-                    b.HasIndex("PaisidPais");
-
-                    b.ToTable("Provincia");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -337,38 +275,6 @@ namespace WorkNetwork.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("WorkNetwork.Models.Localidad", b =>
-                {
-                    b.HasOne("WorkNetwork.Models.Provincia", "Provincia")
-                        .WithMany("Localidades")
-                        .HasForeignKey("ProvinciaidProvincia")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Provincia");
-                });
-
-            modelBuilder.Entity("WorkNetwork.Models.Provincia", b =>
-                {
-                    b.HasOne("WorkNetwork.Models.Pais", "Pais")
-                        .WithMany("Provincias")
-                        .HasForeignKey("PaisidPais")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Pais");
-                });
-
-            modelBuilder.Entity("WorkNetwork.Models.Pais", b =>
-                {
-                    b.Navigation("Provincias");
-                });
-
-            modelBuilder.Entity("WorkNetwork.Models.Provincia", b =>
-                {
-                    b.Navigation("Localidades");
                 });
 #pragma warning restore 612, 618
         }

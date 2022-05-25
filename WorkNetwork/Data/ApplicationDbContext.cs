@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using WorkNetwork.Models;
 
 namespace WorkNetwork.Data
 {
@@ -9,5 +10,9 @@ namespace WorkNetwork.Data
             : base(options)
         {
         }
+        public DbSet<Pais> Pais { get; set; }
+        public DbSet<Provincia> Provincia{ get; set; }
+        public DbSet<Localidad> Localidad{ get; set; }
+            
     }
 }
