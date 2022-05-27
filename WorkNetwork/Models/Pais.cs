@@ -7,9 +7,9 @@ namespace WorkNetwork.Models
         [Key]
         public int idPais { get; set; }
 
-        public string nombrePais { get; set; }
+        public string? nombrePais { get; set; }
 
-        public virtual ICollection<Provincia> Provincias { get; set; }
+        public virtual ICollection<Provincia>? Provincias { get; set; }
 
         
     }

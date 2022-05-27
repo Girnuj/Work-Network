@@ -6,21 +6,21 @@ namespace WorkNetwork.Models
     public class Empresa
     {
         [Key]
-        public int idEmpresa {get; set;}
+        public int idEmpresa { get; set; }
 
-        public string razonSocial {get; set;}
+        public string? razonSocial { get; set; }
 
-        public int CUIT { get; set }
+        public int CUIT { get; set; }
 
-        public enum tipoDeDocumento{DNI, Pasaporte }
+        public enum tipoDeDocumento { DNI, Pasaporte }
 
-        public int numeroDeDocumento {get; set;}
+        public int numeroDeDocumento { get; set; }
 
-        public string email {get; set;}
+        public string? email { get; set; }
 
         public int idLocalidad { get; set; }
 
-        public virtual Localidad Localidad { get; set; }
+        public virtual Localidad? Localidad { get; set; }
 
         public int telefono1 { get; set; }
 
@@ -28,13 +28,14 @@ namespace WorkNetwork.Models
 
         public int idRubro { get; set; }
 
-        public virtual Rubro Rubro
+        public virtual Rubro? Rubro { get; set; }
 
-        public enum { Unipersonal, Sociedad }
+        public enum tipoEmpresa { Unipersonal, Sociedad }
 
-        public virtual ICollection<Usuario> Usuarios { get; set; }
-        public virtual ICollection<Vacante> Vacantes { get; set; }
+        public virtual ICollection<Usuario>? Usuarios { get; set; }
+        public virtual ICollection<Vacante>? Vacantes { get; set; }
 
 
 
     }
+}

@@ -9,11 +9,11 @@ namespace WorkNetwork.Models
 
         public int idPersona { get; set; }
 
-        public virtual Persona Persona
+        public virtual Persona? Persona { get; set; }
 
         public int idEmpresa { get; set; }
 
-        public virtual Empresa Empresa
+        public virtual Empresa? Empresa { get; set; }
 
         public int password { get; set; }
         
