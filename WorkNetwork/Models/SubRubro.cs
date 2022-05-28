@@ -1,7 +1,10 @@
-﻿namespace WorkNetwork.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace WorkNetwork.Models
 {
     public class SubRubro
     {
+        [Key]
         public int idSubRubro { get; set; }
 
         public string? nombreSubRubro { get; set; }

@@ -4,6 +4,7 @@ namespace WorkNetwork.Models
 {
 	public class PersonaVacante
 	{
+		[Key]
 		public int idPersonaVacante { get; set; }
 
 		public int idPersona { get; set; }
