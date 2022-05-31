@@ -1,12 +1,14 @@
-﻿function CompletarTablaPersonas() {
-    //VaciarFormulario()
+﻿const CompletarTablaPersonas = async () => {
+
+    await VaciarFormulario();
+
     $.ajax({
         type: "POST",
         url: '../../Personas/TablaPersonas',
         data: {},
-        success: function (personas) {
+        success: async (personas) => {
             $('#tbody-personas').empty();
-            $.each(personas, function (index, persona) {
+            $.each(personas, await function (index, persona) {
                 console.log(persona)
                 let claseEliminado = '';
                 //let botones = `<btn type='button' class= 'btn btn-outline-success btn-sm me-3' onclick = "BuscarRubro(${persona.idPersona})"><i class="bi bi-pencil-square"></i> Editar</btn>
@@ -49,30 +51,48 @@
                 )
             });
         },
-        error: function (data) { }
+        error: (err) => console.log("error en CompletarTablaPersonas",err)
     });
 }
 
-const GuardarPersona = () => {
+const GuardarPersona = async () => {
     let idPersona = $('#idPersona').val();
     let nombrePersona = $('#nombrePersona').val();
     let apellidoPersona = $('#apellidoPersona').val();
-    $.ajax({
-        type: "POST",
-        url: '../../Personas/CrearPersona',
-        data: { IdPersona: idPersona, NombrePersona: nombrePersona, ApellidoPersona: apellidoPersona },
-        success: (resultado)=>{
-            if (resultado == false) {
-                $('#modalCrearPersona').modal('hide')
-                CompletarTablaPersonas()
-            }
-        },
-        error: (data) => {}
-    })
+    let url = '../../Personas/CrearPersona';
+    let data = { IdPersona: idPersona, NombrePersona: nombrePersona, ApellidoPersona: apellidoPersona };
+
+    //j.query
+    $.post(url, data).done(await function (resultado) {
+        if (resultado == false) {
+            $('#modalCrearPersona').modal('hide')
+            CompletarTablaPersonas()
+        }
+    }).fail((err) => console.log("error en GuardarPersona", err))
+
+
+    //$.ajax({
+    //    type: "POST",
+    //    url: '../../Personas/CrearPersona',
+    //    data: { IdPersona: idPersona, NombrePersona: nombrePersona, ApellidoPersona: apellidoPersona },
+    //    success: await function (resultado) {
+    //        if (resultado == false) {
+    //            $('#modalCrearPersona').modal('hide')
+    //            CompletarTablaPersonas()
+    //        }
+    //    },
+    //    error: (err) => console.log("error en GuardarPersona",err)
+    //})
 
 }
 const AbrirModal = () => {
     $('#idPersona').val(0);
     $('#modalCrearPersona').modal('show');
+}
+
+const VaciarFormulario = () => {
+
+    $("#idPersona").val(0);
+    $("#nombrePersona").val('');
 
 }

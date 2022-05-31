@@ -44,6 +44,8 @@ namespace WorkNetwork.Models
 
         public int  cantidadHijos { get; set; }
 
+        public string? imagen { get; set; }
+
         public virtual ICollection<Usuario>? Usuarios { get; set; }
         public virtual ICollection<Vacante>? Vacantes { get; set; }
         public virtual ICollection<PersonaVacante>? PersonaVacante { get; set; }

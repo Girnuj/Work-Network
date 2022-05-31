@@ -28,6 +28,8 @@ namespace WorkNetwork.Models
 
         public int idRubro { get; set; }
 
+        public string? imagen { get; set; }
+
         public virtual Rubro? Rubro { get; set; }
 
         public enum tipoEmpresa { Unipersonal, Sociedad }
