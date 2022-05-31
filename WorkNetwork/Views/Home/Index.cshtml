@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<WorkNetwork.Models.Persona>
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -6,6 +7,16 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+	<div class=" d-flex justify-content-around">
+			<div class="main-card">
+				<div class="cards d-flex justify-content-between" id='cards'>
+				</div>
+			</div>
+	</div>
 
-<p>cambio prueba 21
- </p>
+@section Scripts {
+<script src="~/js/Personas.js"></script>
+<script>
+window.onload = CompletarTablaPersonas();
+</script>
+}
