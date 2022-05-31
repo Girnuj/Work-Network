@@ -70,6 +70,16 @@ body {
     margin-top: 10px;
     display: flex;
 }
+#cards{
+
+
+display: flex;
+flex-wrap: wrap;
+align-content: flex-start;
+align-items: center;
+justify-content: space-around;
+}
+
 
 .media-icons a {
     text-align: center;
