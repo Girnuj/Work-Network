@@ -10,6 +10,5 @@ namespace WorkNetwork.Models
         public string? nombrePais { get; set; }
 
         public virtual ICollection<Provincia>? Provincias { get; set; }
-        public object Pais { get; internal set; }
     }
 }

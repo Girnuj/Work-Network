@@ -22,11 +22,10 @@ namespace WorkNetwork.Controllers
         }
         public JsonResult CrearProvincia(string nombreProvincia, int idPais)
         {
-            var paises = _context.Pais.Include(r => r.Pais).ToList();
+            
             var provincia = new Provincia
             {
                 nombreProvincia = nombreProvincia,
-                idPais = paises.idPais,
             };
             _context.Add(provincia);
             _context.SaveChanges();
