@@ -94,5 +94,5 @@ const VaciarFormulario = () => {
 
     $("#idPersona").val(0);
     $("#nombrePersona").val('');
-
+    $("#apellidoPersona").val('');
 }
