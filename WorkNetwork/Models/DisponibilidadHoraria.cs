@@ -6,9 +6,7 @@ namespace WorkNetwork.Models
 	{
 		[Key]
 		public int idDisponibilidadHoraria { get; set; }
-
 		public string? descripcion { get; set; }
-
 		public ICollection<Vacante>? Vacantes { get; set; }
 
 

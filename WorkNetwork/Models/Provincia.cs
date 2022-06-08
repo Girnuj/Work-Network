@@ -6,11 +6,9 @@ namespace WorkNetwork.Models
     {
         [Key]
         public int idProvincia { get; set; }
-
         public string? nombreProvincia { get; set; }
-
+        public int idPais { get; set; }
         public virtual Pais Pais { get; set;}
-
         public ICollection<Localidad>? Localidades { get; set; }
 
     }

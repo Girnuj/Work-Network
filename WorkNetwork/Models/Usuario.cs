@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;    
 
+//Reemplazar por tabla intermedia
 namespace WorkNetwork.Models
 {
 	public class Usuario
