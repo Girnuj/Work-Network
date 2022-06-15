@@ -9,11 +9,11 @@ using WorkNetwork.Data;
 
 #nullable disable
 
-namespace WorkNetwork.Data.Migrations
+namespace WorkNetwork.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220531140314_agregadoDeimagenEnModelos")]
-    partial class agregadoDeimagenEnModelos
+    [Migration("20220614233328_PrimerMigracion2")]
+    partial class PrimerMigracion2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -228,379 +228,270 @@ namespace WorkNetwork.Data.Migrations
 
             modelBuilder.Entity("WorkNetwork.Models.DisponibilidadHoraria", b =>
                 {
-                    b.Property<int>("idDisponibilidadHoraria")
+                    b.Property<int>("DisponibilidadHorariaID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idDisponibilidadHoraria"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DisponibilidadHorariaID"), 1L, 1);
 
-                    b.Property<string>("descripcion")
+                    b.Property<string>("Descripcion")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("idDisponibilidadHoraria");
+                    b.HasKey("DisponibilidadHorariaID");
 
                     b.ToTable("DisponibilidadHoraria");
                 });
 
             modelBuilder.Entity("WorkNetwork.Models.Empresa", b =>
                 {
-                    b.Property<int>("idEmpresa")
+                    b.Property<int>("EmpresaID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idEmpresa"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmpresaID"), 1L, 1);
 
                     b.Property<int>("CUIT")
                         .HasColumnType("int");
 
-                    b.Property<int?>("LocalidadidLocalidad")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("RubroidRubro")
-                        .HasColumnType("int");
-
-                    b.Property<string>("email")
+                    b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("idLocalidad")
+                    b.Property<byte[]>("Imagen")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<int>("LocalidadID")
                         .HasColumnType("int");
 
-                    b.Property<int>("idRubro")
+                    b.Property<int>("NumeroDeDocumento")
                         .HasColumnType("int");
 
-                    b.Property<string>("imagen")
+                    b.Property<string>("RazonSocial")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("numeroDeDocumento")
+                    b.Property<int>("RubroID")
                         .HasColumnType("int");
 
-                    b.Property<string>("razonSocial")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("telefono1")
+                    b.Property<int>("Telefono1")
                         .HasColumnType("int");
 
-                    b.Property<int>("telefono2")
+                    b.Property<int>("Telefono2")
                         .HasColumnType("int");
 
-                    b.HasKey("idEmpresa");
+                    b.HasKey("EmpresaID");
 
-                    b.HasIndex("LocalidadidLocalidad");
+                    b.HasIndex("LocalidadID");
 
-                    b.HasIndex("RubroidRubro");
+                    b.HasIndex("RubroID");
 
                     b.ToTable("Empresa");
                 });
 
             modelBuilder.Entity("WorkNetwork.Models.Localidad", b =>
                 {
-                    b.Property<int>("idLocalidad")
+                    b.Property<int>("LocalidadID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idLocalidad"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LocalidadID"), 1L, 1);
 
                     b.Property<int>("CP")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ProvinciaidProvincia")
-                        .HasColumnType("int");
-
-                    b.Property<string>("nombreLocalidad")
+                    b.Property<string>("NombreLocalidad")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("idLocalidad");
+                    b.Property<int>("ProvinciaID")
+                        .HasColumnType("int");
 
-                    b.HasIndex("ProvinciaidProvincia");
+                    b.HasKey("LocalidadID");
+
+                    b.HasIndex("ProvinciaID");
 
                     b.ToTable("Localidad");
                 });
 
             modelBuilder.Entity("WorkNetwork.Models.Pais", b =>
                 {
-                    b.Property<int>("idPais")
+                    b.Property<int>("PaisID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idPais"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PaisID"), 1L, 1);
 
-                    b.Property<string>("nombrePais")
+                    b.Property<string>("NombrePais")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("idPais");
+                    b.HasKey("PaisID");
 
                     b.ToTable("Pais");
                 });
 
             modelBuilder.Entity("WorkNetwork.Models.Persona", b =>
                 {
-                    b.Property<int>("idPersona")
+                    b.Property<int>("PersonaID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idPersona"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PersonaID"), 1L, 1);
+
+                    b.Property<string>("ApellidoPersona")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CantidadHijos")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CorreoElectronico")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DomicilioPersona")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EstadoCivil")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("FechaNacimiento")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Genero")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LocalidadidLocalidad")
+                    b.Property<byte[]>("Imagen")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<int>("LocalidadID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SubRubroidSubRubro")
-                        .HasColumnType("int");
-
-                    b.Property<string>("apellidoPersona")
+                    b.Property<string>("NombrePersona")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("cantidadHijos")
+                    b.Property<int>("NumeroDocumento")
                         .HasColumnType("int");
 
-                    b.Property<string>("correoElectronico")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("domicilioPersona")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("estadoCivil")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("fechaNacimiento")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("idLocalidad")
+                    b.Property<int>("Telefono1")
                         .HasColumnType("int");
 
-                    b.Property<int>("idSubRubro")
+                    b.Property<int>("Telefono2")
                         .HasColumnType("int");
 
-                    b.Property<string>("imagen")
+                    b.Property<string>("TituloAcademico")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("nombrePersona")
-                        .HasColumnType("nvarchar(max)");
+                    b.HasKey("PersonaID");
 
-                    b.Property<int>("numeroDocumento")
-                        .HasColumnType("int");
-
-                    b.Property<int>("telefono1")
-                        .HasColumnType("int");
-
-                    b.Property<int>("telefono2")
-                        .HasColumnType("int");
-
-                    b.Property<string>("tituloAcademico")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("idPersona");
-
-                    b.HasIndex("LocalidadidLocalidad");
-
-                    b.HasIndex("SubRubroidSubRubro");
+                    b.HasIndex("LocalidadID");
 
                     b.ToTable("Persona");
                 });
 
             modelBuilder.Entity("WorkNetwork.Models.PersonaVacante", b =>
                 {
-                    b.Property<int>("idPersonaVacante")
+                    b.Property<int>("PersonaVacanteID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idPersonaVacante"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PersonaVacanteID"), 1L, 1);
 
-                    b.Property<int?>("PersonaidPersona")
+                    b.Property<int>("PersonaID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("VacanteidVacante")
+                    b.Property<int>("VacanteID")
                         .HasColumnType("int");
 
-                    b.Property<int>("idPersona")
-                        .HasColumnType("int");
+                    b.HasKey("PersonaVacanteID");
 
-                    b.Property<int>("idVacante")
-                        .HasColumnType("int");
+                    b.HasIndex("PersonaID");
 
-                    b.HasKey("idPersonaVacante");
-
-                    b.HasIndex("PersonaidPersona");
-
-                    b.HasIndex("VacanteidVacante");
+                    b.HasIndex("VacanteID");
 
                     b.ToTable("PersonaVacante");
                 });
 
             modelBuilder.Entity("WorkNetwork.Models.Provincia", b =>
                 {
-                    b.Property<int>("idProvincia")
+                    b.Property<int>("ProvinciaID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idProvincia"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProvinciaID"), 1L, 1);
 
-                    b.Property<int>("PaisidPais")
-                        .HasColumnType("int");
-
-                    b.Property<string>("nombreProvincia")
+                    b.Property<string>("NombreProvincia")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("idProvincia");
+                    b.Property<int>("PaisID")
+                        .HasColumnType("int");
 
-                    b.HasIndex("PaisidPais");
+                    b.HasKey("ProvinciaID");
+
+                    b.HasIndex("PaisID");
 
                     b.ToTable("Provincia");
                 });
 
             modelBuilder.Entity("WorkNetwork.Models.Rubro", b =>
                 {
-                    b.Property<int>("idRubro")
+                    b.Property<int>("RubroID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idRubro"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RubroID"), 1L, 1);
 
-                    b.Property<bool>("eliminado")
+                    b.Property<bool>("Eliminado")
                         .HasColumnType("bit");
 
-                    b.Property<string>("nombreRubro")
+                    b.Property<string>("NombreRubro")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("idRubro");
+                    b.HasKey("RubroID");
 
                     b.ToTable("Rubro");
                 });
 
-            modelBuilder.Entity("WorkNetwork.Models.SubRubro", b =>
-                {
-                    b.Property<int>("idSubRubro")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idSubRubro"), 1L, 1);
-
-                    b.Property<int?>("RubroidRubro")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("eliminado")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("idRubro")
-                        .HasColumnType("int");
-
-                    b.Property<string>("nombreSubRubro")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("idSubRubro");
-
-                    b.HasIndex("RubroidRubro");
-
-                    b.ToTable("SubRubro");
-                });
-
-            modelBuilder.Entity("WorkNetwork.Models.Usuario", b =>
-                {
-                    b.Property<int>("idUsuario")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idUsuario"), 1L, 1);
-
-                    b.Property<int?>("EmpresaidEmpresa")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PersonaidPersona")
-                        .HasColumnType("int");
-
-                    b.Property<int>("idEmpresa")
-                        .HasColumnType("int");
-
-                    b.Property<int>("idPersona")
-                        .HasColumnType("int");
-
-                    b.Property<int>("password")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ultActualizacion")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("idUsuario");
-
-                    b.HasIndex("EmpresaidEmpresa");
-
-                    b.HasIndex("PersonaidPersona");
-
-                    b.ToTable("Usuario");
-                });
-
             modelBuilder.Entity("WorkNetwork.Models.Vacante", b =>
                 {
-                    b.Property<int>("idVacante")
+                    b.Property<int>("VacanteID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idVacante"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VacanteID"), 1L, 1);
 
-                    b.Property<int?>("DisponibilidadHorariaidDisponibilidadHoraria")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("EmpresaidEmpresa")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("LocalidadidLocalidad")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PersonaidPersona")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SubRubroidSubRubro")
-                        .HasColumnType("int");
-
-                    b.Property<string>("descripcion")
+                    b.Property<string>("Descripcion")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("estado")
+                    b.Property<int>("DisponibilidadHorariaID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmpresaID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Estado")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("experienciaRequerida")
+                    b.Property<string>("ExperienciaRequerida")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("fechaDeFinalizacion")
+                    b.Property<DateTime>("FechaDeFinalizacion")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("idDisponibilidadHoraria")
-                        .HasColumnType("int");
-
-                    b.Property<int>("idEmpresa")
-                        .HasColumnType("int");
-
-                    b.Property<int>("idLocalidad")
-                        .HasColumnType("int");
-
-                    b.Property<int>("idPersona")
-                        .HasColumnType("int");
-
-                    b.Property<int>("idSubrubro")
-                        .HasColumnType("int");
-
-                    b.Property<string>("idiomas")
+                    b.Property<string>("Idiomas")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("imagen")
+                    b.Property<byte[]>("Imagen")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<int>("LocalidadID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("nombre")
-                        .HasColumnType("nvarchar(max)");
+                    b.HasKey("VacanteID");
 
-                    b.HasKey("idVacante");
+                    b.HasIndex("DisponibilidadHorariaID");
 
-                    b.HasIndex("DisponibilidadHorariaidDisponibilidadHoraria");
-
-                    b.HasIndex("EmpresaidEmpresa");
-
-                    b.HasIndex("LocalidadidLocalidad");
-
-                    b.HasIndex("PersonaidPersona");
-
-                    b.HasIndex("SubRubroidSubRubro");
+                    b.HasIndex("EmpresaID");
 
                     b.ToTable("Vacante");
                 });
@@ -660,11 +551,15 @@ namespace WorkNetwork.Data.Migrations
                 {
                     b.HasOne("WorkNetwork.Models.Localidad", "Localidad")
                         .WithMany("Empresas")
-                        .HasForeignKey("LocalidadidLocalidad");
+                        .HasForeignKey("LocalidadID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("WorkNetwork.Models.Rubro", "Rubro")
                         .WithMany("Empresas")
-                        .HasForeignKey("RubroidRubro");
+                        .HasForeignKey("RubroID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Localidad");
 
@@ -675,7 +570,9 @@ namespace WorkNetwork.Data.Migrations
                 {
                     b.HasOne("WorkNetwork.Models.Provincia", "Provincia")
                         .WithMany("Localidades")
-                        .HasForeignKey("ProvinciaidProvincia");
+                        .HasForeignKey("ProvinciaID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Provincia");
                 });
@@ -684,26 +581,26 @@ namespace WorkNetwork.Data.Migrations
                 {
                     b.HasOne("WorkNetwork.Models.Localidad", "Localidad")
                         .WithMany("Personas")
-                        .HasForeignKey("LocalidadidLocalidad");
-
-                    b.HasOne("WorkNetwork.Models.SubRubro", "SubRubro")
-                        .WithMany("Personas")
-                        .HasForeignKey("SubRubroidSubRubro");
+                        .HasForeignKey("LocalidadID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Localidad");
-
-                    b.Navigation("SubRubro");
                 });
 
             modelBuilder.Entity("WorkNetwork.Models.PersonaVacante", b =>
                 {
                     b.HasOne("WorkNetwork.Models.Persona", "Persona")
                         .WithMany("PersonaVacante")
-                        .HasForeignKey("PersonaidPersona");
+                        .HasForeignKey("PersonaID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("WorkNetwork.Models.Vacante", "Vacante")
                         .WithMany("PersonaVacante")
-                        .HasForeignKey("VacanteidVacante");
+                        .HasForeignKey("VacanteID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Persona");
 
@@ -714,68 +611,30 @@ namespace WorkNetwork.Data.Migrations
                 {
                     b.HasOne("WorkNetwork.Models.Pais", "Pais")
                         .WithMany("Provincias")
-                        .HasForeignKey("PaisidPais")
+                        .HasForeignKey("PaisID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Pais");
                 });
 
-            modelBuilder.Entity("WorkNetwork.Models.SubRubro", b =>
-                {
-                    b.HasOne("WorkNetwork.Models.Rubro", "Rubro")
-                        .WithMany("SubRubros")
-                        .HasForeignKey("RubroidRubro");
-
-                    b.Navigation("Rubro");
-                });
-
-            modelBuilder.Entity("WorkNetwork.Models.Usuario", b =>
-                {
-                    b.HasOne("WorkNetwork.Models.Empresa", "Empresa")
-                        .WithMany("Usuarios")
-                        .HasForeignKey("EmpresaidEmpresa");
-
-                    b.HasOne("WorkNetwork.Models.Persona", "Persona")
-                        .WithMany("Usuarios")
-                        .HasForeignKey("PersonaidPersona");
-
-                    b.Navigation("Empresa");
-
-                    b.Navigation("Persona");
-                });
-
             modelBuilder.Entity("WorkNetwork.Models.Vacante", b =>
                 {
                     b.HasOne("WorkNetwork.Models.DisponibilidadHoraria", "DisponibilidadHoraria")
                         .WithMany("Vacantes")
-                        .HasForeignKey("DisponibilidadHorariaidDisponibilidadHoraria");
+                        .HasForeignKey("DisponibilidadHorariaID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("WorkNetwork.Models.Empresa", "Empresa")
                         .WithMany("Vacantes")
-                        .HasForeignKey("EmpresaidEmpresa");
-
-                    b.HasOne("WorkNetwork.Models.Localidad", "Localidad")
-                        .WithMany("Vacantes")
-                        .HasForeignKey("LocalidadidLocalidad");
-
-                    b.HasOne("WorkNetwork.Models.Persona", "Persona")
-                        .WithMany("Vacantes")
-                        .HasForeignKey("PersonaidPersona");
-
-                    b.HasOne("WorkNetwork.Models.SubRubro", "SubRubro")
-                        .WithMany("Vacantes")
-                        .HasForeignKey("SubRubroidSubRubro");
+                        .HasForeignKey("EmpresaID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("DisponibilidadHoraria");
 
                     b.Navigation("Empresa");
-
-                    b.Navigation("Localidad");
-
-                    b.Navigation("Persona");
-
-                    b.Navigation("SubRubro");
                 });
 
             modelBuilder.Entity("WorkNetwork.Models.DisponibilidadHoraria", b =>
@@ -785,8 +644,6 @@ namespace WorkNetwork.Data.Migrations
 
             modelBuilder.Entity("WorkNetwork.Models.Empresa", b =>
                 {
-                    b.Navigation("Usuarios");
-
                     b.Navigation("Vacantes");
                 });
 
@@ -795,8 +652,6 @@ namespace WorkNetwork.Data.Migrations
                     b.Navigation("Empresas");
 
                     b.Navigation("Personas");
-
-                    b.Navigation("Vacantes");
                 });
 
             modelBuilder.Entity("WorkNetwork.Models.Pais", b =>
@@ -807,10 +662,6 @@ namespace WorkNetwork.Data.Migrations
             modelBuilder.Entity("WorkNetwork.Models.Persona", b =>
                 {
                     b.Navigation("PersonaVacante");
-
-                    b.Navigation("Usuarios");
-
-                    b.Navigation("Vacantes");
                 });
 
             modelBuilder.Entity("WorkNetwork.Models.Provincia", b =>
@@ -821,15 +672,6 @@ namespace WorkNetwork.Data.Migrations
             modelBuilder.Entity("WorkNetwork.Models.Rubro", b =>
                 {
                     b.Navigation("Empresas");
-
-                    b.Navigation("SubRubros");
-                });
-
-            modelBuilder.Entity("WorkNetwork.Models.SubRubro", b =>
-                {
-                    b.Navigation("Personas");
-
-                    b.Navigation("Vacantes");
                 });
 
             modelBuilder.Entity("WorkNetwork.Models.Vacante", b =>

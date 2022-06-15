@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WorkNetwork.Models
 
@@ -6,22 +7,22 @@ namespace WorkNetwork.Models
     public class Empresa
     {
         [Key]
-        public int idEmpresa { get; set; }
-        public string? razonSocial { get; set; }
+        public int EmpresaID { get; set; }
+        public string? RazonSocial { get; set; }
         public int CUIT { get; set; }
-        public enum tipoDeDocumento { DNI, Pasaporte }
-        public int numeroDeDocumento { get; set; }
-        public string? email { get; set; }
-        public int idLocalidad { get; set; }
+        public enum TipoDeDocumento { DNI, Pasaporte }
+        public int NumeroDeDocumento { get; set; }
+        public string? Email { get; set; }
+        public int LocalidadID { get; set; }
         public virtual Localidad? Localidad { get; set; }
-        public int telefono1 { get; set; }
-        public int telefono2 { get; set; }
-        public int idRubro { get; set; }
-        public string? imagen { get; set; }
+        public int Telefono1 { get; set; }
+        public int Telefono2 { get; set; }
+        public byte[] Imagen { get; set; }
+        [NotMapped]
+        public string? ImagenString { get; set; }
+        public int RubroID { get; set; }
         public virtual Rubro? Rubro { get; set; }
-        public enum tipoEmpresa { Unipersonal, Sociedad }
-        public virtual ICollection<Usuario>? Usuarios { get; set; }
+        public enum TipoEmpresa { Unipersonal, Sociedad }
         public virtual ICollection<Vacante>? Vacantes { get; set; }
-
     }
 }

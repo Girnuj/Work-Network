@@ -1,34 +1,34 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WorkNetwork.Models
 {
     public class Persona
     {
         [Key]
-        public int idPersona { get; set; }
-        public string? nombrePersona { get; set; }
-        public string? apellidoPersona { get; set; }
-        public enum tipoDocumento { dni, LE, }
-        public int numeroDocumento { get; set; }
-        public DateTime fechaNacimiento { get; set; }
-        public string? correoElectronico { get; set; }
-        public string? domicilioPersona { get; set; }
-        public int idLocalidad { get; set; }
+        public int PersonaID { get; set; }
+        public string? NombrePersona { get; set; }
+        public string? ApellidoPersona { get; set; }
+        public enum TipoDocumento { dni, LE, }
+        public int NumeroDocumento { get; set; }
+        public DateTime FechaNacimiento { get; set; }
+        public string? CorreoElectronico { get; set; }
+        public string? DomicilioPersona { get; set; }
+        public int LocalidadID { get; set; }
         public virtual Localidad? Localidad { get; set; }
-        public enum situacionLaboral {Empleado, Desempleado }
+        public enum SituacionLaboral {Empleado, Desempleado }
         public string? Genero { get; set; }
-        public int telefono1 { get; set; }
-        public int telefono2 { get; set; }
-        public string? estadoCivil { get; set; }
-        public string? tituloAcademico { get; set; }
-        public int idSubRubro { get; set; }
-        public virtual SubRubro? SubRubro { get; set; }
-        public int  cantidadHijos { get; set; }
-        public string? imagen { get; set; }
-        public virtual ICollection<Usuario>? Usuarios { get; set; }
-        public virtual ICollection<Vacante>? Vacantes { get; set; }
+        public int Telefono1 { get; set; }
+        public int Telefono2 { get; set; }
+        public string? EstadoCivil { get; set; }
+        public string? TituloAcademico { get; set; }
+        //RELACION DE MUCHOS A MUCHOS - TABLA RUBROS PERSONA
+        //public int idSubRubro { get; set; }
+        //public virtual SubRubro? SubRubro { get; set; }
+        public int  CantidadHijos { get; set; }
+        public byte[] Imagen { get; set; }
+        [NotMapped]
+        public string? ImagenString { get; set; }
         public virtual ICollection<PersonaVacante>? PersonaVacante { get; set; }
-
-
     }
 }

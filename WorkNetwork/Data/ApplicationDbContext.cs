@@ -17,8 +17,6 @@ namespace WorkNetwork.Data
         public DbSet<Persona> Persona{ get; set; }
         public DbSet<PersonaVacante> PersonaVacante{ get; set; }
         public DbSet<Rubro> Rubro{ get; set; }
-        public DbSet<SubRubro> SubRubro{ get; set; }
-        public DbSet<Usuario> Usuario{ get; set; }
         public DbSet<Vacante> Vacante{ get; set; }
         public DbSet<DisponibilidadHoraria> DisponibilidadHoraria{ get; set; }
 

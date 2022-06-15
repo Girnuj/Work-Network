@@ -34,8 +34,8 @@ namespace WorkNetwork.Controllers
             bool resultado = false;
             var persona = new Persona
             {
-                nombrePersona = NombrePersona,
-                apellidoPersona = ApellidoPersona, 
+                NombrePersona = NombrePersona,
+                ApellidoPersona = ApellidoPersona, 
             };
             _context.Add(persona);
             _context.SaveChanges();
