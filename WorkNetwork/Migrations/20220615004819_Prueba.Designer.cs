@@ -12,8 +12,8 @@ using WorkNetwork.Data;
 namespace WorkNetwork.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220614233328_PrimerMigracion2")]
-    partial class PrimerMigracion2
+    [Migration("20220615004819_Prueba")]
+    partial class Prueba
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -401,10 +401,6 @@ namespace WorkNetwork.Migrations
 
                     b.HasKey("PersonaVacanteID");
 
-                    b.HasIndex("PersonaID");
-
-                    b.HasIndex("VacanteID");
-
                     b.ToTable("PersonaVacante");
                 });
 
@@ -552,13 +548,13 @@ namespace WorkNetwork.Migrations
                     b.HasOne("WorkNetwork.Models.Localidad", "Localidad")
                         .WithMany("Empresas")
                         .HasForeignKey("LocalidadID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("WorkNetwork.Models.Rubro", "Rubro")
                         .WithMany("Empresas")
                         .HasForeignKey("RubroID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Localidad");
@@ -571,7 +567,7 @@ namespace WorkNetwork.Migrations
                     b.HasOne("WorkNetwork.Models.Provincia", "Provincia")
                         .WithMany("Localidades")
                         .HasForeignKey("ProvinciaID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Provincia");
@@ -582,29 +578,10 @@ namespace WorkNetwork.Migrations
                     b.HasOne("WorkNetwork.Models.Localidad", "Localidad")
                         .WithMany("Personas")
                         .HasForeignKey("LocalidadID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Localidad");
-                });
-
-            modelBuilder.Entity("WorkNetwork.Models.PersonaVacante", b =>
-                {
-                    b.HasOne("WorkNetwork.Models.Persona", "Persona")
-                        .WithMany("PersonaVacante")
-                        .HasForeignKey("PersonaID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WorkNetwork.Models.Vacante", "Vacante")
-                        .WithMany("PersonaVacante")
-                        .HasForeignKey("VacanteID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Persona");
-
-                    b.Navigation("Vacante");
                 });
 
             modelBuilder.Entity("WorkNetwork.Models.Provincia", b =>
@@ -612,7 +589,7 @@ namespace WorkNetwork.Migrations
                     b.HasOne("WorkNetwork.Models.Pais", "Pais")
                         .WithMany("Provincias")
                         .HasForeignKey("PaisID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Pais");
@@ -623,13 +600,13 @@ namespace WorkNetwork.Migrations
                     b.HasOne("WorkNetwork.Models.DisponibilidadHoraria", "DisponibilidadHoraria")
                         .WithMany("Vacantes")
                         .HasForeignKey("DisponibilidadHorariaID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("WorkNetwork.Models.Empresa", "Empresa")
                         .WithMany("Vacantes")
                         .HasForeignKey("EmpresaID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("DisponibilidadHoraria");
@@ -659,11 +636,6 @@ namespace WorkNetwork.Migrations
                     b.Navigation("Provincias");
                 });
 
-            modelBuilder.Entity("WorkNetwork.Models.Persona", b =>
-                {
-                    b.Navigation("PersonaVacante");
-                });
-
             modelBuilder.Entity("WorkNetwork.Models.Provincia", b =>
                 {
                     b.Navigation("Localidades");
@@ -672,11 +644,6 @@ namespace WorkNetwork.Migrations
             modelBuilder.Entity("WorkNetwork.Models.Rubro", b =>
                 {
                     b.Navigation("Empresas");
-                });
-
-            modelBuilder.Entity("WorkNetwork.Models.Vacante", b =>
-                {
-                    b.Navigation("PersonaVacante");
                 });
 #pragma warning restore 612, 618
         }

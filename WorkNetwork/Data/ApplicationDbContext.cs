@@ -9,6 +9,7 @@ namespace WorkNetwork.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+            
         }
         public DbSet<Pais> Pais { get; set; }
         public DbSet<Provincia> Provincia{ get; set; }
@@ -20,6 +21,26 @@ namespace WorkNetwork.Data
         public DbSet<Vacante> Vacante{ get; set; }
         public DbSet<DisponibilidadHoraria> DisponibilidadHoraria{ get; set; }
 
-            
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            if (modelBuilder == null)
+                throw new ArgumentNullException("modelBuilder");
+
+            // for the other conventions, we do a metadata model loop
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            {
+                // equivalent of modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+                entityType.SetTableName(entityType.DisplayName());
+
+                // equivalent of modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+                entityType.GetForeignKeys()
+                    .Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade)
+                    .ToList()
+                    .ForEach(fk => fk.DeleteBehavior = DeleteBehavior.Restrict);
+            }
+
+            base.OnModelCreating(modelBuilder);
+        }
+
     }
 }

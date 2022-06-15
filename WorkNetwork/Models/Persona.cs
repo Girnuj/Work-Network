@@ -29,6 +29,6 @@ namespace WorkNetwork.Models
         public byte[] Imagen { get; set; }
         [NotMapped]
         public string? ImagenString { get; set; }
-        public virtual ICollection<PersonaVacante>? PersonaVacante { get; set; }
+        //public virtual ICollection<PersonaVacante>? PersonaVacante { get; set; }
     }
 }

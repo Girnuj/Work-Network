@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WorkNetwork.Migrations
 {
-    public partial class PrimerMigracion2 : Migration
+    public partial class Prueba : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -72,6 +72,20 @@ namespace WorkNetwork.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pais", x => x.PaisID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PersonaVacante",
+                columns: table => new
+                {
+                    PersonaVacanteID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PersonaID = table.Column<int>(type: "int", nullable: false),
+                    VacanteID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PersonaVacante", x => x.PersonaVacanteID);
                 });
 
             migrationBuilder.CreateTable(
@@ -211,7 +225,7 @@ namespace WorkNetwork.Migrations
                         column: x => x.PaisID,
                         principalTable: "Pais",
                         principalColumn: "PaisID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -232,7 +246,7 @@ namespace WorkNetwork.Migrations
                         column: x => x.ProvinciaID,
                         principalTable: "Provincia",
                         principalColumn: "ProvinciaID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -259,13 +273,13 @@ namespace WorkNetwork.Migrations
                         column: x => x.LocalidadID,
                         principalTable: "Localidad",
                         principalColumn: "LocalidadID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Empresa_Rubro_RubroID",
                         column: x => x.RubroID,
                         principalTable: "Rubro",
                         principalColumn: "RubroID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -297,7 +311,7 @@ namespace WorkNetwork.Migrations
                         column: x => x.LocalidadID,
                         principalTable: "Localidad",
                         principalColumn: "LocalidadID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -325,39 +339,13 @@ namespace WorkNetwork.Migrations
                         column: x => x.DisponibilidadHorariaID,
                         principalTable: "DisponibilidadHoraria",
                         principalColumn: "DisponibilidadHorariaID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Vacante_Empresa_EmpresaID",
                         column: x => x.EmpresaID,
                         principalTable: "Empresa",
                         principalColumn: "EmpresaID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PersonaVacante",
-                columns: table => new
-                {
-                    PersonaVacanteID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PersonaID = table.Column<int>(type: "int", nullable: false),
-                    VacanteID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PersonaVacante", x => x.PersonaVacanteID);
-                    table.ForeignKey(
-                        name: "FK_PersonaVacante_Persona_PersonaID",
-                        column: x => x.PersonaID,
-                        principalTable: "Persona",
-                        principalColumn: "PersonaID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PersonaVacante_Vacante_VacanteID",
-                        column: x => x.VacanteID,
-                        principalTable: "Vacante",
-                        principalColumn: "VacanteID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -420,16 +408,6 @@ namespace WorkNetwork.Migrations
                 column: "LocalidadID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PersonaVacante_PersonaID",
-                table: "PersonaVacante",
-                column: "PersonaID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PersonaVacante_VacanteID",
-                table: "PersonaVacante",
-                column: "VacanteID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Provincia_PaisID",
                 table: "Provincia",
                 column: "PaisID");
@@ -463,19 +441,19 @@ namespace WorkNetwork.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Persona");
+
+            migrationBuilder.DropTable(
                 name: "PersonaVacante");
+
+            migrationBuilder.DropTable(
+                name: "Vacante");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Persona");
-
-            migrationBuilder.DropTable(
-                name: "Vacante");
 
             migrationBuilder.DropTable(
                 name: "DisponibilidadHoraria");
