@@ -1,53 +1,45 @@
 ﻿const CompletarTablaProvincias = async () => {
 
     await VaciarFormulario();
+    let url = '../../Provincias/TablaProvincias'
 
-    $.ajax({
-        type: "POST",
-        url: '../../Provincias/TablaProvincias',
-        data: {},
-        success: async (provincias) => {
-            $('#tbody-provincias').empty();
-            $.each(provincias, await function (index, provincia) {
-                console.log(provincia)
-                let claseEliminado = '';
-                $("#tbody-provincias").append(
-                    `<tr class= 'tabla-hover ${claseEliminado}'>
-                        <td class='texto'>${provincia.nombreProvincia}</td>
-                        <td class = 'text-center'>
+    $.get(url).done(async provincias => {
+        $('#tbody-provincias').empty();
+        $.each(provincias, await function (index, value) {
+            let claseEliminado = '';
+            $("#tbody-provincias").append(
+                `<tr class= 'tabla-hover ${claseEliminado}'>
+                        <td class='texto'>${value.nombreProvincia}</td>
+                        <td class = 'text-center'> ${index}
                         </td>
                     </tr>`
-
-
-
-                )
-            });
-
-        },
-        error: (err) => console.log("error en CompletarTablaProvincias", err)
-    });
+            )
+        })
+    }).fail(e => console.error(`Error cargar provincias '${e}'`))
 
 }
 
 
-const GuardarProvincia = async () => {
+
+const GuardarProvincia = () => {
     let idProvincia = $('#idProvincia').val();
     let nombreProvincia = $('#nombreProvincia').val();
+    let idPais = $('#PaisID').val();
+    console.log(idPais);
     let url = '../../Provincias/CrearProvincia';
-    let data = { IdProvincia: idProvincia, NombreProvincia: nombreProvincia };
+    let data = { IdProvincia: idProvincia, NombreProvincia: nombreProvincia, PaisID: idPais };
 
-    //j.query
-    $.post(url, data).done(await function (resultado) {
-        if (resultado == false) {
-            $('#modalCrearProvincia').modal('hide')
-            CompletarTablaProvincias()
-        }
-    }).fail((err) => console.log("error al guardar la Provincia", err))
+   
+    $.post(url, data).done( resultado => {
+        $('#modalCrearProvincia').modal('hide');
+        CompletarTablaProvincias();     
+    }).fail(e => console.error(`Error cargar provincias '${e}'`))
 }
 
 const AbrirModal = () => {
     $('#idProvincia').val(0);
     $('#modalCrearProvincia').modal('show');
+    $("#PaisID").val(0);
 }
 
 const VaciarFormulario = () => {

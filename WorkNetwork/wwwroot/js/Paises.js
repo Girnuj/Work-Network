@@ -4,19 +4,19 @@
 
 
     $.get(url).done(
-        paises => {
-            $('#tbody-pais').empty();
-            $.each(paises, async (index, pais) => {
+      async paises => {
+            $('#tbody-paises').empty();
+            $.each( paises, await function (index, pais)  {
                 console.log('hola')
-                let claseEliminado = '';
-                $('#tbody-pais').append(`<tr class= 'tabla-hover ${claseEliminado}'>
-                        <td class='texto'>pais${pais.nombrePais}</td>
+                /*let claseEliminado = '';*/
+                $('#tbody-paises').append(`<tr class= 'tabla-hover '>
+                        <td class='texto'>${pais.nombrePais}</td>
                         <td class = 'text-center'>
                         </td>
                     </tr>`)
             })
         }
-    ).fail(e=>console.log(e))
+    ).fail( e => console.log('cargar paises',e) )
 }
 
 const AbrirModal = () => {

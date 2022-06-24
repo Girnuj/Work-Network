@@ -18,7 +18,7 @@ namespace WorkNetwork.Controllers
         }
         public JsonResult TablaPaises()
         {
-            var paises = _context.Pais;
+            var paises = _context.Pais.ToList();
             return Json(paises);
         }
         public JsonResult CrearPais(string NombrePais)
