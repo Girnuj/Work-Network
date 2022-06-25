@@ -40,6 +40,10 @@
             <input placeholder="Ingrese una localidad" type="text" id="nombreLocalidad" class="form-control"/>
             <input placeholder="Codigo Postal" type="number" id="cpLocalidad" class='form-control'/>
             <div>
+                <label class="control-label"><b> Pais: </b></label>
+                @Html.DropDownList("PaisID", null, htmlAttributes: new {@class = "form-control"})
+            </div>
+            <div>
                 <label class="control-label"><b> Provincia: </b></label>
                 @Html.DropDownList("ProvinciaID", null, htmlAttributes: new {@class = "form-control"})
             </div>

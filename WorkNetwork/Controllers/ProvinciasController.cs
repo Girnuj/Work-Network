@@ -24,6 +24,12 @@ namespace WorkNetwork.Controllers
             return View();
         }
 
+        public JsonResult ComboProvincia(int id)
+        {
+            var provincias = (from p in _context.Provincia where p.PaisID == id select p).ToList();
+            return Json(new SelectList(provincias, "ProvinciaID", "NombreProvincia"));
+        }
+
         public JsonResult TablaProvincias()
         {
             var provincias= _context.Provincia.ToList();

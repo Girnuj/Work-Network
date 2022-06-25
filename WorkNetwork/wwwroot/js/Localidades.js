@@ -32,6 +32,24 @@ const GuardarLocalidad = () => {
     }).fail(e => console.log('Error en guardar localidad ' + e))
 }
 
+$('#PaisID').change(() => BuscarProvincia())
+
+const BuscarProvincia = () => {
+    $('#ProvinciaID').empty();
+    let url = '../../Provincias/ComboProvincia';
+    let data = { id: $('#PaisID').val() };
+    $.post(url, data).done(provincias => {
+        if (provincias.length === 0) {
+            $('#ProvinciaID').append(`<option value=${0}>[NO EXISTEN PROVINCIAS]</option>`);
+        }
+        else {
+            $.each(provincias, (i, provincia) => {
+                $('#ProvinciaID').append(`<option value=${provincia.value}>${provincia.text}</option>`)
+            });
+        }
+    }).fail(e => console.log('error en combo provincias ' + e))
+    return false
+}
 
 const AbrirModal = () => {
     $('#idLocalidad').val(0);

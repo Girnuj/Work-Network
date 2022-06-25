@@ -16,8 +16,12 @@ namespace WorkNetwork.Controllers
         }
         public IActionResult Index()
         {
-            var provincias = _context.Provincia.ToList();
-            provincias.Add(new Provincia{ ProvinciaID= 0, NombreProvincia="[SELECCIONE UNA PROVINCIA" });
+            var paises = _context.Pais.ToList();
+            paises.Add(new Pais { PaisID = 0, NombrePais="[SELECCIONE UN PAIS]" });
+            ViewBag.PaisID = new SelectList(paises.OrderBy(e => e.NombrePais), "PaisID", "NombrePais");
+
+            List<Provincia> provincias= new List<Provincia>();
+            provincias.Add(new Provincia{ ProvinciaID= 0, NombreProvincia="[SELECCIONE UN PAIS" });
             ViewBag.ProvinciaID = new SelectList(provincias.OrderBy(x => x.NombreProvincia), "ProvinciaID", "NombreProvincia");
             return View(_context.Localidad.ToList());
         }
