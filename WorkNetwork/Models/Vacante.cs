@@ -21,8 +21,7 @@ namespace WorkNetwork.Models
 		[NotMapped]
 		public string? ImagenString { get; set; }
 		public string? Estado { get; set; }
-		public int DisponibilidadHorariaID { get; set; }
-		public virtual DisponibilidadHoraria? DisponibilidadHoraria { get; set; }
+		public enum DisponibilidadHoraria { fulltime, partime, }
 		//public virtual ICollection<PersonaVacante>? PersonaVacante { get; set; }
 	}
 }

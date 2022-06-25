@@ -10,11 +10,11 @@
             $("#tbody-provincias").append(
                 `<tr class= 'tabla-hover ${claseEliminado}'>
                         <td class='texto'>${value.nombreProvincia}</td>
-                        <td class = 'text-center'> ${index}
+                        <td class = 'text-center'>botonsitos 
                         </td>
                     </tr>`
             )
-        })
+        })  
     }).fail(e => console.error(`Error cargar provincias '${e}'`))
 
 }
@@ -25,7 +25,6 @@ const GuardarProvincia = () => {
     let idProvincia = $('#idProvincia').val();
     let nombreProvincia = $('#nombreProvincia').val();
     let idPais = $('#PaisID').val();
-    console.log(idPais);
     let url = '../../Provincias/CrearProvincia';
     let data = { IdProvincia: idProvincia, NombreProvincia: nombreProvincia, PaisID: idPais };
 

@@ -19,14 +19,15 @@ namespace WorkNetwork.Controllers
         public IActionResult Index()
         {
             var paiss = _context.Pais.ToList();
+            paiss.Add(new Pais { PaisID = 0, NombrePais="[SELECCIONE UN PAIS]" });
             ViewBag.PaisID = new SelectList(paiss.OrderBy(e => e.NombrePais), "PaisID", "NombrePais");
             return View();
         }
 
         public JsonResult TablaProvincias()
         {
-            var personas = _context.Provincia.ToList();
-            return Json(personas);
+            var provincias= _context.Provincia.ToList();
+            return Json(provincias  );
         }
         public JsonResult CrearProvincia(int IdProvincia, string NombreProvincia, int PaisID)
         {
