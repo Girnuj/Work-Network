@@ -17,7 +17,7 @@ namespace WorkNetwork.Models
         public int LocalidadID { get; set; }
         public virtual Localidad? Localidad { get; set; }
         public enum SituacionLaboral {Empleado, Desempleado }
-        public string? Genero { get; set; }
+        public enum Genero { Masculino, Femenino, Otro }
         public int Telefono1 { get; set; }
         public int Telefono2 { get; set; }
         public string? EstadoCivil { get; set; }

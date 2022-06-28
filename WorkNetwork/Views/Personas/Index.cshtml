@@ -21,37 +21,113 @@
         </tr>
     </thead>
     <tbody id='tbody-personas'>
-
     </tbody>
 </table>
 
 <!-- Modal -->
 <div class="modal fade" id="modalCrearPersona" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="titulo-modal-rubro">Crear persona</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-          <div>
-            @*<div class="alert alert-danger "id='alertRubro'>El campo descripcion no puede estar vacio</div> *@
-            <input type= "hidden" id='idPersona'/>
-            <input placeholder="Ingrese su nombre" type="text" id="nombrePersona" class="form-control"/>
-            <input placeholder="Ingrese su apellido " type="text" id="apellidoPersona" class="form-control"/>
-          </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-info" onclick='GuardarPersona()'>Crear</button>
-        <button type="button" class="btn btn-outline-danger" onclick='VaciarFormulario()' data-bs-dismiss="modal">Cerrar</button>
-      </div>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="titulo-modal-rubro">Crear persona</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-control">
+                    @*<div class="alert alert-danger "id='alertRubro'>El campo descripcion no puede estar vacio</div> *@
+                    <input type="hidden" id='idPersona' />
+                    <b>Nombre:</b>
+                    <input placeholder="Ingrese su nombre" type="text" id="nombrePersona" @*class="form-control"*@ />
+                    <b>Apellido:</b>
+                    <input placeholder="Ingrese su apellido " type="text" id="apellidoPersona" @*class="form-control"*@ />
+
+                    <div>
+                        <b> Tipo de Documento: </b>
+                        <select id="tipoDoc">
+                           @* <option disabled> Tipo de documento</option>*@
+                            <option value=0>DNI</option>
+                            <option value=1>L.E.</option>
+                        </select>
+                        <b> Número de Documento: </b>
+                        <input placeholder="Ingrese aqui su número de documento" type="tel" id="nroDNI" maxlength="8" />
+                    </div>
+
+                    <b>Genero:</b>
+                    <select id="genre">
+                        <option value="0">Masculino</option>
+                        <option value="1">Femenino</option>
+                        <option value="2">Otro</option>
+
+                    </select>
+
+                    <b> Fecha de Nacimiento: </b>
+                    <input type="date" placeholder="Fecha de Nacimiento" id="fecNac" />
+                    <b>E-mail:</b>
+                    <input type="email" placeholder="Email" id="mailUser" />
+
+                    <div id="userDom">
+                        <b>Domicilio</b>
+                        <input type="text" placeholder="Calle"/>
+                        <input type="tel" placeholder="Número" maxlength="4" class="col-sm-2"/>
+                        <input type="tel" placeholder="Piso" maxlength="2"  class="col-sm-1"/>
+                        <input type="text" placeholder="Depto"/>
+                   
+                    </div>
+
+
+
+                    <div>
+                      @*  <label class="control-label">
+                            <b> Pais: </b>
+                            <input type="text" placeholder="Ingrese el País" id="idPais" />
+                        </label>
+                                  *@                              
+                        <label @*class="control-label"*@>
+                            <b> Provincia: </b>
+                            <input type="text" placeholder="Ingrese la Provincia" id="idProvincia" />
+                        </label>
+                    
+                
+                        <label @* class="control-label"*@>
+                            <b> Localidad: </b>
+                            <input type="text" placeholder="Ingrese su Localidad" id="idLocalidad" />
+                        </label>
+                    </div>
+
+                  
+                    <div>
+                        <b>Telefono:</b>
+                        <input type="tel" placeholder="Telefono/Celular" id="tel1" required maxlength="13"/>
+                        <b>Otro:</b>
+                        <input type="tel" placeholder="Otro (Opcional)" id="tel2" maxlength="13"/>
+                    </div>
+
+                    <b>Estado Civil:</b>
+                    <select id="estCivil">
+                   
+                        <option value="0">Soltero/a</option>
+                        <option value="1">Casado/a</option>
+                        <option value="2">Divorciado/a</option>
+                        <option value="3">Viudo/a</option>
+                      
+                    </select> 
+
+                    <input placeholder="Titulo Academico" type="text" id="tituloAcadem" />
+                    <input type="file" id="imagenUp" />
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-info" onclick='GuardarPersona()'>Crear</button>
+                <button type="button" class="btn btn-outline-danger" onclick='VaciarFormulario()' data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 @section Scripts {
-<script src="~/js/Personas.js"></script>
-<script>
-window.onload = CompletarTablaPersonas();
-</script>
+    <script src="~/js/Personas.js"></script>
+    <script>
+        window.onload = CompletarTablaPersonas();
+    </script>
 }

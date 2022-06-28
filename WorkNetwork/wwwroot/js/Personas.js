@@ -22,6 +22,20 @@
                     `<tr class= 'tabla-hover ${claseEliminado}'>
                         <td class='texto'>${persona.nombrePersona}</td>
                         <td class='texto'>${persona.apellidoPersona}</td>
+
+                        <td class='texto'>${persona.tipoDoc}</td>
+                        <td class='texto'>${persona.nroDNI}</td>
+                        <td class='texto'>${persona.mailUser}</td>
+                        <td class='texto'>${persona.userDom}</td>
+                        <td class='texto'>${persona.idPais}</td>
+                        <td class='texto'>${persona.idProvincia}</td>
+                        <td class='texto'>${persona.idLocalidad}</td>
+                        <td class='texto'>${persona.genre}</td>
+                        <td class='texto'>${persona.tel1}</td>
+                        <td class='texto'>${persona.tel2}</td>
+                        <td class='texto'>${persona.estCivil}</td>
+                        <td class='texto'>${persona.tituloAcadem}</td>
+                        <td class='texto'>${persona.imagenUp}</td>
                         <td class = 'text-center'>
                            
                         </td>
@@ -59,8 +73,28 @@ const GuardarPersona = async () => {
     let idPersona = $('#idPersona').val();
     let nombrePersona = $('#nombrePersona').val();
     let apellidoPersona = $('#apellidoPersona').val();
+    let tipoDoc = $('#tipoDoc').val();
+    let nroDNI = $('#nroDNI').val();
+    let fecNac = $('#fecNac').val();
+    let mailUser = $('#mailUser').val();
+    let userDom = $('#userDom').val();
+    let idPais = $('#idPais').val();
+    let idProvincia = $('#idProvincia').val();
+    let idLocalidad = $('#idLocalidad').val();
+    let genre = $('#Genre').val();
+    let tel1 = $('#tel1').val();
+    let tel2 = $('#tel2').val();
+    let estCivil = $('#estCivil').val();
+    let tituloAcadem = $('#tituloAcadem').val();
+    let imagenUp = $('#imagenUp').val();
+
     let url = '../../Personas/CrearPersona';
-    let data = { IdPersona: idPersona, NombrePersona: nombrePersona, ApellidoPersona: apellidoPersona };
+    let data = {
+        IdPersona: idPersona, NombrePersona: nombrePersona, ApellidoPersona: apellidoPersona, TipoDoc: tipoDoc,
+        NroDNI: nroDNI, FecNac: fecNac, MailUser: mailUser, UserDom: userDom, IdPais: idPais, IdProvincia: idProvincia,
+        IdLocalidad: idLocalidad, Genre: genre, Tel1: tel1, Tel2: tel2, EstCivil: estCivil, TituloAcadem: tituloAcadem,
+        ImagenUp: imagenUp
+    };
 
     //j.query
     $.post(url, data).done(await function (resultado) {
@@ -95,4 +129,18 @@ const VaciarFormulario = () => {
     $("#idPersona").val(0);
     $("#nombrePersona").val('');
     $("#apellidoPersona").val('');
+    $("#tipoDoc").val('');
+    $("#nroDNI").val('');
+    $("#fecNac").val('');
+    $("#mailUser").val('');
+    $("#userDom").val('');
+    $("#idPais").val('');
+    $("#idProvincia").val('');
+    $("#idLocalidad").val('');
+    $("#genre").val('');
+    $("#tel1").val('');
+    $("#tel2").val('');
+    $("#estCivil").val('');
+    $("#tituloAcadem").val('');
+    $("#imagenUp").val('');
 }
