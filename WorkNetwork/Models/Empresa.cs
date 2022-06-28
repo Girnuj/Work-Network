@@ -11,13 +11,13 @@ namespace WorkNetwork.Models
         public string? RazonSocial { get; set; }
         public int CUIT { get; set; }
         public enum TipoDeDocumento { DNI, Pasaporte }
-        public int NumeroDeDocumento { get; set; }
+        public int? NumeroDeDocumento { get; set; }
         public string? Email { get; set; }
         public int LocalidadID { get; set; }
         public virtual Localidad? Localidad { get; set; }
         public int Telefono1 { get; set; }
-        public int Telefono2 { get; set; }
-        public byte[] Imagen { get; set; }
+        public int? Telefono2 { get; set; }
+        public byte[]? Imagen { get; set; }
         [NotMapped]
         public string? ImagenString { get; set; }
         public int RubroID { get; set; }

@@ -23,13 +23,13 @@ const GuardarLocalidad = () => {
     let nombreLocalidad = $('#nombreLocalidad').val();
     let cpLocalidad = $('#cpLocalidad').val();
     let idProvincia = $('#ProvinciaID').val();
-    let url = '../../Localidades/GuardarLocalidad';
+    let url = '../../Localidades/GuardarLocalidd';
     let data = { IdLocalidad: idLocalidad, NombreLocalidad: nombreLocalidad, ProvinciaID: idProvincia, CP: parseInt(cpLocalidad) };
-
+    
     $.post(url, data).done(resultado => {
         $('#modalCrearLocalidad').modal('hide');
         CompletarTablaLocalidades();
-    }).fail(e => console.log('Error en guardar localidad ' + e))
+    }).fail(e => console.log(`Error en guardar localidad ${e}`))
 }
 
 $('#PaisID').change(() => BuscarProvincia())
