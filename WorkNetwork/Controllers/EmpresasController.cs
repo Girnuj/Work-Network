@@ -38,5 +38,28 @@ namespace WorkNetwork.Controllers
             var empresas = _context.Empresa.ToList();
             return Json(empresas);
         }
+        
+        public JsonResult GuardarEmpresa(int idEmpresa, string RazonSocial, int CUIT, string Email, int LocalidadID, int Telefono1, int Telefono2, int RubroID, int TipoEmpresaID)
+        {
+            var resultado = true;
+            var tipoEmpresaEnum = TipoEmpresa.Unipersonal;
+            if(TipoEmpresaID == 1)
+            {
+                tipoEmpresaEnum = TipoEmpresa.Sociedad;
+            }
+
+            var nuevaEmpresa = new Empresa
+            {
+                RazonSocial = RazonSocial,
+                CUIT = CUIT,
+                Email = Email,
+                LocalidadID = LocalidadID,
+                Telefono1 = Telefono1,
+                Telefono2 = Telefono2,
+                RubroID = RubroID,
+                TipoEmpresa = tipoEmpresaEnum,
+            };
+            return Json(resultado);
+        }
     }
 }

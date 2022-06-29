@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace WorkNetwork.Models
 
 {
-    public class Empresa
+    public class Empresa  
     {
         [Key]
         public int EmpresaID { get; set; }
@@ -22,7 +22,11 @@ namespace WorkNetwork.Models
         public string? ImagenString { get; set; }
         public int RubroID { get; set; }
         public virtual Rubro? Rubro { get; set; }
-        public enum TipoEmpresa { Unipersonal, Sociedad }
+        public TipoEmpresa TipoEmpresa { get; set; }
         public virtual ICollection<Vacante>? Vacantes { get; set; }
+    }
+    public enum TipoEmpresa
+    {
+        Unipersonal, Sociedad
     }
 }
