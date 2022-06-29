@@ -88,7 +88,7 @@ const GuardarPersona = async () => {
     let tituloAcadem = $('#tituloAcadem').val();
     let imagenUp = $('#imagenUp').val();
 
-    let url = '../../Personas/CrearPersona';
+    let url = '../../Personas/GuardarPersona';
     let data = {
         IdPersona: idPersona, NombrePersona: nombrePersona, ApellidoPersona: apellidoPersona, TipoDoc: tipoDoc,
         NroDNI: nroDNI, FecNac: fecNac, MailUser: mailUser, UserDom: userDom, IdPais: idPais, IdProvincia: idProvincia,

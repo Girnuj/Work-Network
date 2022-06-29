@@ -9,15 +9,15 @@ namespace WorkNetwork.Models
         public int PersonaID { get; set; }
         public string? NombrePersona { get; set; }
         public string? ApellidoPersona { get; set; }
-        public enum TipoDocumento { dni, LE, }
+        public TipoDocumento TipoDocumento { get; set; }
         public int NumeroDocumento { get; set; }
         public DateTime FechaNacimiento { get; set; }
         public string? CorreoElectronico { get; set; }
         public string? DomicilioPersona { get; set; }
         public int LocalidadID { get; set; }
         public virtual Localidad? Localidad { get; set; }
-        public enum SituacionLaboral {Empleado, Desempleado }
-        public enum Genero { Masculino, Femenino, Otro }
+        public SituacionLaboral SituacionLaboral { get; set; }
+        public Genero Genero { get; set; }
         public int Telefono1 { get; set; }
         public int Telefono2 { get; set; }
         public string? EstadoCivil { get; set; }
@@ -31,4 +31,19 @@ namespace WorkNetwork.Models
         public string? ImagenString { get; set; }
         //public virtual ICollection<PersonaVacante>? PersonaVacante { get; set; }
     }
+    public enum SituacionLaboral
+    {
+        Empleado, Desempleado,
+    }
+
+    public enum Genero
+    {
+        Masculino, Femenino, Otro   
+    }
+    
+    public enum TipoDocumento
+    {
+        dni, LE
+    }
+
 }
