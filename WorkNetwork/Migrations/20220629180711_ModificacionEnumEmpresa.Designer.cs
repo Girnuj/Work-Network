@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WorkNetwork.Data;
 
@@ -11,9 +12,10 @@ using WorkNetwork.Data;
 namespace WorkNetwork.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220629180711_ModificacionEnumEmpresa")]
+    partial class ModificacionEnumEmpresa
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -320,14 +322,12 @@ namespace WorkNetwork.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PersonaID"), 1L, 1);
 
                     b.Property<string>("ApellidoPersona")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CantidadHijos")
+                    b.Property<int>("CantidadHijos")
                         .HasColumnType("int");
 
                     b.Property<string>("CorreoElectronico")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DomicilioPersona")
@@ -343,13 +343,13 @@ namespace WorkNetwork.Migrations
                         .HasColumnType("int");
 
                     b.Property<byte[]>("Imagen")
+                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.Property<int>("LocalidadID")
                         .HasColumnType("int");
 
                     b.Property<string>("NombrePersona")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("NumeroDocumento")
@@ -361,7 +361,7 @@ namespace WorkNetwork.Migrations
                     b.Property<int>("Telefono1")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Telefono2")
+                    b.Property<int>("Telefono2")
                         .HasColumnType("int");
 
                     b.Property<int>("TipoDocumento")

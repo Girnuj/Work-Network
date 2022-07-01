@@ -37,73 +37,73 @@
                     @*<div class="alert alert-danger "id='alertRubro'>El campo descripcion no puede estar vacio</div> *@
                     <input type="hidden" id='idPersona' />
                     <b>Nombre:</b>
-                    <input placeholder="Ingrese su nombre" type="text" id="nombrePersona" @*class="form-control"*@ />
+                    <input placeholder="Ingrese su nombre" type="text" id="nombrePersona" class="form-control" />
                     <b>Apellido:</b>
-                    <input placeholder="Ingrese su apellido " type="text" id="apellidoPersona" @*class="form-control"*@ />
+                    <input placeholder="Ingrese su apellido " type="text" id="apellidoPersona" class="form-control" />
 
                     <div>
                         <b> Tipo de Documento: </b>
-                        <select id="tipoDoc">
+                        <select id="tipoDoc" class="form-control">
                            @* <option disabled> Tipo de documento</option>*@
                             <option value=0>DNI</option>
                             <option value=1>L.E.</option>
                         </select>
                         <b> Número de Documento: </b>
-                        <input placeholder="Ingrese aqui su número de documento" type="tel" id="nroDNI" maxlength="8" />
+                        <input class="form-control" placeholder="Ingrese aqui su número de documento" type="tel" id="nroDNI" maxlength="8" />
                     </div>
 
                     <b>Genero:</b>
-                    <select id="genre">
-                        <option value="0">Masculino</option>
-                        <option value="1">Femenino</option>
-                        <option value="2">Otro</option>
-
+                    <select id="genre" class="form-control">
+                        <option value=0>Masculino</option>
+                        <option value=1>Femenino</option>
+                        <option value=2>Otro</option>
                     </select>
 
                     <b> Fecha de Nacimiento: </b>
-                    <input type="date" placeholder="Fecha de Nacimiento" id="fecNac" />
+                    <input class="form-control" type="date" placeholder="Fecha de Nacimiento" id="fecNac" />
                     <b>E-mail:</b>
-                    <input type="email" placeholder="Email" id="mailUser" />
+                    <input type="email" class="form-control" placeholder="Email" id="mailUser" />
 
-                    <div id="userDom">
-                        <b>Domicilio</b>
-                        <input type="text" placeholder="Calle"/>
-                        <input type="tel" placeholder="Número" maxlength="4" class="col-sm-2"/>
-                        <input type="tel" placeholder="Piso" maxlength="2"  class="col-sm-1"/>
-                        <input type="text" placeholder="Depto"/>
+                    <div id="userDom" class="row">
+                        <div class='col-9 mb-3'>
+                            <b>Domicilio</b>
+                            <input type="text" class="form-control col-auto" placeholder="Calle"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <b>Numero</b>
+                            <input type="tel" class="form-control" placeholder="Número" maxlength="4" class="col-sm-2"/>
+                        </div>
+                        <div class="col-6">
+                            <input type="tel" class="form-control" placeholder="Piso" maxlength="2"  class="col-sm-1"/>
+                        </div>
+                        <div class='col-6'>
+                            <input type="text" class="form-control" placeholder="Depto"/>
+                        </div>
                    
                     </div>
 
-
-
                     <div>
-                      @*  <label class="control-label">
-                            <b> Pais: </b>
-                            <input type="text" placeholder="Ingrese el País" id="idPais" />
-                        </label>
-                                  *@                              
-                        <label @*class="control-label"*@>
-                            <b> Provincia: </b>
-                            <input type="text" placeholder="Ingrese la Provincia" id="idProvincia" />
-                        </label>
-                    
-                
-                        <label @* class="control-label"*@>
-                            <b> Localidad: </b>
-                            <input type="text" placeholder="Ingrese su Localidad" id="idLocalidad" />
-                        </label>
+                        <label class="control-label"><b> Paises: </b></label>
+                        @Html.DropDownList("PaisID", null, htmlAttributes: new {@class = "form-control mb-3"})
                     </div>
-
+                    <div>
+                        <label class="control-label"><b> Provincias: </b></label>
+                        @Html.DropDownList("ProvinciaID", null, htmlAttributes: new {@class = "form-control mb-3"})
+                    </div>
+                    <div>
+                        <label class="control-label"><b> Localidades: </b></label>
+                        @Html.DropDownList("LocalidadID", null, htmlAttributes: new {@class = "form-control mb-3"})
+                    </div>
                   
                     <div>
                         <b>Telefono:</b>
-                        <input type="tel" placeholder="Telefono/Celular" id="tel1" required maxlength="13"/>
+                        <input class="form-control" type="tel" placeholder="Telefono/Celular" id="tel1" required maxlength="13"/>
                         <b>Otro:</b>
-                        <input type="tel" placeholder="Otro (Opcional)" id="tel2" maxlength="13"/>
+                        <input class="form-control" type="tel" placeholder="Otro (Opcional)" id="tel2" maxlength="13"/>
                     </div>
 
                     <b>Estado Civil:</b>
-                    <select id="estCivil">
+                    <select id="estCivil" class="form-control mb-3">
                    
                         <option value="0">Soltero/a</option>
                         <option value="1">Casado/a</option>
@@ -112,8 +112,8 @@
                       
                     </select> 
 
-                    <input placeholder="Titulo Academico" type="text" id="tituloAcadem" />
-                    <input type="file" id="imagenUp" />
+                    <input placeholder="Titulo Academico" class="form-control mb-3" type="text" id="tituloAcadem" />
+                    <input type="file" id="imagenUp" class="form-control"/>
 
                 </div>
             </div>

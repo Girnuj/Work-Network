@@ -4,9 +4,9 @@
     let url = '../../Empresas/TablaEmpresas'
 
     $.get(url).done(empresas=> {
-        $('#tbody-localidad').empty();
+        $('#tbody-empresa').empty();
         $.each(empresas,function (index, empresas) {
-            $("#tbody-localidad").append(
+            $("#tbody-empresa").append(
                 `<tr class= 'tabla-hover '>
                         <td class='texto'>${empresas.razonSocial}</td>
                         <td class='texto'>${empresas.cuit}</td>
@@ -22,6 +22,7 @@ const GuardarEmpresa = () => {
     let idEmpresa = $('#idEmpresa').val();
     let nombreEmpresa = $('#nombreEmpresa').val();
     let cuitEmpresa = $('#cuitEmpresa').val();
+    console.log('el cuit perro: ' + cuitEmpresa)
     let correoEmpresa = $('#correoEmpresa').val();
     let paisID = $('#PaisID').val();
     let provinciaID = $('#ProvinciaID').val();

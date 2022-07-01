@@ -59,6 +59,8 @@ namespace WorkNetwork.Controllers
                 RubroID = RubroID,
                 TipoEmpresa = tipoEmpresaEnum,
             };
+            _context.Add(nuevaEmpresa);
+            _context.SaveChanges();
             return Json(resultado);
         }
     }
