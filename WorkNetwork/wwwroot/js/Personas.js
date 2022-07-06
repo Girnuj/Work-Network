@@ -77,23 +77,26 @@ const GuardarPersona = async () => {
     let nroDNI = $('#nroDNI').val();
     let fecNac = $('#fecNac').val();
     let mailUser = $('#mailUser').val();
-    let userDom = $('#userDom').val();
-    let idPais = $('#idPais').val();
-    let idProvincia = $('#idProvincia').val();
-    let idLocalidad = $('#idLocalidad').val();
-    let genre = $('#Genre').val();
+    let idPais = $('#PaisID').val();
+    let idProvincia = $('#ProvinciaID').val();
+    let idLocalidad = $('#LocalidadID').val();
+    let genre = $('#genre').val();
     let tel1 = $('#tel1').val();
     let tel2 = $('#tel2').val();
     let estCivil = $('#estCivil').val();
     let tituloAcadem = $('#tituloAcadem').val();
     let imagenUp = $('#imagenUp').val();
+    let domicilio = $('#Domicilio').val()
+    let numero = $('#numeroDomicilio').val()
+    let domicilioCompleto = `${domicilio} ${numero}`
+    let cantidadHijos = $('#cantidadHijos').val()
 
     let url = '../../Personas/GuardarPersona';
     let data = {
-        IdPersona: idPersona, NombrePersona: nombrePersona, ApellidoPersona: apellidoPersona, TipoDoc: tipoDoc,
-        NroDNI: nroDNI, FecNac: fecNac, MailUser: mailUser, UserDom: userDom, IdPais: idPais, IdProvincia: idProvincia,
-        IdLocalidad: idLocalidad, Genre: genre, Tel1: tel1, Tel2: tel2, EstCivil: estCivil, TituloAcadem: tituloAcadem,
-        ImagenUp: imagenUp
+        IdPersona: idPersona, NombrePersona: nombrePersona, ApellidoPersona: apellidoPersona, TipoDocumentoid: tipoDoc,
+        NumeroDocumento: nroDNI, FechaNacimiento: fecNac, MailUser: mailUser, DomicilioPersona: domicilioCompleto, 
+        IdLocalidad: idLocalidad, Generoid: genre, Telefono1: tel1, Telefono2: tel2, EstadoCivil: estCivil, TituloAcademico: tituloAcadem,
+        ImagenUp: imagenUp, CantidadHijos: cantidadHijos
     };
 
     //j.query

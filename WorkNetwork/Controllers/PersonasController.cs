@@ -57,7 +57,7 @@ namespace WorkNetwork.Controllers
 
 
         public JsonResult GuardarPersona(int IdPersona, string NombrePersona, string ApellidoPersona, 
-            int NumeroDocumento, DateTime FechaNacimiento , string CorreoElectronico, string DomicilioPersona,
+            int NumeroDocumento, DateTime FechaNacimiento , string MailUser, string DomicilioPersona,
             int IdLocalidad,int Telefono1, int Telefono2, string EstadoCivil, string TituloAcademico, 
             int CantidadHijos, string ImagenString, int SituacionLaboralid, int Generoid, int TipoDocumentoid)
         {
@@ -75,7 +75,7 @@ namespace WorkNetwork.Controllers
             }
             else
             {
-                //generoEnum = Genero.Otro;
+                generoEnum = Genero.Otro;
             }
 
             var tipoDocumentoEnum = TipoDocumento.dni;
@@ -91,9 +91,9 @@ namespace WorkNetwork.Controllers
                 TipoDocumento = tipoDocumentoEnum,
                 NumeroDocumento = NumeroDocumento,
                 FechaNacimiento = FechaNacimiento,
-                CorreoElectronico = CorreoElectronico,
+                CorreoElectronico = MailUser,
                 DomicilioPersona = DomicilioPersona,
-                
+                LocalidadID = IdLocalidad,
                 SituacionLaboral = situacionLaboralEnum,
                 Genero = generoEnum,
                 Telefono1 = Telefono1,
@@ -105,6 +105,7 @@ namespace WorkNetwork.Controllers
               
 
             };
+            resultado = false;
             _context.Add(persona);
             _context.SaveChanges();
             return Json(resultado);
