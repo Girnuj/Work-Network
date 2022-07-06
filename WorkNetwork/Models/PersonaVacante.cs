@@ -9,6 +9,8 @@ namespace WorkNetwork.Models
 		//public virtual Persona? Persona { get; set; }
 		public int VacanteID { get; set; }
 		//public virtual Vacante? Vacante { get; set; }
+		public int EmpresaID { get; set; }
+		public bool NotificacionVista { get; set; }
 	}
 
 }
