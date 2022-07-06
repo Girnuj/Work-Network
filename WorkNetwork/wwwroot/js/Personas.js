@@ -122,6 +122,27 @@ const GuardarPersona = async () => {
     //})
 
 }
+
+$('#PaisID').change(() => BuscarProvincia());
+$('#ProvinciaID').change(() => BuscarLocalidad());
+const BuscarLocalidad = () => {
+    $('#LocalidadID').empty();
+    let url = '../../Localidades/ComboLocalidades';
+    let data = { id: $('#ProvinciaID').val() };
+    $.post(url, data).done(localidades => {
+        if (localidades.length === 0) {
+            $('#LocalidadID').append(`<option value=${0}>[NO EXISTEN LOCALIDADES]</option>`);
+        }
+        else {
+            $.each(localidades, (i, localidad) => {
+                $('#LocalidadID').append(`<option value=${localidad.value}>${localidad.text}</option>`)
+            });
+        }
+    }).fail(e => console.log('error en combo localidades' + e))
+    return false
+}
+
+
 const AbrirModal = () => {
     $('#idPersona').val(0);
     $('#modalCrearPersona').modal('show');
