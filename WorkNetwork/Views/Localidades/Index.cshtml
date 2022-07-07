@@ -6,7 +6,7 @@
 
 <h1>Localidad</h1>
 
-<button type="button" class= 'btn btn-primary mb-3' onclick= 'AbrirModal(modalCrearLocalidad)'>Crear Localidad</button>
+<button type="button" class='btn btn-primary mb-3' onclick='AbrirModal(modalCrearLocalidad)'>Crear Localidad</button>
 
 <table class='table'>
     <thead>
@@ -15,50 +15,50 @@
                 Localidad
             </th>
             <th>
-               Codigo Postal 
+                Codigo Postal
             </th>
             <th>
                 Opciones
             </th>
         </tr>
     </thead>
-    <tbody id= 'tbody-localidad'></tbody>
+    <tbody id='tbody-localidad'></tbody>
 </table>
 
 <!--Modal-->
 <div class="modal fade" id="modalCrearLocalidad" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="titulo-modal-">Crear localidad</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-          <div>
-            @*<div class="alert alert-danger "id='alertRubro'>El campo descripcion no puede estar vacio</div> *@
-            <input type= "hidden" id='idLocalidad'/>
-            <input placeholder="Ingrese una localidad" type="text" id="nombreLocalidad" class="form-control"/>
-            <input placeholder="Codigo Postal" type="number" id="cpLocalidad" class='form-control'/>
-            <div>
-                <label class="control-label"><b> Pais: </b></label>
-                @Html.DropDownList("PaisID", null, htmlAttributes: new {@class = "form-control"})
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="titulo-modal-">Crear localidad</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div>
-                <label class="control-label"><b> Provincia: </b></label>
-                @Html.DropDownList("ProvinciaID", null, htmlAttributes: new {@class = "form-control"})
+            <div class="modal-body">
+                <div>
+                    @*<div class="alert alert-danger "id='alertRubro'>El campo descripcion no puede estar vacio</div> *@
+                    <input type="hidden" id='idLocalidad' />
+                    <input placeholder="Ingrese una localidad" type="text" id="nombreLocalidad" class="form-control" />
+                    <input placeholder="Codigo Postal" type="number" id="cpLocalidad" class='form-control' />
+                    <div>
+                        <label class="control-label"><b> Pais: </b></label>
+                        @Html.DropDownList("PaisID", null, htmlAttributes: new {@class = "form-control"})
+                    </div>
+                    <div>
+                        <label class="control-label"><b> Provincia: </b></label>
+                        @Html.DropDownList("ProvinciaID", null, htmlAttributes: new {@class = "form-control"})
+                    </div>
+                </div>
             </div>
-          </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-info" onclick='GuardarLocalidad()'>Crear</button>
-        <button type="button" class="btn btn-outline-danger" onclick='VaciarFormulario()' data-bs-dismiss="modal">Cerrar</button>
-      </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-info" onclick='GuardarLocalidad()'>Crear</button>
+                <button type="button" class="btn btn-outline-danger" onclick='VaciarFormulario()' data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 @section Scripts{
-    <script src= '~/js/Localidades.js'></script>
+    <script src='~/js/Localidades.js'></script>
     <script>
         window.onload = CompletarTablaLocalidades();
     </script>

@@ -30,9 +30,9 @@ namespace WorkNetwork.Controllers
             if (!string.IsNullOrEmpty(NombreRubro))
             {
                 NombreRubro = NombreRubro.ToUpper();
-                if (idRubro== 0)
+                if (idRubro == 0)
                 {
-                    if (_context.Rubro.Any(e => e.NombreRubro== NombreRubro))
+                    if (_context.Rubro.Any(e => e.NombreRubro == NombreRubro))
                     {
                         resultado = 2;
                     }

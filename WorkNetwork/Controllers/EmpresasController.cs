@@ -15,15 +15,15 @@ namespace WorkNetwork.Controllers
         public IActionResult Index()
         {
             var paises = _context.Pais.ToList();
-            paises.Add(new Pais { PaisID = 0, NombrePais="[SELECCIONE UN PAIS]" });
+            paises.Add(new Pais { PaisID = 0, NombrePais = "[SELECCIONE UN PAIS]" });
             ViewBag.PaisID = new SelectList(paises.OrderBy(e => e.NombrePais), "PaisID", "NombrePais");
 
             var provincias = _context.Provincia.ToList();
-            provincias.Add(new Provincia{ ProvinciaID= 0, NombreProvincia="[SELECCIONE UN PAIS]" });
+            provincias.Add(new Provincia { ProvinciaID = 0, NombreProvincia = "[SELECCIONE UN PAIS]" });
             ViewBag.ProvinciaID = new SelectList(provincias.OrderBy(x => x.NombreProvincia), "ProvinciaID", "NombreProvincia");
 
             var localidad = _context.Localidad.ToList();
-            localidad.Add(new Localidad{ LocalidadID= 0, NombreLocalidad="[SELECCIONE UN PAIS]" });
+            localidad.Add(new Localidad { LocalidadID = 0, NombreLocalidad = "[SELECCIONE UN PAIS]" });
             ViewBag.LocalidadID = new SelectList(localidad.OrderBy(x => x.NombreLocalidad), "LocalidadID", "NombreLocalidad");
 
             var rubros = _context.Rubro.ToList();
@@ -38,12 +38,12 @@ namespace WorkNetwork.Controllers
             var empresas = _context.Empresa.ToList();
             return Json(empresas);
         }
-        
+
         public JsonResult GuardarEmpresa(int idEmpresa, string RazonSocial, int CUIT, string Email, int LocalidadID, int Telefono1, int Telefono2, int RubroID, int TipoEmpresaID)
         {
             var resultado = true;
             var tipoEmpresaEnum = TipoEmpresa.Unipersonal;
-            if(TipoEmpresaID == 1)
+            if (TipoEmpresaID == 1)
             {
                 tipoEmpresaEnum = TipoEmpresa.Sociedad;
             }

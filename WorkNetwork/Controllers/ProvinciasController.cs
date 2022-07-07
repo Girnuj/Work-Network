@@ -19,7 +19,7 @@ namespace WorkNetwork.Controllers
         public IActionResult Index()
         {
             var paiss = _context.Pais.ToList();
-            paiss.Add(new Pais { PaisID = 0, NombrePais="[SELECCIONE UN PAIS]" });
+            paiss.Add(new Pais { PaisID = 0, NombrePais = "[SELECCIONE UN PAIS]" });
             ViewBag.PaisID = new SelectList(paiss.OrderBy(e => e.NombrePais), "PaisID", "NombrePais");
             return View();
         }
@@ -32,8 +32,8 @@ namespace WorkNetwork.Controllers
 
         public JsonResult TablaProvincias()
         {
-            var provincias= _context.Provincia.ToList();
-            return Json(provincias  );
+            var provincias = _context.Provincia.ToList();
+            return Json(provincias);
         }
         public JsonResult CrearProvincia(int IdProvincia, string NombreProvincia, int PaisID)
         {
@@ -49,6 +49,6 @@ namespace WorkNetwork.Controllers
             _context.SaveChanges();
             return Json(resultado);
         }
-   
+
     }
 }

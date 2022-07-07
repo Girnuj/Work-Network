@@ -5,7 +5,7 @@
 
     $.get(url).done(async localidades => {
         $('#tbody-localidad').empty();
-        $.each(localidades,await function (index, localidad) {
+        $.each(localidades, await function (index, localidad) {
             $("#tbody-localidad").append(
                 `<tr class= 'tabla-hover '>
                         <td class='texto'>${localidad.nombreLocalidad}</td>
@@ -25,7 +25,7 @@ const GuardarLocalidad = () => {
     let idProvincia = $('#ProvinciaID').val();
     let url = '../../Localidades/GuardarLocalidd';
     let data = { IdLocalidad: idLocalidad, NombreLocalidad: nombreLocalidad, ProvinciaID: idProvincia, CP: parseInt(cpLocalidad) };
-    
+
     $.post(url, data).done(resultado => {
         $('#modalCrearLocalidad').modal('hide');
         CompletarTablaLocalidades();
