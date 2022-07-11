@@ -3,9 +3,9 @@
 
     let url = '../../Empresas/TablaEmpresas'
 
-    $.get(url).done(empresas=> {
+    $.get(url).done(empresas => {
         $('#tbody-empresa').empty();
-        $.each(empresas,function (index, empresas) {
+        $.each(empresas, function (index, empresas) {
             $("#tbody-empresa").append(
                 `<tr class= 'tabla-hover '>
                         <td class='texto'>${empresas.razonSocial}</td>

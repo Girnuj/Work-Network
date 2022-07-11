@@ -17,11 +17,11 @@ namespace WorkNetwork.Controllers
         public IActionResult Index()
         {
             var paises = _context.Pais.ToList();
-            paises.Add(new Pais { PaisID = 0, NombrePais="[SELECCIONE UN PAIS]" });
+            paises.Add(new Pais { PaisID = 0, NombrePais = "[SELECCIONE UN PAIS]" });
             ViewBag.PaisID = new SelectList(paises.OrderBy(e => e.NombrePais), "PaisID", "NombrePais");
 
-            List<Provincia> provincias= new List<Provincia>();
-            provincias.Add(new Provincia{ ProvinciaID= 0, NombreProvincia= "[SELECCIONE UN PAIS]" });
+            List<Provincia> provincias = new List<Provincia>();
+            provincias.Add(new Provincia { ProvinciaID = 0, NombreProvincia = "[SELECCIONE UN PAIS]" });
             ViewBag.ProvinciaID = new SelectList(provincias.OrderBy(x => x.NombreProvincia), "ProvinciaID", "NombreProvincia");
             return View(_context.Localidad.ToList());
         }
@@ -35,7 +35,7 @@ namespace WorkNetwork.Controllers
             var localidades = (from p in _context.Localidad where p.ProvinciaID == id select p).ToList();
             return Json(new SelectList(localidades, "LocalidadID", "NombreLocalidad"));
         }
-        public JsonResult GuardarLocalidad(int IdLocalidad, string NombreLocalidad,int CP, int ProvinciaID)
+        public JsonResult GuardarLocalidad(int IdLocalidad, string NombreLocalidad, int CP, int ProvinciaID)
         {
             bool resultado = true;
             var localidad = new Localidad

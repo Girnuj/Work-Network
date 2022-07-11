@@ -4,9 +4,9 @@
 
 
     $.get(url).done(
-      async paises => {
+        async paises => {
             $('#tbody-paises').empty();
-            $.each( paises, await function (index, pais)  {
+            $.each(paises, await function (index, pais) {
                 console.log('hola')
                 /*let claseEliminado = '';*/
                 $('#tbody-paises').append(`<tr class= 'tabla-hover '>
@@ -16,7 +16,7 @@
                     </tr>`)
             })
         }
-    ).fail( e => console.log('cargar paises',e) )
+    ).fail(e => console.log('cargar paises', e))
 }
 
 const AbrirModal = () => {
@@ -37,10 +37,10 @@ const GuardarPais = async () => {
     let url = '../../Paises/CrearPais';
     let data = { NombrePais: nombrePais }
 
-    $.post(url, data).done(await function (resultado){
+    $.post(url, data).done(await function (resultado) {
         if (resultado == false) {
             $('#modalCrearPais').modal('hide')
             CompletarTablaPaises()
         }
-    }).fail(err => console.log('error en crear Pais: ', err ))
+    }).fail(err => console.log('error en crear Pais: ', err))
 }

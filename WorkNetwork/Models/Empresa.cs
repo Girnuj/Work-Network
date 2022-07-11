@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace WorkNetwork.Models
 
 {
-    public class Empresa  
+    public class Empresa
     {
         [Key]
         public int EmpresaID { get; set; }

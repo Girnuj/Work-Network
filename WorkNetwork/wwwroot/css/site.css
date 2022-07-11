@@ -1,20 +1,20 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
 
 /*clases de las cards*/
@@ -30,6 +30,7 @@ body {
     .main-card .cards .card:hover {
         transform: translateY(-15px);
     }
+
 .cards .card .content {
     width: 100%;
     display: flex;
@@ -70,14 +71,13 @@ body {
     margin-top: 10px;
     display: flex;
 }
-#cards{
 
-
-display: flex;
-flex-wrap: wrap;
-align-content: flex-start;
-align-items: center;
-justify-content: space-around;
+#cards {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    align-items: center;
+    justify-content: space-around;
 }
 
 

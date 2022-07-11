@@ -65,7 +65,7 @@
                 )
             });
         },
-        error: (err) => console.log("error en CompletarTablaPersonas",err)
+        error: (err) => console.log("error en CompletarTablaPersonas", err)
     });
 }
 
@@ -94,7 +94,7 @@ const GuardarPersona = async () => {
     let url = '../../Personas/GuardarPersona';
     let data = {
         IdPersona: idPersona, NombrePersona: nombrePersona, ApellidoPersona: apellidoPersona, TipoDocumentoid: tipoDoc,
-        NumeroDocumento: nroDNI, FechaNacimiento: fecNac, MailUser: mailUser, DomicilioPersona: domicilioCompleto, 
+        NumeroDocumento: nroDNI, FechaNacimiento: fecNac, MailUser: mailUser, DomicilioPersona: domicilioCompleto,
         IdLocalidad: idLocalidad, Generoid: genre, Telefono1: tel1, Telefono2: tel2, EstadoCivil: estCivil, TituloAcademico: tituloAcadem,
         ImagenUp: imagenUp, CantidadHijos: cantidadHijos
     };

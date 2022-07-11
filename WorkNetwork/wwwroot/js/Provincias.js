@@ -14,7 +14,7 @@
                         </td>
                     </tr>`
             )
-        })  
+        })
     }).fail(e => console.error(`Error cargar provincias '${e}'`))
 
 }
@@ -28,10 +28,10 @@ const GuardarProvincia = () => {
     let url = '../../Provincias/CrearProvincia';
     let data = { IdProvincia: idProvincia, NombreProvincia: nombreProvincia, PaisID: idPais };
 
-   
-    $.post(url, data).done( resultado => {
+
+    $.post(url, data).done(resultado => {
         $('#modalCrearProvincia').modal('hide');
-        CompletarTablaProvincias();     
+        CompletarTablaProvincias();
     }).fail(e => console.error(`Error cargar provincias '${e}'`))
 }
 

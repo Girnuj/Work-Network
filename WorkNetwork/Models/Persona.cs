@@ -27,7 +27,7 @@ namespace WorkNetwork.Models
         [NotMapped]
         public string? ImagenString { get; set; }
         //public virtual ICollection<PersonaVacante>? PersonaVacante { get; set; }
-      
+
         //RELACION UNA PERSONA A MUCHOS RUBROS
     }
     public enum SituacionLaboral
@@ -37,9 +37,9 @@ namespace WorkNetwork.Models
 
     public enum Genero
     {
-        Masculino, Femenino, Otro   
+        Masculino, Femenino, Otro
     }
-    
+
     public enum TipoDocumento
     {
         dni, LE

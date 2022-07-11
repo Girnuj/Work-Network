@@ -1,4 +1,4 @@
-﻿const CompletarTablaRubro = async() => {
+﻿const CompletarTablaRubro = async () => {
     await VaciarFormulario()
     let url = '../../Rubros/TablaRubros'
 
@@ -49,13 +49,13 @@ const GuardarRubro = () => {
 
 }
 
-const AbrirModal = ()=> {
+const AbrirModal = () => {
     $('#titulo-modal-rubro').text('Nuevo Rubro')
     $('#idRubro').val(0);
     $('#modalCrearRubro').modal('show');
     $('#alertRubro').addClass('visually-hidden')
 }
-const VaciarFormulario = ()=> {
+const VaciarFormulario = () => {
     $("#idRubro").val(0);
     $('#nombreRubro').val('');
     $('#alertRubro').addClass('visually-hidden')

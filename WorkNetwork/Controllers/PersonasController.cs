@@ -23,15 +23,15 @@ namespace WorkNetwork.Controllers
         public async Task<IActionResult> Index()
         {
             var paises = _context.Pais.ToList();
-            paises.Add(new Pais { PaisID = 0, NombrePais="[SELECCIONE UN PAIS]" });
+            paises.Add(new Pais { PaisID = 0, NombrePais = "[SELECCIONE UN PAIS]" });
             ViewBag.PaisID = new SelectList(paises.OrderBy(e => e.NombrePais), "PaisID", "NombrePais");
 
             var provincias = _context.Provincia.ToList();
-            provincias.Add(new Provincia{ ProvinciaID= 0, NombreProvincia="[SELECCIONE UN PAIS]" });
+            provincias.Add(new Provincia { ProvinciaID = 0, NombreProvincia = "[SELECCIONE UN PAIS]" });
             ViewBag.ProvinciaID = new SelectList(provincias.OrderBy(x => x.NombreProvincia), "ProvinciaID", "NombreProvincia");
 
             var localidad = _context.Localidad.ToList();
-            localidad.Add(new Localidad{ LocalidadID= 0, NombreLocalidad="[SELECCIONE UN PAIS]" });
+            localidad.Add(new Localidad { LocalidadID = 0, NombreLocalidad = "[SELECCIONE UN PAIS]" });
             ViewBag.LocalidadID = new SelectList(localidad.OrderBy(x => x.NombreLocalidad), "LocalidadID", "NombreLocalidad");
 
             return View();
@@ -56,9 +56,9 @@ namespace WorkNetwork.Controllers
         //}
 
 
-        public JsonResult GuardarPersona(int IdPersona, string NombrePersona, string ApellidoPersona, 
-            int NumeroDocumento, DateTime FechaNacimiento , string MailUser, string DomicilioPersona,
-            int IdLocalidad,int Telefono1, int Telefono2, string EstadoCivil, string TituloAcademico, 
+        public JsonResult GuardarPersona(int IdPersona, string NombrePersona, string ApellidoPersona,
+            int NumeroDocumento, DateTime FechaNacimiento, string MailUser, string DomicilioPersona,
+            int IdLocalidad, int Telefono1, int Telefono2, string EstadoCivil, string TituloAcademico,
             int CantidadHijos, string ImagenString, int SituacionLaboralid, int Generoid, int TipoDocumentoid)
         {
             bool resultado = true;
@@ -69,7 +69,7 @@ namespace WorkNetwork.Controllers
             }
 
             var generoEnum = Genero.Masculino;
-            if(Generoid == 1)
+            if (Generoid == 1)
             {
                 generoEnum = Genero.Femenino;
             }
@@ -79,7 +79,7 @@ namespace WorkNetwork.Controllers
             }
 
             var tipoDocumentoEnum = TipoDocumento.dni;
-            if(TipoDocumentoid == 1)
+            if (TipoDocumentoid == 1)
             {
                 tipoDocumentoEnum = TipoDocumento.LE;
             }
@@ -95,14 +95,15 @@ namespace WorkNetwork.Controllers
                 DomicilioPersona = DomicilioPersona,
                 LocalidadID = IdLocalidad,
                 SituacionLaboral = situacionLaboralEnum,
+                CantidadHijos = CantidadHijos,
                 Genero = generoEnum,
                 Telefono1 = Telefono1,
                 Telefono2 = Telefono2,
                 EstadoCivil = EstadoCivil,
                 TituloAcademico = TituloAcademico,
-                CantidadHijos = CantidadHijos,
+
                 ImagenString = ImagenString
-              
+
 
             };
             resultado = false;
