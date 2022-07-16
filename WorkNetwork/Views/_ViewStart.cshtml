@@ -1,3 +1,22 @@
-﻿@{
-    Layout = "_Layout";
+﻿@*@{
+    Layout = "_LayoutDeIngreso";
+}*@
+@*@{
+    if(ViewData["Ingreso"] == "_LayoutDeIngreso")
+    {
+        
+    Layout = "_LayoutDeIngreso";
+    }
+    else Layout = "_Layout";
+}*@
+@{
+
+    if (ViewData["Ingreso"] != null && !string.IsNullOrWhiteSpace(ViewData["Ingreso"].ToString()))
+    {
+        Layout = "_Layout";
+    }
+    else
+    {
+        Layout = "_LayoutDeIngreso";
+    }
 }
