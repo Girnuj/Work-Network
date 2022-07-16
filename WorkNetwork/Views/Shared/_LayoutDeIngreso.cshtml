@@ -24,23 +24,26 @@
 										<div class='containerr'>
 											<div class='form'>
 												<h2>Iniciar Secion</h2>
-												<form>
+												<form method="post">
 													<div class='inputBox'>
 														<input type='text' placeholder='Nombre de la Empresa'>
+														<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
 													</div>
 													<div class='inputBox'>
 														<input type='password' placeholder='Contraseña'>
 													</div>
+
 													<div class='inputBox'>
 														<!-- <input type='submit' value='Login' class="button"> -->
-													<button class="button" asp-area="Identity" asp-page="/Account/Login"> Login </button>
+													<button class="button" id="login-submit" > Login </button>
 
 													</div>
 												</form>
 												<div class="olv">
 													<div class="gor">
 
-														<p class='forget'>Olvidaste tu Contraseña? <a href='#'>Click Aqui</a></p>
+														<p class='forget' >Olvidaste tu Contraseña? <a asp-page="/Account/ForgotPassword">Click Aqui</a></p>
 													</div>
 													<div class="gor2">
 														<p class='forget'>No tienes una cuenta? <a asp-area="Identity" asp-page="/Account/Register">Registrate</a></p>

@@ -2,23 +2,12 @@
     Layout = "_LayoutDeIngreso";
 }*@
 @*@{
-    if(ViewData["Layout"] == "_LayoutDeIngreso")
+    if(ViewData["Ingreso"] == "_LayoutDeIngreso")
     {
         
-    Layout = "_Layout";
-    }
-    else Layout = "_Layout2";
-}*@
-@*var path = ((Microsoft.AspNetCore.Mvc.RazorPages.CompiledPageActionDescriptor)ViewContext.ActionDescriptor).RelativePath;
-string[] pathArray = path.Split('/');
-string pageFolder = pathArray[2];
-if (pageFolder != null && pageFolder.ToLower()=="Shared")
-{
     Layout = "_LayoutDeIngreso";
-}
-else
-{
-    Layout = "_Layout";
+    }
+    else Layout = "_Layout";
 }*@
 @{
 
