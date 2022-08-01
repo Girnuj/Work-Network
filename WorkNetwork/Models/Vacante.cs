@@ -22,6 +22,7 @@ namespace WorkNetwork.Models
         public string? ImagenString { get; set; }
         public string? Estado { get; set; }
         public enum DisponibilidadHoraria { fulltime, partime, }
+        public enum tipoModalidad { presencial, semipresencial, remoto}
         //public virtual ICollection<PersonaVacante>? PersonaVacante { get; set; }
     }
 }
