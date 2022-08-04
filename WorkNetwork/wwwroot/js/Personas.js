@@ -9,7 +9,6 @@
         success: async (personas) => {
             $('#tbody-personas').empty();
             $.each(personas, await function (index, persona) {
-                console.log(persona)
                 let claseEliminado = '';
                 //let botones = `<btn type='button' class= 'btn btn-outline-success btn-sm me-3' onclick = "BuscarRubro(${persona.idPersona})"><i class="bi bi-pencil-square"></i> Editar</btn>
                 //                <btn type='button' class = 'btn btn-outline-danger btn-sm'onclick = "EliminarRubro(${rubro.rubroID},1)"><i class="bi bi-trash3"></i> Eliminar</btn>`
@@ -23,19 +22,16 @@
                         <td class='texto'>${persona.nombrePersona}</td>
                         <td class='texto'>${persona.apellidoPersona}</td>
 
-                        <td class='texto'>${persona.tipoDoc}</td>
-                        <td class='texto'>${persona.nroDNI}</td>
-                        <td class='texto'>${persona.mailUser}</td>
-                        <td class='texto'>${persona.userDom}</td>
-                        <td class='texto'>${persona.idPais}</td>
-                        <td class='texto'>${persona.idProvincia}</td>
-                        <td class='texto'>${persona.idLocalidad}</td>
-                        <td class='texto'>${persona.genre}</td>
-                        <td class='texto'>${persona.tel1}</td>
-                        <td class='texto'>${persona.tel2}</td>
-                        <td class='texto'>${persona.estCivil}</td>
-                        <td class='texto'>${persona.tituloAcadem}</td>
-                        <td class='texto'>${persona.imagenUp}</td>
+                        <td class='texto'>${persona.tipoDocumento}</td>
+                        <td class='texto'>${persona.numeroDocumento}</td>
+                        <td class='texto'>${persona.correoElectronico}</td>
+                        <td class='texto'>${persona.domicilioPersona}</td>
+                        <td class='texto'>${persona.localidadID}</td>
+                        <td class='texto'>${persona.genero}</td>
+                        <td class='texto'>${persona.telefono1}</td>
+                        <td class='texto'>${persona.telefono2}</td>
+                        <td class='texto'>${persona.estadoCivil}</td>
+                        <td class='texto'>${persona.tituloAcademico}</td>
                         <td class = 'text-center'>
                            
                         </td>
@@ -124,6 +120,24 @@ const GuardarPersona = async () => {
 }
 
 $('#PaisID').change(() => BuscarProvincia());
+
+const BuscarProvincia = () => {
+    $('#ProvinciaID').empty();
+    let url = '../../Provincias/ComboProvincia';
+    let data = { id: $('#PaisID').val() };
+    $.post(url, data).done(provincias => {
+        if (provincias.length === 0) {
+            $('#ProvinciaID').append(`<option value=${0}>[NO EXISTEN PROVINCIAS]</option>`);
+        }
+        else {
+            $.each(provincias, (i, provincia) => {
+                $('#ProvinciaID').append(`<option value=${provincia.value}>${provincia.text}</option>`)
+            });
+        }
+    }).fail(e => console.log('error en combo provincias ' + e))
+    return false
+}
+
 $('#ProvinciaID').change(() => BuscarLocalidad());
 const BuscarLocalidad = () => {
     $('#LocalidadID').empty();

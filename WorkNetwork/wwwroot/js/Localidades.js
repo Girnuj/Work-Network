@@ -23,7 +23,7 @@ const GuardarLocalidad = () => {
     let nombreLocalidad = $('#nombreLocalidad').val();
     let cpLocalidad = $('#cpLocalidad').val();
     let idProvincia = $('#ProvinciaID').val();
-    let url = '../../Localidades/GuardarLocalidd';
+    let url = '../../Localidades/GuardarLocalidad';
     let data = { IdLocalidad: idLocalidad, NombreLocalidad: nombreLocalidad, ProvinciaID: idProvincia, CP: parseInt(cpLocalidad) };
 
     $.post(url, data).done(resultado => {

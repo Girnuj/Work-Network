@@ -81,10 +81,9 @@ const BuscarLocalidad = () => {
     return false
 }
 const AbrirModal = () => {
-    $('#modalCrearEmpresa').modal('show');
+    $('#modalCrearVacante').modal('show');
     $('#ProvinciaID').val(0);
     $('#LocalidadID').val(0);
-
 }
 
 const VaciarFormulario = () => {
