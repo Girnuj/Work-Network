@@ -5,9 +5,14 @@ using WorkNetwork.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 //// Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+//var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+//builder.Services.AddDbContext<ApplicationDbContext>(options => 
+  //  options.UseSqlServer(connectionString));
+//builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+var connection = @"Server=localhost;Database=WorkNetwork;ConnectRetryCount=0; User ID=sa;Password=Tominucho123";
+builder.Services.AddDbContext<ApplicationDbContext>(options=>
+    options.UseSqlServer(connection));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 
