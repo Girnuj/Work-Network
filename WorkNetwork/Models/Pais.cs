@@ -8,7 +8,7 @@ namespace WorkNetwork.Models
         public int PaisID { get; set; }
 
         public string? NombrePais { get; set; }
-
+        public bool Eliminado { get; set; }
         public virtual ICollection<Provincia>? Provincias { get; set; }
     }
 }
