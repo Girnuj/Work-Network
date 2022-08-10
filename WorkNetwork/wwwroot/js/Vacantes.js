@@ -3,16 +3,24 @@ const CompletarTablaVacantes = () => {
 
     let url = '../../Vacante/TablaVacantes'
 
-    $.get(url).done(empresas => {
-        $('#tbody-empresa').empty();
-        $.each(empresas, function (index, empresas) {
-            $("#tbody-empresa").append(
-                `<tr class= 'tabla-hover '>
-                        <td class='texto'>${empresas.razonSocial}</td>
-                        <td class='texto'>${empresas.cuit}</td>
-                        <td class = 'text-center'>botonsitos 
+    $.get(url).done(vacantes => {
+        $('#tbody-vacante').empty();
+        $.each(vacantes, function (index, vacantes) {
+            let claseEliminado = '';
+            $("#tbody-vacante").append(
+                `<tr class= 'tabla-hover ${claseEliminado}'>
+                        <td class='texto'>${vacante.tituloVacante}</td>
+                        <td class='texto'>${vacante.descripcionVacante}</td>
+                        <td class='texto'>${vacante.expRequeridaVacante}</td>
+                        <td class='texto'>${vacante.localidadID}</td>
+                        <td class='texto'>${vacante.fechaFinalizacionVacante}</td>
+                        <td class='texto'>${vacante.idiomaVacante}</td>
+                        <td class='texto'>${vacante.disponibilidadHoraria}</td>
+                        <td class='texto'>${vacante.modalidadVacante}</td>
+                        <td class = 'text-center'>
                         </td>
-                    </tr>`
+                 </tr>`
+
             )
         })
     }).fail(e => console.error('Error al cargar tabla localidades ' + e));
@@ -32,16 +40,18 @@ const GuardarVacante= () => {
     let disponibilidadHoraria = $('#disponibilidadHoraria').val();
     let modalidadVacante = $('#modalidadVacante').val();
     let imagenVacante = $('#imagenVacante').val();
-    let rubroID = $('#RubroID').val();
-    let tipoEmpresa = $('#tipoEmpresa').val();
-    const url = '../../Empresas/GuardarEmpresa'
+    const url = '../../Vacantes/GuardarVacante';
     const data = {
-        VacanteID:idVacante, EmpresaID: idEmpresa, Nombre: tituloVacante, Descripcion: descripcionVacante, ExperienciaRequerida: expRequeridaVacante, LocalidadID: localidadID, FechaDeFinalizacion: fechaFinalizacionVacante,  Idiomas: idiomaVacante, DisponibilidadHoraria:disponibilidadHoraria, tipoModalidad:modalidadVacante, Imagen:imagenVacante
+        VacanteID: idVacante, EmpresaID: idEmpresa, Nombre: tituloVacante,
+        Descripcion: descripcionVacante, ExperienciaRequerida: expRequeridaVacante,
+        LocalidadID: localidadID, FechaDeFinalizacion: fechaFinalizacionVacante,
+        Idiomas: idiomaVacante, DisponibilidadHorariaid: disponibilidadHoraria,
+        tipoModalidadid: modalidadVacante, Imagen: imagenVacante
     }
     $.post(url, data).done(resultado => {
-        $('#modalCrearEmpresa').modal('hide');
-        CompletarTablaEmpresas()
-    }).fail(e => console.log('error en guardar empresa' + e))
+        $('#modalCrearVacante').modal('hide');
+        CompletarTablaVacantes()
+    }).fail(e => console.log('error en guardar vacante' + e))
 }
 
 $('#PaisID').change(() => BuscarProvincia());
@@ -81,12 +91,22 @@ const BuscarLocalidad = () => {
     return false
 }
 const AbrirModal = () => {
+    $('#idVacante').val(0);
     $('#modalCrearVacante').modal('show');
-    $('#ProvinciaID').val(0);
-    $('#LocalidadID').val(0);
 }
 
 const VaciarFormulario = () => {
+    $('#idVacante').val(0);
     $('#idEmpresa').val(0);
-    $('#nombreEmpresa').val('')
+    $('#tituloVacante').val('')
+    $('#descripcionVacante').val('');
+    $('#expRequeridaVacante').val('');
+    $('#idPais').val('');
+    $('#idProvincia').val('');
+    $('#idLocalidad').val('');
+    $('#fechaFinalizacionVacante').val('');
+    $('#idiomaVacante').val('');
+    $('#disponibilidadHoraria').val('');
+    $('#modalidadVacante').val('');
+    $('#imagenVacante').val('');
 }
