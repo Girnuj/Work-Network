@@ -7,11 +7,20 @@
         async paises => {
             $('#tbody-paises').empty();
             $.each(paises, await function (index, pais) {
-                console.log('hola')
-                /*let claseEliminado = '';*/
-                $('#tbody-paises').append(`<tr class= 'tabla-hover '>
+                
+                let claseEliminado = '';
+                let botones = `<btn type='button' class= 'btn btn-outline-success btn-sm me-3' onclick = "BuscarRubro(${pais.paisID})"><i class="bi bi-pencil-square"></i> Editar</btn>
+                                <btn type='button' class = 'btn btn-outline-danger btn-sm'onclick = "EliminarRubro(${pais.paisID},1)"><i class="bi bi-trash3"></i> Eliminar</btn>`
+
+                if (pais.eliminado) {
+                    claseEliminado = 'table-danger';
+                    botones = `<btn type='button' class = 'btn btn-outline-warning btn-sm'onclick = "EliminarRubro(${pais.paisID},0)"><i class="bi bi-recycle"></i> Activar</btn>`
+
+                }
+                $('#tbody-paises').append(`<tr class= 'tabla-hover ${claseEliminado} '>
                         <td class='texto'>${pais.nombrePais}</td>
                         <td class = 'text-center'>
+                            ${botones}
                         </td>
                     </tr>`)
             })
@@ -20,9 +29,10 @@
 }
 
 const AbrirModal = () => {
-    $('#idPais').val(0)
-    $('#nombrePais').val('')
-    $('#modalCrearPais').modal('show')
+    $('#idPais').val(0);
+    $('#titulo-modal-pais').val('Nuevo Pais');
+    $('#alertPais').addClass('visually-hidden');
+    $('#modalCrearPais').modal('show');
 }
 
 const VaciarFormulario = () => {
@@ -31,16 +41,24 @@ const VaciarFormulario = () => {
     $("#nombrePais").val('');
 }
 
-const GuardarPais = async () => {
+const GuardarPais = () => {
     let idPais = $('#idPais').val();
-    let nombrePais = $('#nombrePais').val();
+    let nombrePais = $('#nombrePais').val().trim();
+    let alertPais = $('#alertPais')
     let url = '../../Paises/CrearPais';
-    let data = { NombrePais: nombrePais }
+    let data = { NombrePais: nombrePais, PaisID: idPais };
 
-    $.post(url, data).done(await function (resultado) {
-        if (resultado == false) {
-            $('#modalCrearPais').modal('hide')
-            CompletarTablaPaises()
-        }
-    }).fail(err => console.log('error en crear Pais: ', err))
-}
+    if (nombrePais != '' && nombrePais != null) {
+        $.post(url, data).done(function (resultado) {
+            if (resultado == 0) {
+                $('#modalCrearPais').modal('hide');
+                CompletarTablaPaises();
+            }
+            if (resultado == 2) {
+                alertPais.removeClass('visually-hidden').text('El pais ingresado ya existe');
+            }
+        }).fail(err => console.log('error en crear Pais: ', err));
+    } else {
+        alertPais.removeClass('visually-hidden').text('El campo nombre no puede estar vacio');
+    }
+    }
