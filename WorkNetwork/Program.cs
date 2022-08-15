@@ -17,8 +17,16 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+   .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
+//builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+//.AddRoleManager<IdentityRole>()
+//.AddEntityFrameworkStores<ApplicationDbContext>();
+//builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
+builder.Services.AddRazorPages();
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
@@ -31,7 +39,11 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequiredUniqueChars = 0;
 });
 
-
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Identity/Account/Login";
+    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+});
 
 var app = builder.Build();
 
