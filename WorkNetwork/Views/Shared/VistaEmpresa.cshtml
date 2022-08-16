@@ -1,18 +1,15 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - WorkNetwork</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/style.css" />
-    @*<link rel="stylesheet" href="~/css/ingreso.css  />*@
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/WorkNetwork.styles.css" asp-append-version="true" />
-</head>
-<body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		 <title>@ViewData["VistaEmpresa"] - VistaEmpresa</title>
 
-    <div class="app-container">
+		<link rel="stylesheet" href="~/css/Ingreso.css"/>
+	</head>
+	<body>
+		 <div class="app-container">
         @*COMIENZO DEL NAVBAR*@
         <div class="app-header">
             <div class="app-header-left">
@@ -335,5 +332,5 @@
     <script src="~/js/front.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
-</body>
+	</body>
 </html>
