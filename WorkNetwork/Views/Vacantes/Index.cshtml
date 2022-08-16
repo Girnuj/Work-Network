@@ -52,8 +52,14 @@
                         <label class="control-label"><b> Localidades: </b></label>
                         @Html.DropDownList("LocalidadID", null, htmlAttributes: new {@class = "form-control mb-3"})
                     </div>
-                    <input type="datetime"  id="fechaFinalizacionVacante">
-                    <input placeholder='Ingrese que idioma es requerido' type='tex' id="idiomaVacante" class='form-control mb-3' />
+                    <div>
+                        <label class="control-label"><b> Fecha de finalizacion: </b></label>
+                        <input type="date" class="form-control mb-3" id="fechaFinalizacionVacante">
+                    </div>
+                    <div>
+                        <label class="control-label"><b>Idioma requerido</b></label>
+                        <input placeholder='Ingrese que idioma es requerido' type='tex' id="idiomaVacante" class='form-control mb-3' />
+                    </div>
                     <div>
                         <label class="control-label"><b> Disponibilidad horaria: </b></label>
                         <select id='disponibilidadHoraria' class="form-control mb-3">
