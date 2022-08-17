@@ -43,16 +43,37 @@ namespace WorkNetwork.Controllers
         }
         public JsonResult CrearProvincia(int IdProvincia, string NombreProvincia, int PaisID)
         {
-            bool resultado = true;
-            var provincia = new Provincia
-            {
+            int resultado = 0;
+            //Si es 0 es correcto
+            //Si es 1 descripcion vacia
+            //Si es 2 campo existente
 
-                NombreProvincia = NombreProvincia,
-                PaisID = PaisID
-
-            };
-            _context.Add(provincia);
-            _context.SaveChanges();
+            if (!string.IsNullOrEmpty(NombreProvincia)){
+                NombreProvincia = NombreProvincia.ToUpper();
+                if(IdProvincia == 0){
+                    if(_context.Provincia.Any(e=>e.NombreProvincia == NombreProvincia && e.PaisID == PaisID )){
+                        resultado = 2;
+                    }else{
+                        //Creo la provincia
+                        var provincia = new Provincia{
+                            NombreProvincia = NombreProvincia,
+                            PaisID = PaisID,
+                        };
+                        _context.Add(provincia);
+                        _context.SaveChanges();
+                    }
+                } else{
+                    if (_context.Provincia.Any(e=>e.NombreProvincia == NombreProvincia && e.ProvinciaID != IdProvincia))
+                    {
+                       resultado = 2; 
+                    }else{
+                        var provincia = _context.Provincia.Single(e => e.ProvinciaID == IdProvincia);
+                            provincia.NombreProvincia = NombreProvincia;
+                            provincia.PaisID = PaisID;
+                            _context.SaveChanges();
+                    }
+                }
+            }
             return Json(resultado);
         }
 

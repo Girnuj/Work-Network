@@ -49,7 +49,7 @@ const GuardarPais = () => {
     let data = { NombrePais: nombrePais, PaisID: idPais };
 
     if (nombrePais != '' && nombrePais != null) {
-        $.post(url, data).done(function (resultado) {
+        $.post(url, data).done((resultado) =>{
             if (resultado == 0) {
                 $('#modalCrearPais').modal('hide');
                 CompletarTablaPaises();
