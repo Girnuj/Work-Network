@@ -30,15 +30,20 @@ const GuardarProvincia = () => {
     let data = { IdProvincia: idProvincia, NombreProvincia: nombreProvincia, PaisID: idPais };
 
     if(nombreProvincia != '' && nombreProvincia != null){
-    $.post(url, data).done(resultado => {
-        if (resultado == 0) {
-        $('#modalCrearProvincia').modal('hide');
-        CompletarTablaProvincias();
-        }
+        if(idPais != 0){
+            $.post(url, data).done(resultado => {
+            if (resultado == 0) {
+            $('#modalCrearProvincia').modal('hide');
+            CompletarTablaProvincias();
+            }
         if (resultado == 2){
             alertProvincia.removeClass('visually-hidden').text('La provincia ingesada ya existe')
         }
     }).fail(e => console.error(`Error cargar provincias '${e}'`))
+        }else{
+            alertProvincia.removeClass('visually-hidden').text('El pais no puede estar vacio')
+        }
+
     }else{
         alertProvincia.removeClass('visually-hidden').text("El campo nombre no puede estar vacio")
     }
