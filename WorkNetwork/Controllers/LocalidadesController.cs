@@ -37,16 +37,43 @@ namespace WorkNetwork.Controllers
         }
         public JsonResult GuardarLocalidad(int IdLocalidad, string NombreLocalidad, int CP, int ProvinciaID)
         {
-            bool resultado = true;
-            var localidad = new Localidad
+            int resultado = 0;
+            //Si es 0 es correcto
+            //Si es 1 descripcion vacia
+            //Si es 2 campo existente
+            if (!string.IsNullOrEmpty(NombreLocalidad))
             {
-                NombreLocalidad = NombreLocalidad,
-                CP = CP,
-                ProvinciaID = ProvinciaID,
+                NombreLocalidad = NombreLocalidad.ToUpper();
+                if (IdLocalidad == 0)
+                {
+                    if (_context.Localidad.Any(e => e.NombreLocalidad == NombreLocalidad && e.ProvinciaID == ProvinciaID))
+                    {
+                        resultado = 2;
+                    }
+                    else
+                    {
+                        var localidad = new Localidad
+                        {
+                            NombreLocalidad = NombreLocalidad,
+                            CP = CP,
+                            ProvinciaID = ProvinciaID,
 
-            };
-            _context.Add(localidad);
-            _context.SaveChanges();
+                        };
+                        _context.Add(localidad);
+                        _context.SaveChanges();
+                    }
+                }else{
+                    if (_context.Localidad.Any(e=>e.NombreLocalidad== NombreLocalidad && e.ProvinciaID != ProvinciaID)){
+                        resultado = 2;    
+                    }else{
+                        var localidad = _context.Localidad.Single(e => e.LocalidadID== IdLocalidad);
+                            localidad.NombreLocalidad= NombreLocalidad;
+                            localidad.CP = CP ;
+                            localidad.ProvinciaID = ProvinciaID; 
+                            _context.SaveChanges();
+                    }
+                }
+            }
             return Json(resultado);
         }
 
