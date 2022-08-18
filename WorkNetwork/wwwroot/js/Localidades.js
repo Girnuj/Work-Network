@@ -20,16 +20,25 @@
 
 const GuardarLocalidad = () => {
     let idLocalidad = $('#idLocalidad').val();
-    let nombreLocalidad = $('#nombreLocalidad').val();
+    let nombreLocalidad = $('#nombreLocalidad').val().trim();
     let cpLocalidad = $('#cpLocalidad').val();
     let idProvincia = $('#ProvinciaID').val();
+    let alertLocalidad = $('#alertLocalidad')
     let url = '../../Localidades/GuardarLocalidad';
     let data = { IdLocalidad: idLocalidad, NombreLocalidad: nombreLocalidad, ProvinciaID: idProvincia, CP: parseInt(cpLocalidad) };
-
+    if (nombreLocalidad != '' && nombreLocalidad != null){
     $.post(url, data).done(resultado => {
-        $('#modalCrearLocalidad').modal('hide');
-        CompletarTablaLocalidades();
+        if(resultado == 0){
+            $('#modalCrearLocalidad').modal('hide');
+            CompletarTablaLocalidades();
+        }
+        if (resultado == 2){
+            alertLocalidad.removeClass('visually-hidden').text('La localidad ingresada ya existe.')
+        }
     }).fail(e => console.log(`Error en guardar localidad ${e}`))
+    }else{
+        alertLocalidad.removeClass('visually-hidden').text('Debe ingresar un nombre para la localidad.')
+    }
 }
 
 $('#PaisID').change(() => BuscarProvincia())
@@ -55,9 +64,16 @@ const AbrirModal = () => {
     $('#idLocalidad').val(0);
     $('#modalCrearLocalidad').modal('show');
     $("#ProvinciaID").val(0);
+    $('#PaisID').val(0);
+    $('#alertLocalidad').addClass('visually-hidden');
+    $('#cpLocalidad').val(undefined);
 }
 
 const VaciarFormulario = () => {
     $('#idLocalidad').val(0);
-    $('#nombreLocalidad').val('')
+    $('#nombreLocalidad').val('');
+    $('#cpLocalidad').val(undefined);
+    $("#ProvinciaID").val(0);
+    $('#PaisID').val(0);
+
 }
