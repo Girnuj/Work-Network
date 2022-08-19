@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WorkNetwork.Data;
@@ -10,9 +11,11 @@ namespace WorkNetwork.Controllers
     public class EmpresasController : Controller
     {
         private readonly ApplicationDbContext _context;
-        public EmpresasController(ApplicationDbContext context)
+        private readonly UserManager<IdentityUser> _userManager;
+        public EmpresasController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
         public IActionResult Index()
         {
@@ -34,6 +37,18 @@ namespace WorkNetwork.Controllers
 
             return View();
         }
+
+        //public void BuscarEmpresaActual(string usuarioActual, EmpresaUsuario empresaUsuarioActual)
+        //{
+        //    empresaUsuarioActual = _context.EmpresaUsuarios.Where(p => p.UsuarioID == usuarioActual).SingleOrDefault();
+        //}
+
+        //public JsonResult BuscarUsuario()
+        //{
+        //    var usuarioActual = _userManager.GetUserId(HttpContext.User);
+        //    EmpresaUsuario empresaUsuarioActual = new EmpresaUsuario();
+        //    BuscarEmpresaActual(usuarioActual, empresaUsuarioActual);
+        //}
 
         public JsonResult TablaEmpresas()
         {

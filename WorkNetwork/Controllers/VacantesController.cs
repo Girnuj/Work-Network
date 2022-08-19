@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WorkNetwork.Data;
 using WorkNetwork.Models;
@@ -6,6 +7,7 @@ using WorkNetwork.Models;
 
 namespace WorkNetwork.Controllers
 {
+    [Authorize(Roles = "SuperUsuario")]
     public class VacantesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -35,6 +37,8 @@ namespace WorkNetwork.Controllers
 
             return View();
         }
+
+
 
         public JsonResult TablaVacasntes()
         {

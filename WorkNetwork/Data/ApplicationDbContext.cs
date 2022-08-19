@@ -19,6 +19,8 @@ namespace WorkNetwork.Data
         public DbSet<PersonaVacante> PersonaVacante { get; set; }
         public DbSet<Rubro> Rubro { get; set; }
         public DbSet<Vacante> Vacante { get; set; }
+        public DbSet<EmpresaUsuario> EmpresaUsuarios { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

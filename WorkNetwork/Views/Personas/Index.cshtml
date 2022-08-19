@@ -71,7 +71,7 @@
                         </div>
                         <div class="col-3 mb-3">
                             <b>Numero</b>
-                            <input id='numeroDomicilio' type="tel" class="form-control" placeholder="Número" maxlength="4" class="col-sm-2" />
+                            <input id='numeroDomicilio' type="tel" class="form-control col-sm-2" placeholder="Número" maxlength="4" />
                         </div>
                         <div />
 
@@ -117,10 +117,11 @@
             </div>
         </div>
     </div>
+</div>
 
-    @section Scripts {
-        <script src="~/js/Personas.js"></script>
-        <script>
-            window.onload = CompletarTablaPersonas();
-        </script>
+@section Scripts {
+    <script src="~/js/Personas.js"></script>
+    <script>
+        window.onload = CompletarTablaPersonas();
+    </script>
     }

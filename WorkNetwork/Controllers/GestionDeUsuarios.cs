@@ -24,7 +24,7 @@ namespace WorkNetwork.Controllers
         {
             return View();
         }
-        public JsonResult BuscarUsuatios()
+        public JsonResult BuscarUsuarios()
         {
             var usersApp = _context.Users.ToList();
             return Json(usersApp);

@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WorkNetwork.Data;
 using WorkNetwork.Models;
 
 namespace WorkNetwork.Controllers
 {
+    [Authorize(Roles = "SuperUsuario")]
     public class PaisesController : Controller
     {
         private readonly ApplicationDbContext _context;

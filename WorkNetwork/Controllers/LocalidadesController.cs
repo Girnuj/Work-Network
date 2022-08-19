@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WorkNetwork.Data;
@@ -6,6 +7,7 @@ using WorkNetwork.Models;
 
 namespace WorkNetwork.Controllers
 {
+    [Authorize(Roles = "SuperUsuario")]
     public class LocalidadesController : Controller
     {
         private readonly ApplicationDbContext _context;

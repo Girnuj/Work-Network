@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,7 @@ using WorkNetwork.Models;
 
 namespace WorkNetwork.Controllers
 {
+    [Authorize(Roles = "SuperUsuario")]
     public class ProvinciasController : Controller
     {
 

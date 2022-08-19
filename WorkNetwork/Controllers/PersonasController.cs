@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using WorkNetwork.Models;
 
 namespace WorkNetwork.Controllers
 {
+    [Authorize(Roles ="Usuario")]
     public class PersonasController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,7 +22,7 @@ namespace WorkNetwork.Controllers
         }
 
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             var paises = _context.Pais.ToList();
             paises.Add(new Pais { PaisID = 0, NombrePais = "[SELECCIONE UN PAIS]" });
@@ -62,6 +64,7 @@ namespace WorkNetwork.Controllers
             int CantidadHijos, string ImagenString, int SituacionLaboralid, int Generoid, int TipoDocumentoid)
         {
             bool resultado = true;
+
             var situacionLaboralEnum = SituacionLaboral.Desempleado;
             if (SituacionLaboralid == 1)
             {

@@ -17,12 +17,12 @@ using Microsoft.Extensions.Logging;
 
 namespace WorkNetwork.Areas.Identity.Pages.Account
 {
-    public class LoginModel : PageModel
+    public class LoginModelEmpresa : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModelEmpresa(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
         {
             _signInManager = signInManager;
             _logger = logger;
@@ -91,7 +91,7 @@ namespace WorkNetwork.Areas.Identity.Pages.Account
                 ModelState.AddModelError(string.Empty, ErrorMessage);
             }
 
-            returnUrl ??= Url.Content("~/Shared/VIstaPersona");
+            returnUrl ??= Url.Content("~/LoginEmpresa");
 
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
