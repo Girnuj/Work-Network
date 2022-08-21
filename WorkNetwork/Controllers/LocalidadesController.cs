@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WorkNetwork.Data;
@@ -7,17 +8,21 @@ using WorkNetwork.Models;
 
 namespace WorkNetwork.Controllers
 {
-    [Authorize(Roles = "SuperUsuario")]
+    [Authorize]
     public class LocalidadesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public LocalidadesController(ApplicationDbContext context)
+        public LocalidadesController(ApplicationDbContext context,UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
+
         }
         public IActionResult Index()
         {
+            //Empresa actual
             var paises = _context.Pais.ToList();
             paises.Add(new Pais { PaisID = 0, NombrePais = "[SELECCIONE UN PAIS]" });
             ViewBag.PaisID = new SelectList(paises.OrderBy(e => e.NombrePais), "PaisID", "NombrePais");
@@ -27,10 +32,20 @@ namespace WorkNetwork.Controllers
             ViewBag.ProvinciaID = new SelectList(provincias.OrderBy(x => x.NombreProvincia), "ProvinciaID", "NombreProvincia");
             return View(_context.Localidad.ToList());
         }
+        public void BuscarEmpresaActual(string usuarioActual, EmpresaUsuario empresaUsuarioActual)
+        {
+
+            empresaUsuarioActual = _context.EmpresaUsuarios.Where(p=>p.UsuarioID == usuarioActual).SingleOrDefault();     
+        }
         public JsonResult TablaLocalidades()
         {
+            var usuarioActual = _userManager.GetUserId(HttpContext.User);
+            EmpresaUsuario empresaUsuarioActual = new EmpresaUsuario();
+            BuscarEmpresaActual(usuarioActual, empresaUsuarioActual);
+
             var localidades = _context.Localidad.ToList();
             return Json(localidades);
+
         }
         public JsonResult ComboLocalidades(int id)
         {
