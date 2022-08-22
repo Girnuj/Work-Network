@@ -11,7 +11,7 @@ using WorkNetwork.Models;
 
 namespace WorkNetwork.Controllers
 {
-    [Authorize(Roles ="Usuario")]
+    [Authorize(Roles ="SuperUsuario")]
     public class PersonasController : Controller
     {
         private readonly ApplicationDbContext _context;
