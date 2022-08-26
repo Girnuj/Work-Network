@@ -33,9 +33,9 @@ gsap.timeline({
     }
 })
 
-    .from(".text1", { x: innerWidth * 1 })
+    .from(".text1", { x: innerWidth * 2 })
     .from(".text2", { x: innerWidth * -1 })
-    .from(".text3", { x: innerWidth * 1 })
+    .from(".text3", { x: innerWidth * 2 })
     .from(".logo3", {
         y: innerHeight * 1,
         // rotate : 360

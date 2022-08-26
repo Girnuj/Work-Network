@@ -29,10 +29,7 @@ namespace WorkNetwork.Controllers
             var usersApp = _context.Users.ToList();
             return Json(usersApp);
         }
-        //public JsonResult BuscarUsuario()
-        //{
-
-        //}
+        
         public JsonResult BuscarRoles()
         {
             var rolesApp = _context.Roles.ToList();
