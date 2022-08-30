@@ -5,7 +5,7 @@
 			let url = '../../GestionDeUsuarios/Ingresar';
 			let data = { email: correoEmpresa, password:passEmpresa };
 	$.post(url, data).done(resultado => {
-		resultado ? console.log('logeado') : alert('usuario o contraseña incorrecta')
+		resultado ? window.location.href='/' : alert('usuario o contraseña incorrecta')
 			}).fail(e => console.log(e))
 		}
 function register() {
@@ -15,6 +15,10 @@ function register() {
 	let passConfirm = $('#ConfirmPassword').val();
 	let url = '../../GestionDeUsuarios/Registrar';
 	let data = { email: correo, password: pass }
-	$.post(url, data).done(resultado => resultado ? console.log('logeado') : alert('usuario o contraseña incorrecta')).fail(e=>console.log(e))
+	if (pass === passConfirm) {
+		$.post(url, data).done(resultado => resultado ? window.location.href='/' : alert('usuario o contraseña incorrecta')).fail(e => console.log(e))
+	} else {
+		alert('las contraseñas no coinciden')
+    }
 	
 }
