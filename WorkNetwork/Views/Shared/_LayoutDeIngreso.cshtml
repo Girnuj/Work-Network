@@ -24,19 +24,19 @@
 										<div class='containerr'>
 											<div class='form'>
 												<h2>Iniciar Sesión</h2>
-												<form method="post">
+												<form method="post" id='loginEmpresa'>
 													<div class='inputBox'>
-														<input type='text' placeholder='Nombre de la Empresa'>
+														<input type='text' placeholder='Correo electronico de la empresa' id='correoEmpresa'>
 														<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
 													</div>
 													<div class='inputBox'>
-														<input type='password' placeholder='Contraseña'>
+														<input type='password' placeholder='Contraseña' id='passwordEmpresa'>
 													</div>
 
 													<div class='inputBox'>
 														<!-- <input type='submit' value='Login' class="button"> -->
-													<button class="button" id="login-submit" asp-page="/Account/LoginEmpresa"> Login </button>
+													<button class="button" onclick=loginEmpresa() id="login-submit-empresa" asp-page="/Account/LoginEmpresa"> Login </button>
 
 													</div>
 												</form>
@@ -144,6 +144,6 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/ScrollTrigger.min.js"></script>
     <script src="~/js/ingreso.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
-
+	<script src="~/js/GestionDeUsuarios.js"></script>
 	</body>
 </html>
