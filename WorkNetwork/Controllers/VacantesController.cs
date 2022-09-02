@@ -87,6 +87,50 @@ namespace WorkNetwork.Controllers
             _context.SaveChanges();
             return Json(resultado);
         }
+
+
+          public JsonResult BuscarVacante(int EmpresaID)
+        {
+            var vacante = _context.Vacantes.FirstOrDefault(m => m.VacanteID == VacanteID);
+
+            return Json(vacante);
+        }
+
+         public JsonResult EliminarVacante(int VacanteID, int Elimina)
+         {
+            int resultado = 0;
+
+            var vacante = _context.Vacantes.Find(VacanteID);
+            if (vacante != null)
+            {
+                if (Elimina == 0)
+                {
+                    vacante.Eliminado = false;
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    //NO PUEDE ELIMINAR EMPRESA SI TIENE RUBROS ACTIVOS
+                   // var cantidadRubros = (from o in _context.Rubros where o.EmpresaID == EmpresaID && o.Eliminado == false select o).Count();
+                    //if (cantidadRubros == 0)
+                    //{
+                        empresa.Eliminado = true;
+                        _context.SaveChanges();
+                    //}
+                    //else
+                    //{
+                     //   resultado = 1;
+                    //}
+                }                              
+            }
+
+            return Json(resultado);
+
+               private bool VacanteExists(int id)
+               {
+            return _context.Vacantes.Any(e => e.VacanteID == id);
+               }
+
     }
 }
 

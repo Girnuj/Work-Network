@@ -6,11 +6,26 @@
     $.get(url).done(empresas => {
         $('#tbody-empresa').empty();
         $.each(empresas, function (index, empresas) {
+            let claseEliminado = '';
+            let botones = `<btn type='button' class= 'btn btn-outline-success btn-sm me-3' onclick = "BuscarEmpresa(${empresa.idEmpresa})"><i class="bi bi-pencil-square"></i> Editar</btn>
+                                <btn type='button' class = 'btn btn-outline-danger btn-sm'onclick = "EliminarEmpresa(${empresa.idEmpresa},1)"><i class="bi bi-trash3"></i> Eliminar</btn>`
+
+            if (empresa.eliminado) {
+                claseEliminado = 'table-danger';
+                botones = `<btn type='button' class = 'btn btn-outline-warning btn-sm'onclick = "EliminarEmpresa(${empresa.idEmpresa},0)"><i class="bi bi-recycle"></i> Activar</btn>`
+            }
             $("#tbody-empresa").append(
                 `<tr class= 'tabla-hover '>
                         <td class='texto'>${empresas.razonSocial}</td>
                         <td class='texto'>${empresas.cuit}</td>
-                        <td class = 'text-center'>botonsitos 
+                        <td class='texto'>${empresas.email}</td>
+                        <td class='texto'>${empresas.localidadID}</td>
+                        <td class='texto'>${empresas.telefono1}</td>
+                        <td class='texto'>${empresas.rubroID}</td>
+                        <td class='texto'>${empresas.tipoEmpresa}</td>
+
+                        <td class = 'text-center'>
+                            ${botones}
                         </td>
                     </tr>`
             )
@@ -77,6 +92,43 @@ const BuscarLocalidad = () => {
     }).fail(e => console.log('error en combo localidades' + e))
     return false
 }
+
+const BuscarEmpresa(EmpresaID) {
+    $("#Titulo-Modal-").text("Editar Empresa");
+    $("#EmpresaID").val(empresaID);
+    $.ajax({
+        type: "POST",
+        url: '../../Empresas/BuscarEmpresa',
+        data: { EmpresaID: empresaID },
+        success: function (empresa) {
+            $("#Nombre").val(rubro.descripcion);
+            $("#exampleModal").modal("show");
+        },
+        error: function (data) {
+        }
+    });
+}
+
+
+function EliminarEmpresa(empresaID, elimina) {
+    $.ajax({
+        type: "POST",
+        url: '../../Empresas/EliminarEmpresa',
+        data: { EmpresaID: empresaID, Elimina: elimina },
+        success: function (resultado) {
+            if (resultado == 0) {
+                CompletarTablaEmpresas();
+            }
+            else {
+                alert("Error al eliminar.");
+            }
+        },
+        error: function (data) {
+        }
+    });
+}
+
+
 const AbrirModal = () => {
     $('#modalCrearEmpresa').modal('show');
     $('#ProvinciaID').val(0);

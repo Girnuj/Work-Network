@@ -5,12 +5,21 @@
 
     $.get(url).done(async localidades => {
         $('#tbody-localidad').empty();
-        $.each(localidades, await function (index, localidad) {
+        $.each(localidades, await function (index, localidades) {
+            let claseEliminado = '';
+            let botones = `<btn type='button' class= 'btn btn-outline-success btn-sm me-3' onclick = "BuscarLocalidad(${localidades.IdLocalidad})"><i class="bi bi-pencil-square"></i> Editar</btn>
+                                <btn type='button' class = 'btn btn-outline-danger btn-sm'onclick = "EliminarLocalidad(${localidades.idLocalidad},1)"><i class="bi bi-trash3"></i> Eliminar</btn>`
+
+            if (localidad.eliminado) {
+                claseEliminado = 'table-danger';
+                botones = `<btn type='button' class = 'btn btn-outline-warning btn-sm'onclick = "EliminarLocalidad(${localidades.idLocalidad},0)"><i class="bi bi-recycle"></i> Activar</btn>`
+            }
             $("#tbody-localidad").append(
-                `<tr class= 'tabla-hover '>
+                `<tr class= 'tabla-hover ${claseEliminado} '>
                         <td class='texto'>${localidad.nombreLocalidad}</td>
                         <td class='texto'>${localidad.cp}</td>
-                        <td class = 'text-center'>botonsitos 
+                        <td class = 'text-center'>
+                            ${botones}
                         </td>
                     </tr>`
             )
@@ -89,4 +98,22 @@ const VaciarFormulario = () => {
     $('#cpLocalidad').val(undefined);
     $("#ProvinciaID").val(0);
     $('#PaisID').val(0);
+}
+
+const EliminarLocalidad(localidadID, elimina) {
+    $.ajax({
+        type: "POST",
+        url: '../../Localidades/EliminarLocalidad',
+        data: { LocalidadID: localidadID, Elimina: elimina },
+        success: function (resultado) {
+            if (resultado == 0) {
+                CompletarTablaLocalidades();
+            }
+            else {
+                alert("No se puede eliminar la localidad.");
+            }
+        },
+        error: function (data) {
+        }
+    });
 }

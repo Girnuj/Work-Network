@@ -62,3 +62,40 @@ const GuardarPais = () => {
         alertPais.removeClass('visually-hidden').text('El campo nombre no puede estar vacio');
     }
     }
+
+
+//const BuscarPais = () => {
+//    $('#PaisID').empty();
+//    let url = '../../Paises/ComboProvincia';
+//    let data = { id: $('#PaisID').val() };
+//    $.post(url, data).done(provincias => {
+//        if (provincias.length === 0) {
+//            $('#ProvinciaID').append(`<option value=${0}>[NO EXISTEN PROVINCIAS]</option>`);
+//        }
+//        else {
+//            $.each(provincias, (i, provincia) => {
+//                $('#ProvinciaID').append(`<option value=${provincia.value}>${provincia.text}</option>`)
+//            });
+//        }
+//    }).fail(e => console.log('error en combo provincias ' + e))
+//    return false
+//}
+
+
+const EliminarPais(paisID, elimina) {
+    $.ajax({
+        type: "POST",
+        url: '../../Pais/EliminarPais',
+        data: { PaisID: paisID, Elimina: elimina },
+        success: function (resultado) {
+            if (resultado == 0) {
+                CompletarTablaPaises();
+            }
+            else {
+                alert("Error al eliminar el pais ya que hay provincias.");
+            }
+        },
+        error: function (data) {
+        }
+    });
+}

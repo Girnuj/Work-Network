@@ -7,10 +7,19 @@
         $('#tbody-provincias').empty();
         $.each(provincias, await function (index, value) {
             let claseEliminado = '';
+            let botones = `<btn type='button' class= 'btn btn-outline-success btn-sm me-3' onclick = "BuscarProvincia(${provincia.idProvincia})"><i class="bi bi-pencil-square"></i> Editar</btn>
+                                <btn type='button' class = 'btn btn-outline-danger btn-sm'onclick = "EliminarProvincia(${provincia.idProvincia},1)"><i class="bi bi-trash3"></i> Eliminar</btn>`
+
+            if (provincia.eliminado) {
+                claseEliminado = 'table-danger';
+                botones = `<btn type='button' class = 'btn btn-outline-warning btn-sm'onclick = "EliminarProvincia(${provincia.idProvincia},0)"><i class="bi bi-recycle"></i> Activar</btn>`
+
+            }
             $("#tbody-provincias").append(
                 `<tr class= 'tabla-hover ${claseEliminado}'>
                         <td class='texto'>${value.nombreProvincia}</td>
-                        <td class = 'text-center'>botonsitos 
+                        <td class = 'text-center'>
+                            ${botones}
                         </td>
                     </tr>`
             )
@@ -47,6 +56,42 @@ const GuardarProvincia = () => {
     }else{
         alertProvincia.removeClass('visually-hidden').text("El campo nombre no puede estar vacio")
     }
+}
+
+const BuscarProvincia = () => {
+    $('#ProvinciaID').empty();
+    let url = '../../Provincias/ComboProvincia';
+    let data = { id: $('#PaisID').val() };
+    $.post(url, data).done(provincias => {
+        if (provincias.length === 0) {
+            $('#ProvinciaID').append(`<option value=${0}>[NO EXISTEN PROVINCIAS]</option>`);
+        }
+        else {
+            $.each(provincias, (i, provincia) => {
+                $('#ProvinciaID').append(`<option value=${provincia.value}>${provincia.text}</option>`)
+            });
+        }
+    }).fail(e => console.log('error en combo provincias ' + e))
+    return false
+}
+
+
+const EliminarProvincia(empresaID, elimina) {
+    $.ajax({
+        type: "POST",
+        url: '../../Provincias/EliminarProvincia',
+        data: { ProvinciaID: provinciaID, Elimina: elimina },
+        success: function (resultado) {
+            if (resultado == 0) {
+                CompletarTablaProvincias();
+            }
+            else {
+                alert("Error al eliminar la provincia ya que hay localidades.");
+            }
+        },
+        error: function (data) {
+        }
+    });
 }
 
 const AbrirModal = () => {

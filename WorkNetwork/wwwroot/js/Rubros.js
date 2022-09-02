@@ -60,3 +60,39 @@ const VaciarFormulario = () => {
     $('#nombreRubro').val('');
     $('#alertRubro').addClass('visually-hidden')
 }
+
+
+const BuscarRubro(rubroID) {
+    $("#titulo-modal-rubro").text("Editar Rubro");
+    $("#RubroID").val(rubroID);
+    $.ajax({
+        type: "POST",
+        url: '../../Rubros/BuscarRubro',
+        data: { RubroID: rubroID },
+        success: function (rubro) {
+            $("#RubroNombre").val(rubro.descripcion);
+            $("#exampleModal").modal("show");
+        },
+        error: function (data) {
+        }
+    });
+}
+
+
+const EliminarRubro(rubroID, elimina) {
+    $.ajax({
+        type: "POST",
+        url: '../../Rubros/EliminarRubro',
+        data: { RubroID: rubroID, Elimina: elimina },
+        success: function (resultado) {
+            if (resultado == 0) {
+                CompletarTablaRubros();
+            }
+            else {
+                alert("No se puede eliminar el rubro.");
+            }
+        },
+        error: function (data) {
+        }
+    });
+}

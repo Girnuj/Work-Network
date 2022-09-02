@@ -8,15 +8,15 @@
         data: {},
         success: async (personas) => {
             $('#tbody-personas').empty();
-            $.each(personas, await function (index, persona) {
+            $.each(personas, await function (index, personas) {
                 let claseEliminado = '';
-                //let botones = `<btn type='button' class= 'btn btn-outline-success btn-sm me-3' onclick = "BuscarRubro(${persona.idPersona})"><i class="bi bi-pencil-square"></i> Editar</btn>
-                //                <btn type='button' class = 'btn btn-outline-danger btn-sm'onclick = "EliminarRubro(${rubro.rubroID},1)"><i class="bi bi-trash3"></i> Eliminar</btn>`
+                let botones = `<btn type='button' class= 'btn btn-outline-success btn-sm me-3' onclick = "BuscarPersona(${persona.idPersona})"><i class="bi bi-pencil-square"></i> Editar</btn>
+                                <btn type='button' class = 'btn btn-outline-danger btn-sm'onclick = "EliminarPersona(${persona.idPersona},1)"><i class="bi bi-trash3"></i> Eliminar</btn>`
 
-                //if (rubro.eliminado) {
-                //    claseEliminado = 'table-danger';
-                //    botones = `<btn type='button' class = 'btn btn-outline-warning btn-sm'onclick = "EliminarRubro(${rubro.rubroID},0)"><i class="bi bi-recycle"></i> Activar</btn>`
-                //}
+                if (persona.eliminado) {
+                    claseEliminado = 'table-danger';
+                    botones = `<btn type='button' class = 'btn btn-outline-warning btn-sm'onclick = "EliminarPersona(${persona.idPersona},0)"><i class="bi bi-recycle"></i> Activar</btn>`
+                }
                 $("#tbody-personas").append(
                     `<tr class= 'tabla-hover ${claseEliminado}'>
                         <td class='texto'>${persona.nombrePersona}</td>
@@ -33,7 +33,7 @@
                         <td class='texto'>${persona.estadoCivil}</td>
                         <td class='texto'>${persona.tituloAcademico}</td>
                         <td class = 'text-center'>
-                           
+                           ${botones}
                         </td>
                     </tr>`
                 )

@@ -50,7 +50,7 @@ namespace WorkNetwork.Controllers
 
             return Json(registrado);
         }
-private IdentityUser CreateUser()
+        private IdentityUser CreateUser()
         {
             try
             {

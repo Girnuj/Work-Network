@@ -7,6 +7,13 @@ const CompletarTablaVacantes = () => {
         $('#tbody-vacante').empty();
         $.each(vacantes, function (index, vacantes) {
             let claseEliminado = '';
+            let botones = `<btn type='button' class= 'btn btn-outline-success btn-sm me-3' onclick = "BuscarVacantes(${vacantes.idVacante})"><i class="bi bi-pencil-square"></i> Editar</btn>
+                                <btn type='button' class = 'btn btn-outline-danger btn-sm'onclick = "EliminarVacante(${vacantes.idVacante},1)"><i class="bi bi-trash3"></i> Eliminar</btn>`
+
+            if (vacantes.eliminado) {
+                claseEliminado = 'table-danger';
+                botones = `<btn type='button' class = 'btn btn-outline-warning btn-sm'onclick = "EliminarVacante(${vacantes.idVacante},0)"><i class="bi bi-recycle"></i> Activar</btn>`
+            }
             $("#tbody-vacante").append(
                 `<tr class= 'tabla-hover ${claseEliminado}'>
                         <td class='texto'>${vacante.tituloVacante}</td>
@@ -18,6 +25,7 @@ const CompletarTablaVacantes = () => {
                         <td class='texto'>${vacante.disponibilidadHoraria}</td>
                         <td class='texto'>${vacante.modalidadVacante}</td>
                         <td class = 'text-center'>
+                        ${botones}
                         </td>
                  </tr>`
 

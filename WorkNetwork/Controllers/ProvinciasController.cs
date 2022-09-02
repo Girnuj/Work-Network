@@ -79,5 +79,50 @@ namespace WorkNetwork.Controllers
             return Json(resultado);
         }
 
+
+
+        public JsonResult BuscarProvincia(int ProvinciaID)
+        {
+            var provincia = _context.Provincias.FirstOrDefault(m => m.ProvinciaID == ProvinciaID);
+
+            return Json(provincia);
+        }
+
+         public JsonResult EliminarProvincia(int ProvinciaID, int Elimina)
+         {
+            int resultado = 0;
+
+            var provincia = _context.Provincias.Find(ProvinciaID);
+            if (provincia != null)
+            {
+                if (Elimina == 0)
+                {
+                    provincia.Eliminado = false;
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    //NO PUEDE ELIMINAR LA PROVINCIA A SI TIENE LOCALIDADES
+                    var cantidadlocalidades = (from o in _context.Localidad where o.ProvinciaID == ProvinciaID && o.Eliminado == false select o).Count();
+                    if (cantidadlocalidades == 0)
+                    {
+                        provincia.Eliminado = true;
+                        _context.SaveChanges();
+                    }
+                    else
+                    {
+                        resultado = 1;
+                    }
+                }                              
+            }
+
+            //return Json(resultado);
+
+               //private bool ProvinciaExists(int id)//
+             //  {
+           // return _context.Rubros.Any(e => e.RubroID == id);
+              // }//
+
+
     }
 }

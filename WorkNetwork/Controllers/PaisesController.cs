@@ -18,6 +18,11 @@ namespace WorkNetwork.Controllers
         {
             return View(_context.Pais.ToList());
         }
+
+         //public JsonResult ComboPais(int id)
+       // {
+         ////  return Json(new SelectList(provincias, "ProvinciaID", "NombreProvincia"));
+      //  }
         public JsonResult TablaPaises()
         {
             var paises = _context.Pais.ToList();
@@ -68,6 +73,36 @@ namespace WorkNetwork.Controllers
             return Json(resultado);
 
         }
+
+        public JsonResult EliminarPais(int PaisID, int Elimina)
+         {
+            int resultado = 0;
+
+            var pais = _context.Paises.Find(PaisID);
+            if (pais != null)
+            {
+                if (Elimina == 0)
+                {
+                    pais.Eliminado = false;
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    //NO PUEDE ELIMINAR EMPRESA SI TIENE RUBROS ACTIVOS
+                    var cantidadProvincias = (from o in _context.Provincias where o.PaisID == PaisID && o.Eliminado == false select o).Count();
+                    if (cantidadProvincias == 0)
+                    {
+                        pais.Eliminado = true;
+                        _context.SaveChanges();
+                    }
+                    else
+                    {
+                        resultado = 1;
+                    }
+                }                              
+            }
+
+            return Json(resultado);
 
     }
 }
