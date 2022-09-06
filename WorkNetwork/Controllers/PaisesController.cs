@@ -75,10 +75,10 @@ namespace WorkNetwork.Controllers
         }
 
         public JsonResult EliminarPais(int PaisID, int Elimina)
-         {
+        {
             int resultado = 0;
 
-            var pais = _context.Paises.Find(PaisID);
+            var pais = _context.Pais.Find(PaisID);
             if (pais != null)
             {
                 if (Elimina == 0)
@@ -89,7 +89,7 @@ namespace WorkNetwork.Controllers
                 else
                 {
                     //NO PUEDE ELIMINAR EMPRESA SI TIENE RUBROS ACTIVOS
-                    var cantidadProvincias = (from o in _context.Provincias where o.PaisID == PaisID && o.Eliminado == false select o).Count();
+                    var cantidadProvincias = (from o in _context.Provincia where o.PaisID == PaisID && o.Eliminado == false select o).Count();
                     if (cantidadProvincias == 0)
                     {
                         pais.Eliminado = true;
@@ -99,10 +99,10 @@ namespace WorkNetwork.Controllers
                     {
                         resultado = 1;
                     }
-                }                              
+                }
             }
 
             return Json(resultado);
-
+        }
     }
 }

@@ -14,7 +14,7 @@ namespace WorkNetwork.Controllers
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
 
-        public LocalidadesController(ApplicationDbContext context,UserManager<IdentityUser> userManager)
+        public LocalidadesController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
             _userManager = userManager;
@@ -35,7 +35,7 @@ namespace WorkNetwork.Controllers
         public void BuscarEmpresaActual(string usuarioActual, EmpresaUsuario empresaUsuarioActual)
         {
 
-            empresaUsuarioActual = _context.EmpresaUsuarios.Where(p=>p.UsuarioID == usuarioActual).SingleOrDefault();     
+            empresaUsuarioActual = _context.EmpresaUsuarios.Where(p => p.UsuarioID == usuarioActual).SingleOrDefault();
         }
         public JsonResult TablaLocalidades()
         {
@@ -79,33 +79,38 @@ namespace WorkNetwork.Controllers
                         _context.Add(localidad);
                         _context.SaveChanges();
                     }
-                }else{
-                    if (_context.Localidad.Any(e=>e.NombreLocalidad== NombreLocalidad && e.ProvinciaID != ProvinciaID)){
-                        resultado = 2;    
-                    }else{
-                        var localidad = _context.Localidad.Single(e => e.LocalidadID== IdLocalidad);
-                            localidad.NombreLocalidad= NombreLocalidad;
-                            localidad.CP = CP ;
-                            localidad.ProvinciaID = ProvinciaID; 
-                            _context.SaveChanges();
+                }
+                else
+                {
+                    if (_context.Localidad.Any(e => e.NombreLocalidad == NombreLocalidad && e.ProvinciaID != ProvinciaID))
+                    {
+                        resultado = 2;
+                    }
+                    else
+                    {
+                        var localidad = _context.Localidad.Single(e => e.LocalidadID == IdLocalidad);
+                        localidad.NombreLocalidad = NombreLocalidad;
+                        localidad.CP = CP;
+                        localidad.ProvinciaID = ProvinciaID;
+                        _context.SaveChanges();
                     }
                 }
             }
             return Json(resultado);
         }
 
-         public JsonResult BuscarLocalidad(int EmpresaID)
+        public JsonResult BuscarLocalidad(int LocalidadID)
         {
-            var localidad = _context.Localidades.FirstOrDefault(m => m.LocalidadID == LocalidadID);
+            var localidad = _context.Localidad.FirstOrDefault(m => m.LocalidadID == LocalidadID);
 
             return Json(localidad);
         }
 
-         public JsonResult EliminarLocalidad(int LocalidadID, int Elimina)
-         {
+        public JsonResult EliminarLocalidad(int LocalidadID, int Elimina)
+        {
             int resultado = 0;
 
-            var localidad = _context.Localidades.Find(LocalidadID);
+            var localidad = _context.Localidad.Find(LocalidadID);
             if (localidad != null)
             {
                 if (Elimina == 0)
@@ -116,26 +121,27 @@ namespace WorkNetwork.Controllers
                 else
                 {
                     //NO PUEDE ELIMINAR EMPRESA SI TIENE RUBROS ACTIVOS
-                   // var cantidadRubros = (from o in _context.Rubros where o.EmpresaID == EmpresaID && o.Eliminado == false select o).Count();
+                    // var cantidadRubros = (from o in _context.Rubros where o.EmpresaID == EmpresaID && o.Eliminado == false select o).Count();
                     //if (cantidadRubros == 0)
                     //{
-                        localidad.Eliminado = true;
-                        _context.SaveChanges();
+                    localidad.Eliminado = true;
+                    _context.SaveChanges();
                     //}
                     //else
                     //{
-                     //   resultado = 1;
+                    //   resultado = 1;
                     //}
-                }                              
+                }
             }
 
             return Json(resultado);
 
-               private bool LocalidadExists(int id)
-               {
-            return _context.Localidad.Any(e => e.VacanteID == id);
-               }
 
 
+        }
     }
+            //   private bool LocalidadExists(int id)
+            //   {
+            //return _context.Localidad.Any(e => e.VacanteID == id);
+            //   }
 }

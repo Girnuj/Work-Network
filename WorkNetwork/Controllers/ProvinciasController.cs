@@ -83,16 +83,16 @@ namespace WorkNetwork.Controllers
 
         public JsonResult BuscarProvincia(int ProvinciaID)
         {
-            var provincia = _context.Provincias.FirstOrDefault(m => m.ProvinciaID == ProvinciaID);
+            var provincia = _context.Provincia.FirstOrDefault(m => m.ProvinciaID == ProvinciaID);
 
             return Json(provincia);
         }
 
-         public JsonResult EliminarProvincia(int ProvinciaID, int Elimina)
-         {
+        public JsonResult EliminarProvincia(int ProvinciaID, int Elimina)
+        {
             int resultado = 0;
 
-            var provincia = _context.Provincias.Find(ProvinciaID);
+            var provincia = _context.Provincia.Find(ProvinciaID);
             if (provincia != null)
             {
                 if (Elimina == 0)
@@ -113,16 +113,16 @@ namespace WorkNetwork.Controllers
                     {
                         resultado = 1;
                     }
-                }                              
+                }
             }
 
-            //return Json(resultado);
+            return Json(resultado);
 
-               //private bool ProvinciaExists(int id)//
-             //  {
-           // return _context.Rubros.Any(e => e.RubroID == id);
-              // }//
+            //private bool ProvinciaExists(int id)//
+            //  {
+            // return _context.Rubros.Any(e => e.RubroID == id);
+            // }//
 
-
+        }
     }
 }

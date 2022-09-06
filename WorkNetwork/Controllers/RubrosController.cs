@@ -71,7 +71,7 @@ namespace WorkNetwork.Controllers
 
          public JsonResult BuscarRubro(int RubroID)
         {
-            var rubro = _context.Rubros.FirstOrDefault(m => m.RubroID == RubroID);
+            var rubro = _context.Rubro.FirstOrDefault(m => m.RubroID == RubroID);
 
             return Json(rubro);
         }
@@ -80,7 +80,7 @@ namespace WorkNetwork.Controllers
         {
             int resultado = 0;
 
-            var rubro = _context.Rubros.Find(RubroID);
+            var rubro = _context.Rubro.Find(RubroID);
             if (rubro != null)
             {
                 if (Elimina == 0)
@@ -109,7 +109,7 @@ namespace WorkNetwork.Controllers
       
         private bool RubroExists(int id)
         {
-            return _context.Rubros.Any(e => e.RubroID == id);
+            return _context.Rubro.Any(e => e.RubroID == id);
         }
 
     }

@@ -46,7 +46,7 @@ namespace WorkNetwork.Controllers
             return Json(vacantes);
         }
 
-        public JsonResult GuardarVacante(int idVacante,int idEmpresa, string NombreEmpresa,
+        public JsonResult GuardarVacante(int idVacante, int idEmpresa, string NombreEmpresa,
                string DescripcionVacante, string ExperienciaRequerida, int idLocalidad,
                DateTime FechaDeFinalizacion, string Idiomas, string ImagenString,
                string Estado, int DisponibilidadHorariaid, int TipoModalidadid)
@@ -58,7 +58,7 @@ namespace WorkNetwork.Controllers
                 disponibilidadHorariaEnum = DisponibilidadHoraria.partime;
             }
 
-          
+
             var tipoModalidadEnum = tipoModalidad.presencial;
             if (TipoModalidadid == 1)
             {
@@ -89,18 +89,18 @@ namespace WorkNetwork.Controllers
         }
 
 
-          public JsonResult BuscarVacante(int EmpresaID)
+        public JsonResult BuscarVacante(int VacanteID)
         {
-            var vacante = _context.Vacantes.FirstOrDefault(m => m.VacanteID == VacanteID);
+            var vacante = _context.Vacante.FirstOrDefault(m => m.VacanteID == VacanteID);
 
             return Json(vacante);
         }
 
-         public JsonResult EliminarVacante(int VacanteID, int Elimina)
-         {
+        public JsonResult EliminarVacante(int VacanteID, int Elimina)
+        {
             int resultado = 0;
 
-            var vacante = _context.Vacantes.Find(VacanteID);
+            var vacante = _context.Vacante.Find(VacanteID);
             if (vacante != null)
             {
                 if (Elimina == 0)
@@ -111,26 +111,26 @@ namespace WorkNetwork.Controllers
                 else
                 {
                     //NO PUEDE ELIMINAR EMPRESA SI TIENE RUBROS ACTIVOS
-                   // var cantidadRubros = (from o in _context.Rubros where o.EmpresaID == EmpresaID && o.Eliminado == false select o).Count();
+                    // var cantidadRubros = (from o in _context.Rubros where o.EmpresaID == EmpresaID && o.Eliminado == false select o).Count();
                     //if (cantidadRubros == 0)
                     //{
-                        empresa.Eliminado = true;
-                        _context.SaveChanges();
+                    //Vacante.Eliminado = true;
+                    //_context.SaveChanges();
                     //}
                     //else
                     //{
-                     //   resultado = 1;
+                    //   resultado = 1;
                     //}
-                }                              
+                }
             }
 
             return Json(resultado);
 
-               private bool VacanteExists(int id)
-               {
-            return _context.Vacantes.Any(e => e.VacanteID == id);
-               }
-
+        }
+        private bool VacanteExists(int id)
+        {
+            return _context.Vacante.Any(e => e.VacanteID == id);
+        }
     }
 }
 

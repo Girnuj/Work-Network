@@ -21,7 +21,7 @@ namespace WorkNetwork.Models
         [NotMapped]
         public string? ImagenString { get; set; }
         public string? Estado { get; set; }
-
+        public bool Eliminado { get; set; }
         public DisponibilidadHoraria DisponibilidadHoraria{ get; set; }
 
         public tipoModalidad tipoModalidad{ get; set; }
