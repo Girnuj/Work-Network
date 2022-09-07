@@ -1,4 +1,5 @@
-﻿const CompletarTablaPaises = async () => {
+﻿//CODIGO PARA MOSTRAR LOS DATOS DE LA TABLA
+const CompletarTablaPaises = async () => {
     await VaciarFormulario()
     const url = '../../Paises/TablaPaises'
 
@@ -9,12 +10,12 @@
             $.each(paises, await function (index, pais) {
                 
                 let claseEliminado = '';
-                let botones = `<btn type='button' class= 'btn btn-outline-success btn-sm me-3' onclick = "BuscarRubro(${pais.paisID})"><i class="bi bi-pencil-square"></i> Editar</btn>
-                                <btn type='button' class = 'btn btn-outline-danger btn-sm'onclick = "EliminarRubro(${pais.paisID},1)"><i class="bi bi-trash3"></i> Eliminar</btn>`
+                let botones = `<btn type='button' class= 'btn btn-outline-success btn-sm me-3' onclick = "BuscarPais(${pais.paisID})"><i class="bi bi-pencil-square"></i> Editar</btn>
+                                <btn type='button' class = 'btn btn-outline-danger btn-sm'onclick = "EliminarPais(${pais.paisID},1)"><i class="bi bi-trash3"></i> Eliminar</btn>`
 
                 if (pais.eliminado) {
                     claseEliminado = 'table-danger';
-                    botones = `<btn type='button' class = 'btn btn-outline-warning btn-sm'onclick = "EliminarRubro(${pais.paisID},0)"><i class="bi bi-recycle"></i> Activar</btn>`
+                    botones = `<btn type='button' class = 'btn btn-outline-warning btn-sm'onclick = "EliminarPais(${pais.paisID},0)"><i class="bi bi-recycle"></i> Activar</btn>`
 
                 }
                 $('#tbody-paises').append(`<tr class= 'tabla-hover ${claseEliminado} '>
@@ -30,7 +31,7 @@
 
 const AbrirModal = () => {
     $('#idPais').val(0);
-    $('#titulo-modal-pais').val('Nuevo Pais');
+    $('#titulo-modal-pais').text('Nuevo Pais');
     $('#alertPais').addClass('visually-hidden');
     $('#modalCrearPais').modal('show');
 }
@@ -61,28 +62,27 @@ const GuardarPais = () => {
     } else {
         alertPais.removeClass('visually-hidden').text('El campo nombre no puede estar vacio');
     }
-    }
+}
+
+const BuscarPais = (paisID)=>{
+    $('#titulo-modal-pais').text('Editar Pais');
+    $('#idPais').val(paisID);
+    $('#alertPais').addClass('visually-hidden');
+    let url = '../../Paises/BuscarPais';
+    let data = {PaisID: paisID};
+    $.post(url,data).
+    done(
+        pais => {
+            $('#nombrePais').val(pais.nombrePais);
+            $('#modalCrearPais').modal('show');
+        }
+    ).
+    fail(e=>console.log(e))
+}
 
 
-//const BuscarPais = () => {
-//    $('#PaisID').empty();
-//    let url = '../../Paises/ComboProvincia';
-//    let data = { id: $('#PaisID').val() };
-//    $.post(url, data).done(provincias => {
-//        if (provincias.length === 0) {
-//            $('#ProvinciaID').append(`<option value=${0}>[NO EXISTEN PROVINCIAS]</option>`);
-//        }
-//        else {
-//            $.each(provincias, (i, provincia) => {
-//                $('#ProvinciaID').append(`<option value=${provincia.value}>${provincia.text}</option>`)
-//            });
-//        }
-//    }).fail(e => console.log('error en combo provincias ' + e))
-//    return false
-//}
 
-
-const EliminarPais(paisID, elimina) {
+const EliminarPais = (paisID, elimina) =>{
     $.ajax({
         type: "POST",
         url: '../../Pais/EliminarPais',

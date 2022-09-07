@@ -32,16 +32,16 @@ namespace WorkNetwork.Controllers
             ViewBag.ProvinciaID = new SelectList(provincias.OrderBy(x => x.NombreProvincia), "ProvinciaID", "NombreProvincia");
             return View(_context.Localidad.ToList());
         }
-        public void BuscarEmpresaActual(string usuarioActual, EmpresaUsuario empresaUsuarioActual)
-        {
+        // public void BuscarEmpresaActual(string usuarioActual, EmpresaUsuario empresaUsuarioActual)
+        // {
 
-            empresaUsuarioActual = _context.EmpresaUsuarios.Where(p => p.UsuarioID == usuarioActual).SingleOrDefault();
-        }
+        //     empresaUsuarioActual = _context.EmpresaUsuarios.Where(p => p.UsuarioID == usuarioActual).SingleOrDefault();
+        // }
         public JsonResult TablaLocalidades()
         {
             var usuarioActual = _userManager.GetUserId(HttpContext.User);
             EmpresaUsuario empresaUsuarioActual = new EmpresaUsuario();
-            BuscarEmpresaActual(usuarioActual, empresaUsuarioActual);
+            // BuscarEmpresaActual(usuarioActual, empresaUsuarioActual);
 
             var localidades = _context.Localidad.ToList();
             return Json(localidades);

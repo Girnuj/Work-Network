@@ -100,7 +100,7 @@ const VaciarFormulario = () => {
     $('#PaisID').val(0);
 }
 
-const EliminarLocalidad(localidadID, elimina) {
+const EliminarLocalidad = (localidadID, elimina) => {
     $.ajax({
         type: "POST",
         url: '../../Localidades/EliminarLocalidad',

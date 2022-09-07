@@ -57,6 +57,7 @@ namespace WorkNetwork.Controllers
                 }
                 else
                 {
+                    //Editar el pais
                     if(_context.Pais.Any(e => e.NombrePais == NombrePais && e.PaisID != PaisID))
                     {
                         resultado=2;
@@ -68,41 +69,23 @@ namespace WorkNetwork.Controllers
                         _context.SaveChanges();
                     }
                 }
-
             }
             return Json(resultado);
+        }
 
+        // RETORNA LOS DATOS DEL CAMPO PAIS DE LA BASE DE DATOS PARA MOSTRARLOS DENTRO DEL MODAL
+        public JsonResult BuscarPais(int PaisID)
+        {
+            var pais = _context.Pais.FirstOrDefault(p => p.PaisID == PaisID);
+            return Json(pais);
         }
 
         public JsonResult EliminarPais(int PaisID, int Elimina)
         {
-            int resultado = 0;
-
-            var pais = _context.Pais.Find(PaisID);
-            if (pais != null)
-            {
-                if (Elimina == 0)
-                {
-                    pais.Eliminado = false;
-                    _context.SaveChanges();
-                }
-                else
-                {
-                    //NO PUEDE ELIMINAR EMPRESA SI TIENE RUBROS ACTIVOS
-                    var cantidadProvincias = (from o in _context.Provincia where o.PaisID == PaisID && o.Eliminado == false select o).Count();
-                    if (cantidadProvincias == 0)
-                    {
-                        pais.Eliminado = true;
-                        _context.SaveChanges();
-                    }
-                    else
-                    {
-                        resultado = 1;
-                    }
-                }
-            }
-
+            bool resultado = true;
+            var pais = _context.Pais.Find();
             return Json(resultado);
         }
+        
     }
 }
