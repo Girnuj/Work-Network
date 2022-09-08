@@ -78,6 +78,15 @@ namespace WorkNetwork.Controllers
             };
             _context.Add(nuevaEmpresa);
             _context.SaveChanges();
+
+            var usuarioActual = _userManager.GetUserId(HttpContext.User);
+            var nuevoEmpresaUsuario = new EmpresaUsuario
+            {
+                UsuarioID= usuarioActual,
+                EmpresaID = nuevaEmpresa.EmpresaID
+            };
+            _context.Add(nuevoEmpresaUsuario);
+            _context.SaveChanges();
             return Json(resultado);
         }
     

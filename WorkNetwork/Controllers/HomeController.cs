@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using WorkNetwork.Data;
 using WorkNetwork.Models;
 
 namespace WorkNetwork.Controllers
@@ -9,14 +11,22 @@ namespace WorkNetwork.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
+        public HomeController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager, ApplicationDbContext context)
         {
+            _context = context;
             _logger = logger;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
         {
+            var usuarioActual = _userManager.GetUserId(HttpContext.User);
+            var empresaUsuario = (from p in _context.EmpresaUsuarios where p.UsuarioID == usuarioActual select p).Count();
+            if (empresaUsuario == 0){
+                return RedirectToAction("Index","Empresas");
+            }
             return View();
         }
 
