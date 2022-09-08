@@ -23,9 +23,25 @@ namespace WorkNetwork.Controllers
         public IActionResult Index()
         {
             var usuarioActual = _userManager.GetUserId(HttpContext.User);
-            var empresaUsuario = (from p in _context.EmpresaUsuarios where p.UsuarioID == usuarioActual select p).Count();
-            if (empresaUsuario == 0){
-                return RedirectToAction("Index","Empresas");
+            
+            //EN BASE A ESE ID BUSCAMOS EN LA TABLA DE RELACION USUARRIO-ROL QUE REGISTRO TIENE
+            var rolUsuario = _context.UserRoles.Where(u => u.UserId == usuarioActual).FirstOrDefault();
+            //EN BASE A ESA VARIABLE RECURRIMOS AL ID DEL ROL PARA BUSCAR EN LA TABLA ROL, EL NOMBRE
+            var rolNombre = _context.Roles.Where(u => u.Id == rolUsuario.RoleId).Select(r=>r.Name).FirstOrDefault();
+            if(rolNombre == "Empresa"){
+
+                var empresaUsuario = (from e in _context.EmpresaUsuarios where e.UsuarioID == usuarioActual select e).Count();
+                if (empresaUsuario == 0){
+                    return RedirectToAction("Index","Empresas");
+                }
+            }
+
+            if (rolNombre == "Usuario"){
+
+                var personaUsuario = (from p in _context.PersonaUsuarios where p.UsuarioID == usuarioActual select p).Count();
+                if(personaUsuario == 0){
+                    return RedirectToAction("Index","Personas");
+                }
             }
             return View();
         }
