@@ -80,22 +80,8 @@ const BuscarPais = (paisID)=>{
     fail(e=>console.log(e))
 }
 
-
-
-const EliminarPais = (paisID, elimina) =>{
-    $.ajax({
-        type: "POST",
-        url: '../../Pais/EliminarPais',
-        data: { PaisID: paisID, Elimina: elimina },
-        success: function (resultado) {
-            if (resultado == 0) {
-                CompletarTablaPaises();
-            }
-            else {
-                alert("Error al eliminar el pais ya que hay provincias.");
-            }
-        },
-        error: function (data) {
-        }
-    });
+const EliminarPais= (paisID, elimina)=>{
+    let url = '../../Paises/EliminarPais'
+    let data = {PaisID:paisID,}
 }
+

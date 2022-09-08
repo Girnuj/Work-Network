@@ -35,7 +35,7 @@ namespace WorkNetwork.Controllers
 
             return Json(logueado);
         }
-        public async Task<JsonResult> Registrar(string email, string password) {
+        public async Task<JsonResult> Registrar(string email, string password, string Rol) {
             bool registrado=false;
             var user = CreateUser();
             await _userStore.SetUserNameAsync(user, email, CancellationToken.None);
@@ -45,6 +45,7 @@ namespace WorkNetwork.Controllers
             {
                 var userId = await _userManager.GetUserIdAsync(user);
                 await _singInManager.SignInAsync(user, isPersistent: false);
+                await _userManager.AddToRoleAsync(user,Rol);
                 registrado = true;
             }
 

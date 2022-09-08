@@ -8,13 +8,15 @@
 		resultado ? window.location.href='/' : alert('usuario o contraseña incorrecta')
 			}).fail(e => console.log(e))
 		}
+
 function register() {
 	event.preventDefault();
+	let rol = $('#Rol').val();
 	let correo = $('#Email').val();
 	let pass = $('#Password').val();
 	let passConfirm = $('#ConfirmPassword').val();
 	let url = '../../GestionDeUsuarios/Registrar';
-	let data = { email: correo, password: pass }
+	let data = { email: correo, password: pass, Rol: rol}
 	if (pass === passConfirm) {
 		$.post(url, data).done(resultado => resultado ? window.location.href='/' : alert('usuario o contraseña incorrecta')).fail(e => console.log(e))
 	} else {
