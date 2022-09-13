@@ -12,7 +12,7 @@ using WorkNetwork.Models;
 
 namespace WorkNetwork.Controllers
 {
-    [Authorize(Roles ="Usuario")]
+    [Authorize(Roles ="Usuario, SuperUsuario")]
     public class PersonasController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -38,7 +38,16 @@ namespace WorkNetwork.Controllers
             localidad.Add(new Localidad { LocalidadID = 0, NombreLocalidad = "[SELECCIONE UN PAIS]" });
             ViewBag.LocalidadID = new SelectList(localidad.OrderBy(x => x.NombreLocalidad), "LocalidadID", "NombreLocalidad");
 
-            return View();
+            // BUSCO EL USUARIO ACTUAL
+            var usuarioActual = _userManager.GetUserId(HttpContext.User);
+            
+            //EN BASE AL USUARIO BUSCO EN LA TABLA PARA VER SI ESTA RELACIONADO A ALGUAN PERSONA. 
+            var UsuarioRelacionado= _context.PersonaUsuarios.Where(p => p.UsuarioID == usuarioActual).Count();
+            if(UsuarioRelacionado == 0 ){
+                return View();
+            }else{
+                return RedirectToAction("Index","Home");
+            }
         }
 
         public JsonResult TablaPersonas()

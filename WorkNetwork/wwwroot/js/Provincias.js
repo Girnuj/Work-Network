@@ -5,19 +5,18 @@
 
     $.get(url).done(async provincias => {
         $('#tbody-provincias').empty();
-        $.each(provincias, await function (index, value) {
+        $.each(provincias, await function (index, provincia) {
             let claseEliminado = '';
             let botones = `<btn type='button' class= 'btn btn-outline-success btn-sm me-3' onclick = "BuscarProvincia(${provincia.idProvincia})"><i class="bi bi-pencil-square"></i> Editar</btn>
-                                <btn type='button' class = 'btn btn-outline-danger btn-sm'onclick = "EliminarProvincia(${provincia.idProvincia},1)"><i class="bi bi-trash3"></i> Eliminar</btn>`
-
+                                <btn type='button' class = 'btn btn-outline-danger btn-sm'onclick = "EliminarProvincia(${provincia.idProvincia},1)"><i class="bi bi-trash3"></i> Eliminar</btn>`;
             if (provincia.eliminado) {
                 claseEliminado = 'table-danger';
-                botones = `<btn type='button' class = 'btn btn-outline-warning btn-sm'onclick = "EliminarProvincia(${provincia.idProvincia},0)"><i class="bi bi-recycle"></i> Activar</btn>`
-
+                botones = `<btn type='button' class = 'btn btn-outline-warning btn-sm' onclick = 'EliminarProvincia(${provincia.idProvincia},0)'><i class="bi bi-recycle"></i> Activar</btn>`;
             }
             $("#tbody-provincias").append(
                 `<tr class= 'tabla-hover ${claseEliminado}'>
-                        <td class='texto'>${value.nombreProvincia}</td>
+                        <td class='texto'>${provincia.nombreProvincia}</td>
+                        <td class='texto'>${provincia.paisID}</td>
                         <td class = 'text-center'>
                             ${botones}
                         </td>
@@ -73,25 +72,6 @@ const BuscarProvincia = () => {
         }
     }).fail(e => console.log('error en combo provincias ' + e))
     return false
-}
-
-
-const EliminarProvincia(empresaID, elimina) {
-    $.ajax({
-        type: "POST",
-        url: '../../Provincias/EliminarProvincia',
-        data: { ProvinciaID: provinciaID, Elimina: elimina },
-        success: function (resultado) {
-            if (resultado == 0) {
-                CompletarTablaProvincias();
-            }
-            else {
-                alert("Error al eliminar la provincia ya que hay localidades.");
-            }
-        },
-        error: function (data) {
-        }
-    });
 }
 
 const AbrirModal = () => {

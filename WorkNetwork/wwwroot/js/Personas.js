@@ -8,36 +8,35 @@
         data: {},
         success: async (personas) => {
             $('#tbody-personas').empty();
-            $.each(personas, await function (index, personas) {
+            $.each(personas, function (index, personas) {
                 let claseEliminado = '';
-                let botones = `<btn type='button' class= 'btn btn-outline-success btn-sm me-3' onclick = "BuscarPersona(${persona.idPersona})"><i class="bi bi-pencil-square"></i> Editar</btn>
-                                <btn type='button' class = 'btn btn-outline-danger btn-sm'onclick = "EliminarPersona(${persona.idPersona},1)"><i class="bi bi-trash3"></i> Eliminar</btn>`
+                let botones = `<btn type='button' class= 'btn btn-outline-success btn-sm me-3' onclick = "BuscarPersona(${personas.idPersona})"><i class="bi bi-pencil-square"></i> Editar</btn>
+                                <btn type='button' class = 'btn btn-outline-danger btn-sm'onclick = "EliminarPersona(${personas.idPersona},1)"><i class="bi bi-trash3"></i> Eliminar</btn>`
 
-                if (persona.eliminado) {
+                if (personas.eliminado) {
                     claseEliminado = 'table-danger';
-                    botones = `<btn type='button' class = 'btn btn-outline-warning btn-sm'onclick = "EliminarPersona(${persona.idPersona},0)"><i class="bi bi-recycle"></i> Activar</btn>`
+                    botones = `<btn type='button' class = 'btn btn-outline-warning btn-sm'onclick = "EliminarPersona(${personas.idPersona},0)"><i class="bi bi-recycle"></i> Activar</btn>`
                 }
                 $("#tbody-personas").append(
                     `<tr class= 'tabla-hover ${claseEliminado}'>
-                        <td class='texto'>${persona.nombrePersona}</td>
-                        <td class='texto'>${persona.apellidoPersona}</td>
+                        <td class='texto'>${personas.nombrePersona}</td>
+                        <td class='texto'>${personas.apellidoPersona}</td>
 
-                        <td class='texto'>${persona.tipoDocumento}</td>
-                        <td class='texto'>${persona.numeroDocumento}</td>
-                        <td class='texto'>${persona.correoElectronico}</td>
-                        <td class='texto'>${persona.domicilioPersona}</td>
-                        <td class='texto'>${persona.localidadID}</td>
-                        <td class='texto'>${persona.genero}</td>
-                        <td class='texto'>${persona.telefono1}</td>
-                        <td class='texto'>${persona.telefono2}</td>
-                        <td class='texto'>${persona.estadoCivil}</td>
-                        <td class='texto'>${persona.tituloAcademico}</td>
+                        <td class='texto'>${personas.tipoDocumento}</td>
+                        <td class='texto'>${personas.numeroDocumento}</td>
+                        <td class='texto'>${personas.correoElectronico}</td>
+                        <td class='texto'>${personas.domicilioPersona}</td>
+                        <td class='texto'>${personas.localidadID}</td>
+                        <td class='texto'>${personas.genero}</td>
+                        <td class='texto'>${personas.telefono1}</td>
+                        <td class='texto'>${personas.telefono2}</td>
+                        <td class='texto'>${personas.estadoCivil}</td>
+                        <td class='texto'>${personas.tituloAcademico}</td>
                         <td class = 'text-center'>
                            ${botones}
                         </td>
                     </tr>`
                 )
-                
             });
         },
         error: (err) => console.log("error en CompletarTablaPersonas", err)

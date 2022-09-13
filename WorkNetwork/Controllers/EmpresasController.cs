@@ -7,7 +7,7 @@ using WorkNetwork.Models;
 
 namespace WorkNetwork.Controllers
 {
-    [Authorize(Roles = "Empresa")]
+    [Authorize(Roles = "Empresa, SuperUsuario")]
     public class EmpresasController : Controller
     {
         private readonly ApplicationDbContext _context;

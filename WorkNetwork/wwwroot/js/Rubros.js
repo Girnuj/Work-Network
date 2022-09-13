@@ -5,7 +5,7 @@
 
     $.get(url).done(async rubros => {
         $('#tbody-rubros').empty();
-        $.each(rubros, await function (i, rubro) {
+        $.each(rubros, function (i, rubro) {
 
             let claseEliminado = '';
             let botones = `<btn type='button' class= 'btn btn-outline-success btn-sm me-3' onclick = "BuscarRubro(${rubro.rubroID})"><i class="bi bi-pencil-square"></i> Editar</btn>
@@ -62,37 +62,26 @@ const VaciarFormulario = () => {
 }
 
 
-const BuscarRubro(rubroID) {
+const BuscarRubro = (rubroID) => {
     $("#titulo-modal-rubro").text("Editar Rubro");
-    $("#RubroID").val(rubroID);
+    $("#idRubro").val(rubroID);
     $.ajax({
         type: "POST",
         url: '../../Rubros/BuscarRubro',
         data: { RubroID: rubroID },
         success: function (rubro) {
-            $("#RubroNombre").val(rubro.descripcion);
-            $("#exampleModal").modal("show");
+            $("#nombreRubro").val(rubro.nombreRubro);
+            $("#modalCrearRubro").modal("show");
         },
         error: function (data) {
         }
     });
 }
 
-
-const EliminarRubro(rubroID, elimina) {
-    $.ajax({
-        type: "POST",
-        url: '../../Rubros/EliminarRubro',
-        data: { RubroID: rubroID, Elimina: elimina },
-        success: function (resultado) {
-            if (resultado == 0) {
-                CompletarTablaRubros();
-            }
-            else {
-                alert("No se puede eliminar el rubro.");
-            }
-        },
-        error: function (data) {
-        }
-    });
+const EliminarRubro = (rubroID, elimina) => {
+    let url = '../../Rubros/EliminarRubro';
+    let data = {RubroID:rubroID, Elimina: elimina};
+    $.post(url,data).done(CompletarTablaRubro()).fail(e=>console.log(e))
 }
+
+
