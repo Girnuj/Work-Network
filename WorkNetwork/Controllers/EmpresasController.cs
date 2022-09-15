@@ -35,20 +35,17 @@ namespace WorkNetwork.Controllers
             rubros.Add(new Rubro { RubroID = 0, NombreRubro = "[SELECCIONE UN RUBRO]" });
             ViewBag.RubroID = new SelectList(rubros.OrderBy(x => x.NombreRubro), "RubroID", "NombreRubro");
 
-            return View();
+            // BUSCO EL USUARIO ACTUAL
+            var usuarioActual = _userManager.GetUserId(HttpContext.User);
+            
+            //EN BASE AL USUARIO BUSCO EN LA TABLA PARA VER SI ESTA RELACIONADO A ALGUAN PERSONA. 
+            var UsuarioRelacionado= _context.EmpresaUsuarios.Where(p => p.UsuarioID == usuarioActual).Count();
+            if(UsuarioRelacionado == 0 ){
+                return View();
+            }else{
+                return RedirectToAction("Index","Home");
+            }
         }
-
-        //public void BuscarEmpresaActual(string usuarioActual, EmpresaUsuario empresaUsuarioActual)
-        //{
-        //    empresaUsuarioActual = _context.EmpresaUsuarios.Where(p => p.UsuarioID == usuarioActual).SingleOrDefault();
-        //}
-
-        //public JsonResult BuscarUsuario()
-        //{
-        //    var usuarioActual = _userManager.GetUserId(HttpContext.User);
-        //    EmpresaUsuario empresaUsuarioActual = new EmpresaUsuario();
-        //    BuscarEmpresaActual(usuarioActual, empresaUsuarioActual);
-        //}
 
         public JsonResult TablaEmpresas()
         {

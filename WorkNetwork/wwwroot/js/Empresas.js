@@ -7,12 +7,12 @@
         $('#tbody-empresa').empty();
         $.each(empresas, function (index, empresas) {
             let claseEliminado = '';
-            let botones = `<btn type='button' class= 'btn btn-outline-success btn-sm me-3' onclick = "BuscarEmpresa(${empresa.idEmpresa})"><i class="bi bi-pencil-square"></i> Editar</btn>
-                                <btn type='button' class = 'btn btn-outline-danger btn-sm'onclick = "EliminarEmpresa(${empresa.idEmpresa},1)"><i class="bi bi-trash3"></i> Eliminar</btn>`
+            let botones = `<btn type='button' class= 'btn btn-outline-success btn-sm me-3' onclick = "BuscarEmpresa(${empresas.idEmpresa})"><i class="bi bi-pencil-square"></i> Editar</btn>
+                                <btn type='button' class = 'btn btn-outline-danger btn-sm'onclick = "EliminarEmpresa(${empresas.idEmpresa},1)"><i class="bi bi-trash3"></i> Eliminar</btn>`
 
-            if (empresa.eliminado) {
+            if (empresas.eliminado) {
                 claseEliminado = 'table-danger';
-                botones = `<btn type='button' class = 'btn btn-outline-warning btn-sm'onclick = "EliminarEmpresa(${empresa.idEmpresa},0)"><i class="bi bi-recycle"></i> Activar</btn>`
+                botones = `<btn type='button' class = 'btn btn-outline-warning btn-sm'onclick = "EliminarEmpresa(${empresas.idEmpresa},0)"><i class="bi bi-recycle"></i> Activar</btn>`
             }
             $("#tbody-empresa").append(
                 `<tr class= 'tabla-hover '>
@@ -37,7 +37,6 @@ const GuardarEmpresa = () => {
     let idEmpresa = $('#idEmpresa').val();
     let nombreEmpresa = $('#nombreEmpresa').val();
     let cuitEmpresa = $('#cuitEmpresa').val();
-    console.log('el cuit perro: ' + cuitEmpresa)
     let correoEmpresa = $('#correoEmpresa').val();
     let paisID = $('#PaisID').val();
     let provinciaID = $('#ProvinciaID').val();
@@ -56,12 +55,11 @@ const GuardarEmpresa = () => {
     }).fail(e => console.log('error en guardar empresa' + e))
 }
 
-$('#PaisID').change(() => BuscarProvincia());
-
 const BuscarProvincia = () => {
     $('#ProvinciaID').empty();
+    let paisId = $('#PaisID').val();
     let url = '../../Provincias/ComboProvincia';
-    let data = { id: $('#PaisID').val() };
+    let data = { id: paisId};
     $.post(url, data).done(provincias => {
         if (provincias.length === 0) {
             $('#ProvinciaID').append(`<option value=${0}>[NO EXISTEN PROVINCIAS]</option>`);
@@ -75,7 +73,8 @@ const BuscarProvincia = () => {
     return false
 }
 
-$('#ProvinciaID').change(() => BuscarLocalidad());
+$('#PaisID').change(()=>BuscarProvincia());
+
 const BuscarLocalidad = () => {
     $('#LocalidadID').empty();
     let url = '../../Localidades/ComboLocalidades';
@@ -93,7 +92,9 @@ const BuscarLocalidad = () => {
     return false
 }
 
-const BuscarEmpresa(EmpresaID) {
+$('#ProvinciaID').change(()=>BuscarLocalidad());
+
+const BuscarEmpresa = (EmpresaID)=> {
     $("#Titulo-Modal-").text("Editar Empresa");
     $("#EmpresaID").val(empresaID);
     $.ajax({
@@ -109,31 +110,10 @@ const BuscarEmpresa(EmpresaID) {
     });
 }
 
-
-function EliminarEmpresa(empresaID, elimina) {
-    $.ajax({
-        type: "POST",
-        url: '../../Empresas/EliminarEmpresa',
-        data: { EmpresaID: empresaID, Elimina: elimina },
-        success: function (resultado) {
-            if (resultado == 0) {
-                CompletarTablaEmpresas();
-            }
-            else {
-                alert("Error al eliminar.");
-            }
-        },
-        error: function (data) {
-        }
-    });
-}
-
-
 const AbrirModal = () => {
     $('#modalCrearEmpresa').modal('show');
     $('#ProvinciaID').val(0);
     $('#LocalidadID').val(0);
-
 }
 
 const VaciarFormulario = () => {

@@ -44,8 +44,8 @@ namespace WorkNetwork.Controllers
             if (result.Succeeded)
             {
                 var userId = await _userManager.GetUserIdAsync(user);
-                await _singInManager.SignInAsync(user, isPersistent: false);
                 await _userManager.AddToRoleAsync(user,Rol);
+                await _singInManager.SignInAsync(user, isPersistent: false);
                 registrado = true;
             }
 

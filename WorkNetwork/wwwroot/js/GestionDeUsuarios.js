@@ -25,10 +25,10 @@ function register() {
 }
 function registerPerson(){
 	event.preventDefault();
-	let rol = $('#Rol').val();
+	let rol = $('#Persona').val();
 	let correoPersona = $('#EmailPersona').val()
-	let passPersona = $('#Password').val();
-	let passConfirmPersona = $('#ConfirmPassword').val();
+	let passPersona = $('#PasswordPersona').val();
+	let passConfirmPersona = $('#ConfirmPasswordPersona').val();
 	let url = '../../GestionDeUsuarios/Registrar';
 	let data = { email: correoPersona, password: passPersona, Rol: rol}
 	if (passPersona === passConfirmPersona) {

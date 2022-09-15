@@ -8,7 +8,7 @@ using WorkNetwork.Models;
 
 namespace WorkNetwork.Controllers
 {
-    [Authorize(Roles = "SuperUsuario")]
+    [Authorize(Roles = "SuperUsuario,Empresa")]
     public class ProvinciasController : Controller
     {
 
@@ -32,6 +32,8 @@ namespace WorkNetwork.Controllers
             return View(await _context.Provincia.ToListAsync());
         }
 
+
+        [Authorize(Roles = "Usuario, Empresa")]
         public JsonResult ComboProvincia(int id)
         {
             var provincias = (from p in _context.Provincia where p.PaisID == id select p).ToList();
