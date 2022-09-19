@@ -1,11 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using WorkNetwork.Data;
-using WorkNetwork.Models;
-
-
-namespace WorkNetwork.Controllers
+﻿namespace WorkNetwork.Controllers
 {
     [Authorize(Roles = "SuperUsuario")]
     public class VacantesController : Controller
@@ -53,21 +46,16 @@ namespace WorkNetwork.Controllers
         {
             bool resultado = true;
             var disponibilidadHorariaEnum = DisponibilidadHoraria.fulltime;
-            if (DisponibilidadHorariaid == 1)
-            {
-                disponibilidadHorariaEnum = DisponibilidadHoraria.partime;
-            }
-
+           
+            if (DisponibilidadHorariaid is 1) disponibilidadHorariaEnum = DisponibilidadHoraria.partime;
 
             var tipoModalidadEnum = tipoModalidad.presencial;
-            if (TipoModalidadid == 1)
-            {
-                tipoModalidadEnum = tipoModalidad.semipresencial;
-            }
-            else
-            {
-                tipoModalidadEnum = tipoModalidad.remoto;
-            }
+
+            if (TipoModalidadid is 1) tipoModalidadEnum = tipoModalidad.semipresencial;
+  
+            else 
+              tipoModalidadEnum = tipoModalidad.remoto;
+            
 
             var nuevaVacante = new Vacante
             {
@@ -101,9 +89,9 @@ namespace WorkNetwork.Controllers
             int resultado = 0;
 
             var vacante = _context.Vacante.Find(VacanteID);
-            if (vacante != null)
+            if (vacante is not null)
             {
-                if (Elimina == 0)
+                if (Elimina is 0)
                 {
                     vacante.Eliminado = false;
                     _context.SaveChanges();

@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using WorkNetwork.Data;
-
-namespace WorkNetwork.Controllers
+﻿namespace WorkNetwork.Controllers
 {
     public class GestionDeUsuarios : Controller
     {
@@ -28,10 +24,8 @@ namespace WorkNetwork.Controllers
             bool logueado = false;
 
             var result = await _singInManager.PasswordSignInAsync(email, password, false, lockoutOnFailure: false);
-            if (result.Succeeded)
-            {
-                logueado = true;
-            }
+
+            if (result.Succeeded) logueado = true;
 
             return Json(logueado);
         }
@@ -94,10 +88,9 @@ namespace WorkNetwork.Controllers
             if (!string.IsNullOrEmpty(name)) 
             {
                 IdentityResult result = await _roleManager.CreateAsync(new IdentityRole(name));
-                if (result.Succeeded)
-                {
-                    registro = true;
-                }
+                
+                if (result.Succeeded) registro = true;
+         
                 else
                 {
                     foreach (var error in result.Errors)

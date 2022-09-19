@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace WorkNetwork.Models
+﻿namespace WorkNetwork.Models
 {
     public class Persona
     {

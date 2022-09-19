@@ -1,12 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using WorkNetwork.Data;
-using WorkNetwork.Models;
-
-namespace WorkNetwork.Controllers
+﻿namespace WorkNetwork.Controllers
 {
     [Authorize]
     public class LocalidadesController : Controller
@@ -61,7 +53,7 @@ namespace WorkNetwork.Controllers
             if (!string.IsNullOrEmpty(NombreLocalidad))
             {
                 NombreLocalidad = NombreLocalidad.ToUpper();
-                if (IdLocalidad == 0)
+                if (IdLocalidad is 0)
                 {
                     if (_context.Localidad.Any(e => e.NombreLocalidad == NombreLocalidad && e.ProvinciaID == ProvinciaID))
                     {
@@ -111,9 +103,9 @@ namespace WorkNetwork.Controllers
             int resultado = 0;
 
             var localidad = _context.Localidad.Find(LocalidadID);
-            if (localidad != null)
+            if (localidad is not null)
             {
-                if (Elimina == 0)
+                if (Elimina is 0)
                 {
                     localidad.Eliminado = false;
                     _context.SaveChanges();

@@ -1,12 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using WorkNetwork.Data;
-using WorkNetwork.Models;
-
-namespace WorkNetwork.Controllers
+﻿namespace WorkNetwork.Controllers
 {
     [Authorize(Roles = "SuperUsuario,Empresa")]
     public class ProvinciasController : Controller
@@ -54,7 +46,7 @@ namespace WorkNetwork.Controllers
 
             if (!string.IsNullOrEmpty(NombreProvincia)){
                 NombreProvincia = NombreProvincia.ToUpper();
-                if(IdProvincia == 0){
+                if(IdProvincia is 0){
                     if(_context.Provincia.Any(e=>e.NombreProvincia == NombreProvincia && e.PaisID == PaisID )){
                         resultado = 2;
                     }else{
@@ -95,9 +87,9 @@ namespace WorkNetwork.Controllers
             int resultado = 0;
 
             var provincia = _context.Provincia.Find(ProvinciaID);
-            if (provincia != null)
+            if (provincia is not null)
             {
-                if (Elimina == 0)
+                if (Elimina is 0)
                 {
                     provincia.Eliminado = false;
                     _context.SaveChanges();
@@ -106,7 +98,7 @@ namespace WorkNetwork.Controllers
                 {
                     //NO PUEDE ELIMINAR LA PROVINCIA A SI TIENE LOCALIDADES
                     var cantidadlocalidades = (from o in _context.Localidad where o.ProvinciaID == ProvinciaID && o.Eliminado == false select o).Count();
-                    if (cantidadlocalidades == 0)
+                    if (cantidadlocalidades is 0)
                     {
                         provincia.Eliminado = true;
                         _context.SaveChanges();

@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-
-namespace WorkNetwork.Models
+﻿namespace WorkNetwork.Models
 {
     public static class ModelBuilderExtensions
     {
