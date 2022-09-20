@@ -23,6 +23,31 @@ namespace WorkNetwork.Controllers
             _userManager = userManager;
         }
 
+        public IActionResult NewPerson()
+        {
+            var paises = _context.Pais.ToList();
+            paises.Add(new Pais { PaisID = 0, NombrePais = "[SELECCIONE UN PAIS]" });
+            ViewBag.PaisID = new SelectList(paises.OrderBy(e => e.NombrePais), "PaisID", "NombrePais");
+
+            var provincias = _context.Provincia.ToList();
+            provincias.Add(new Provincia { ProvinciaID = 0, NombreProvincia = "[SELECCIONE UN PAIS]" });
+            ViewBag.ProvinciaID = new SelectList(provincias.OrderBy(x => x.NombreProvincia), "ProvinciaID", "NombreProvincia");
+
+            var localidad = _context.Localidad.ToList();
+            localidad.Add(new Localidad { LocalidadID = 0, NombreLocalidad = "[SELECCIONE UN PAIS]" });
+            ViewBag.LocalidadID = new SelectList(localidad.OrderBy(x => x.NombreLocalidad), "LocalidadID", "NombreLocalidad");
+
+            // BUSCO EL USUARIO ACTUAL
+            var usuarioActual = _userManager.GetUserId(HttpContext.User);
+            
+            //EN BASE AL USUARIO BUSCO EN LA TABLA PARA VER SI ESTA RELACIONADO A ALGUAN PERSONA. 
+            var UsuarioRelacionado= _context.PersonaUsuarios.Where(p => p.UsuarioID == usuarioActual).Count();
+            if(UsuarioRelacionado == 0 ){
+                return View();
+            }else{
+                return RedirectToAction("Index","Home");
+            }
+        }
 
         public IActionResult Index()
         {
@@ -69,11 +94,24 @@ namespace WorkNetwork.Controllers
         //}
 
 
-        public JsonResult GuardarPersona(int IdPersona, string NombrePersona, string ApellidoPersona,
-            int NumeroDocumento, DateTime FechaNacimiento, string MailUser, string DomicilioPersona,
-            int IdLocalidad, int Telefono1, int Telefono2, string EstadoCivil, string TituloAcademico,
-            int CantidadHijos, string ImagenString, int SituacionLaboralid, int Generoid, int TipoDocumentoid)
+        //--------------------PARAMETROS DEL GUARDAR PERSONA ---------------------------
+
+
+        public JsonResult GuardarPersona(int idPersona, string nombrePersona, string apellidoPersona,
+            int numeroDocumento, DateTime fechaNacimiento, string mailUser, string domicilioPersona,
+            int idLocalidad, int telefono1, int telefono2, string estadoCivil, string tituloAcademico,
+            int cantidadHijos, string ImagenString, int SituacionLaboralid, int Generoid, int TipoDocumentoid, IFormFile adjunto)
         {
+            if (adjunto.Length > 0)
+            {
+                using (var ms = new MemoryStream())
+                {
+                    adjunto.CopyTo(ms);
+                    var fileBytes = ms.ToArray();
+                    var tipoDeArchivo = adjunto.ContentType;
+                    string base64 = Convert.ToBase64String(fileBytes);
+                }
+            }
             bool resultado = true;
 
             var situacionLaboralEnum = SituacionLaboral.Desempleado;
@@ -100,22 +138,21 @@ namespace WorkNetwork.Controllers
 
             var persona = new Persona
             {
-                NombrePersona = NombrePersona,
-                ApellidoPersona = ApellidoPersona,
+                NombrePersona = nombrePersona,
+                ApellidoPersona = apellidoPersona,
                 TipoDocumento = tipoDocumentoEnum,
-                NumeroDocumento = NumeroDocumento,
-                FechaNacimiento = FechaNacimiento,
-                CorreoElectronico = MailUser,
-                DomicilioPersona = DomicilioPersona,
-                LocalidadID = IdLocalidad,
+                NumeroDocumento = numeroDocumento,
+                FechaNacimiento = fechaNacimiento,
+                CorreoElectronico = mailUser,
+                DomicilioPersona = domicilioPersona,
+                LocalidadID = idLocalidad,
                 SituacionLaboral = situacionLaboralEnum,
-                CantidadHijos = CantidadHijos,
+                CantidadHijos = cantidadHijos,
                 Genero = generoEnum,
-                Telefono1 = Telefono1,
-                Telefono2 = Telefono2,
-                EstadoCivil = EstadoCivil,
-                TituloAcademico = TituloAcademico,
-
+                Telefono1 = telefono1,
+                Telefono2 = telefono2,
+                EstadoCivil = estadoCivil,
+                TituloAcademico = tituloAcademico,
                 ImagenString = ImagenString
 
 
@@ -128,7 +165,7 @@ namespace WorkNetwork.Controllers
             var nuevaPersonaUsuario = new PersonaUsuario
             {
                 UsuarioID= usuarioActual,
-                PersonaID= persona.PersonaID
+                PersonaID = persona.PersonaID
             };
             _context.Add(nuevaPersonaUsuario);
             _context.SaveChanges();

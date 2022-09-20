@@ -1,0 +1,89 @@
+﻿@model IEnumerable<WorkNetwork.Models.Persona>
+
+@{
+    ViewData["Title"] = "Personas";
+}
+
+<h1>Registrar persona</h1>
+
+
+                <form class="form-control" id='frmFormulario' enctype='multipart/form-data'>
+                    @*<div class="alert alert-danger "id='alertRubro'>El campo descripcion no puede estar vacio</div> *@
+                    <input type="hidden" id='IdPersona' name = 'idPersona' />
+                    <b>Nombre:</b>
+                    <input placeholder="Ingrese su nombre" name='nombrePersona' type="text" id="NombrePersona" class="form-control" />
+                    <b>Apellido:</b>
+                    <input placeholder="Ingrese su apellido " type="text" name='apellidoPersona' id="ApellidoPersona" class="form-control" />
+
+                    <div>
+                        <b> Tipo de Documento: </b>
+                        <select id="tipoDoc" class="form-control" name="TipoDocumentoid">
+                            <option > Tipo de documento</option>
+                            <option value=0>DNI</option>
+                            <option value=1>L.E.</option>
+                        </select>
+                        <b> Número de Documento: </b>
+                        <input class="form-control" placeholder="Ingrese aqui su número de documento" type="tel" id="nroDNI" name ='numeroDocumento' maxlength="8" />
+                    </div>
+
+                    <b>Genero:</b>
+                    <select id="genre" class="form-control" name="Generoid">
+                        <option value=0>Masculino</option>
+                        <option value=1>Femenino</option>
+                        <option value=2>Otro</option>
+                    </select>
+
+                    <b> Fecha de Nacimiento: </b>
+                    <input class="form-control" type="date" placeholder="Fecha de Nacimiento" id="fecNac" name='fechaNacimiento'/>
+                    <b>E-mail:</b>
+                    <input type="email" class="form-control" placeholder="Email" id="mailUser" name='mailUser'/>
+
+                    <div class="row">
+                        <div class='col-9 mb-3'>
+                            <b>Domicilio</b>
+                            <input id="Domicilio" type="text" class="form-control col-auto" placeholder="Calle" name='domicilioPersona'/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <b>Numero</b>
+                            <input id='numeroDomicilio' type="tel" class="form-control col-sm-2" placeholder="Número" maxlength="4" />
+                        </div>
+
+                        <div>
+                            <label class="control-label"><b> Paises: </b></label>
+                            @Html.DropDownList("PaisID", null, htmlAttributes: new {@class = "form-control mb-3"})
+                        </div>
+                        <div>
+                            <label class="control-label"><b> Provincias: </b></label>
+                            @Html.DropDownList("ProvinciaID", null, htmlAttributes: new {@class = "form-control mb-3"})
+                        </div>
+                        <div>
+                            <label class="control-label"><b> Localidades: </b></label>
+                            @Html.DropDownList("LocalidadID", null, htmlAttributes: new {@class = "form-control mb-3"})
+                        </div>
+
+                        <div>
+                            <b>Telefono:</b>
+                            <input class="form-control" type="tel" placeholder="Telefono/Celular" id="tel1" required maxlength="13" name="telefono1"/>
+                            <b>Otro:</b>
+                            <input class="form-control" type="tel" placeholder="Otro (Opcional)" id="tel2" maxlength="13" name="telefono2"/>
+                        </div>
+
+                        <b>Estado Civil:</b>
+                        <select id="estCivil" class="form-control mb-3" name='estadoCivil'>
+                            <option value="0">Soltero/a</option>
+                            <option value="1">Casado/a</option>
+                            <option value="2">Divorciado/a</option>
+                            <option value="3">Viudo/a</option>
+                        </select>
+                        <input type="number" name="cantidadHijos" class="form-control mb-3" id="cantidadHijos" placeholder="Cantidad de Hijos" />
+                        <input placeholder="Titulo Academico" name="tituloAcademico" class="form-control mb-3" type="text" id="tituloAcadem" />
+                        <input type="file" id="adjunto" name='adjunto' class="form-control" />
+
+                    </div>
+                    <input type='submit'placeholder='Enviar' />
+                </form>
+
+
+@section Scripts {
+    <script src="~/js/Personas.js"></script>
+}

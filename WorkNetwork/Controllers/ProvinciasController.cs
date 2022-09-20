@@ -8,7 +8,7 @@ using WorkNetwork.Models;
 
 namespace WorkNetwork.Controllers
 {
-    [Authorize(Roles = "SuperUsuario,Empresa")]
+    [Authorize(Roles = "SuperUsuario,Empresa, Usuario")]
     public class ProvinciasController : Controller
     {
 
@@ -21,11 +21,9 @@ namespace WorkNetwork.Controllers
             _userManager = userManager;
         }
 
+        [Authorize(Roles = "SuperUsuario")]
         public async Task<IActionResult> Index()
         {
-            var userId = _userManager.GetUserId(HttpContext.User);
-            
-
             var paiss = _context.Pais.ToList();
             paiss.Add(new Pais { PaisID = 0, NombrePais = "[SELECCIONE UN PAIS]" });
             ViewBag.PaisID = new SelectList(paiss.OrderBy(e => e.NombrePais), "PaisID", "NombrePais");

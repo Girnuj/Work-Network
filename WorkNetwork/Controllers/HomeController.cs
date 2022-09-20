@@ -40,7 +40,7 @@ namespace WorkNetwork.Controllers
 
                 var personaUsuario = (from p in _context.PersonaUsuarios where p.UsuarioID == usuarioActual select p).Count();
                 if(personaUsuario == 0){
-                    return RedirectToAction("Index","Personas");
+                    return RedirectToAction("NewPerson","Personas");
                 }
             }
             return View();
