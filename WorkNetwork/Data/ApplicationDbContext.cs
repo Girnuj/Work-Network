@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using WorkNetwork.Models;
-
-namespace WorkNetwork.Data
+﻿namespace WorkNetwork.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {

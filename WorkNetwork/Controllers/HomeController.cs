@@ -1,11 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using WorkNetwork.Data;
-using WorkNetwork.Models;
-
-namespace WorkNetwork.Controllers
+﻿namespace WorkNetwork.Controllers
 {
     [Authorize]
     public class HomeController : Controller
@@ -28,15 +21,15 @@ namespace WorkNetwork.Controllers
             var rolUsuario = _context.UserRoles.Where(u => u.UserId == usuarioActual).FirstOrDefault();
             //EN BASE A ESA VARIABLE RECURRIMOS AL ID DEL ROL PARA BUSCAR EN LA TABLA ROL, EL NOMBRE
             var rolNombre = _context.Roles.Where(u => u.Id == rolUsuario.RoleId).Select(r=>r.Name).FirstOrDefault();
-            if(rolNombre == "Empresa"){
+            if(rolNombre is "Empresa"){
 
                 var empresaUsuario = (from e in _context.EmpresaUsuarios where e.UsuarioID == usuarioActual select e).Count();
-                if (empresaUsuario == 0){
-                    return RedirectToAction("Index","Empresas");
-                }
+                if (empresaUsuario is 0)
+                  return RedirectToAction("Index","Empresas");
+                
             }
 
-            if (rolNombre == "Usuario"){
+            if (rolNombre is "Usuario"){
 
                 var personaUsuario = (from p in _context.PersonaUsuarios where p.UsuarioID == usuarioActual select p).Count();
                 if(personaUsuario == 0){

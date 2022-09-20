@@ -1,9 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using WorkNetwork.Data;
-using WorkNetwork.Models;
-
-namespace WorkNetwork.Controllers
+﻿namespace WorkNetwork.Controllers
 {
     [Authorize(Roles = "SuperUsuario")]
     public class PaisesController : Controller
@@ -37,12 +32,12 @@ namespace WorkNetwork.Controllers
             if (!string.IsNullOrEmpty(NombrePais))
             {
                 NombrePais = NombrePais.ToUpper(); 
-                if(PaisID == 0)
+                
+                if(PaisID is 0)
                 {
                     if(_context.Pais.Any(e=> e.NombrePais == NombrePais))
-                    {
                         resultado = 2;
-                    }
+         
                     else
                     {
                         //Creo el pais
@@ -58,10 +53,9 @@ namespace WorkNetwork.Controllers
                 else
                 {
                     //Editar el pais
-                    if(_context.Pais.Any(e => e.NombrePais == NombrePais && e.PaisID != PaisID))
-                    {
+                    if(_context.Pais.Any(e => e.NombrePais == NombrePais && e.PaisID != PaisID))     
                         resultado=2;
-                    }
+                    
                     else
                     {
                         var pais = _context.Pais.Single(e=>e.PaisID == PaisID);

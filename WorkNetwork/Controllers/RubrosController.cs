@@ -1,9 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using WorkNetwork.Data;
-using WorkNetwork.Models;
-
-namespace WorkNetwork.Controllers
+﻿namespace WorkNetwork.Controllers
 {
     [Authorize(Roles = "SuperUsuario")]
     public class RubrosController : Controller
@@ -32,7 +27,7 @@ namespace WorkNetwork.Controllers
             if (!string.IsNullOrEmpty(NombreRubro))
             {
                 NombreRubro = NombreRubro.ToUpper();
-                if (idRubro == 0)
+                if (idRubro is 0)
                 {
                     if (_context.Rubro.Any(e => e.NombreRubro == NombreRubro))
                     {
@@ -81,9 +76,9 @@ namespace WorkNetwork.Controllers
             int resultado = 0;
 
             var rubro = _context.Rubro.Find(RubroID);
-            if (rubro != null)
+            if (rubro is not null)
             {
-                if (Elimina == 0)
+                if (Elimina is 0)
                 {
                     rubro.Eliminado = false;
                     _context.SaveChanges();

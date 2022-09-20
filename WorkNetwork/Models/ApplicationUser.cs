@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-
-namespace WorkNetwork.Models
+﻿namespace WorkNetwork.Models
 {
     public class ApplicationUser : IdentityUser
     {
