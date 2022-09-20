@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using WorkNetwork.Data;
-using WorkNetwork.Models;
-
-namespace WorkNetwork.Controllers
+﻿namespace WorkNetwork.Controllers
 {
     [Authorize(Roles ="Usuario, SuperUsuario")]
     public class PersonasController : Controller
@@ -115,13 +103,14 @@ namespace WorkNetwork.Controllers
             bool resultado = true;
 
             var situacionLaboralEnum = SituacionLaboral.Desempleado;
-            if (SituacionLaboralid == 1)
+            if (SituacionLaboralid is 1)
             {
                 situacionLaboralEnum = SituacionLaboral.Empleado;
             }
 
             var generoEnum = Genero.Masculino;
-            if (Generoid == 1)
+
+            if (Generoid is 1)
             {
                 generoEnum = Genero.Femenino;
             }
@@ -131,7 +120,7 @@ namespace WorkNetwork.Controllers
             }
 
             var tipoDocumentoEnum = TipoDocumento.dni;
-            if (TipoDocumentoid == 1)
+            if (TipoDocumentoid is 1)
             {
                 tipoDocumentoEnum = TipoDocumento.LE;
             }
