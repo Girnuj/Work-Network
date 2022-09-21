@@ -44,17 +44,14 @@ const GuardarProvincia = () => {
             $('#modalCrearProvincia').modal('hide');
             CompletarTablaProvincias();
             }
-        if (resultado == 2){
-            alertProvincia.removeClass('visually-hidden').text('La provincia ingesada ya existe')
+            if (resultado == 2){
+                alertProvincia.removeClass('visually-hidden').text('La provincia ingesada ya existe')
+            }
+            }).fail(e => console.error(`Error cargar provincias '${e}'`))
         }
-    }).fail(e => console.error(`Error cargar provincias '${e}'`))
-        }else{
-            alertProvincia.removeClass('visually-hidden').text('El pais no puede estar vacio')
-        }
-
-    }else{
-        alertProvincia.removeClass('visually-hidden').text("El campo nombre no puede estar vacio")
-    }
+        else alertProvincia.removeClass('visually-hidden').text('El pais no puede estar vacio')
+        
+    }else alertProvincia.removeClass('visually-hidden').text("El campo nombre no puede estar vacio")  
 }
 
 const BuscarProvincia = () => {
@@ -62,14 +59,11 @@ const BuscarProvincia = () => {
     let url = '../../Provincias/ComboProvincia';
     let data = { id: $('#PaisID').val() };
     $.post(url, data).done(provincias => {
-        if (provincias.length === 0) {
-            $('#ProvinciaID').append(`<option value=${0}>[NO EXISTEN PROVINCIAS]</option>`);
-        }
-        else {
-            $.each(provincias, (i, provincia) => {
+        provincias.length === 0
+            ? $('#ProvinciaID').append(`<option value=${0}>[NO EXISTEN PROVINCIAS]</option>`)
+            : $.each(provincias, (i, provincia) => {
                 $('#ProvinciaID').append(`<option value=${provincia.value}>${provincia.text}</option>`)
             });
-        }
     }).fail(e => console.log('error en combo provincias ' + e))
     return false
 }
@@ -82,7 +76,6 @@ const AbrirModal = () => {
 }
 
 const VaciarFormulario = () => {
-
     $("#idProvincia").val(0);
     $("#nombreProvincia").val('');
 }

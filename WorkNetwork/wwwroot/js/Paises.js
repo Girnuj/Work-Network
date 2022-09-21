@@ -3,7 +3,6 @@ const CompletarTablaPaises = async () => {
     await VaciarFormulario()
     const url = '../../Paises/TablaPaises'
 
-
     $.get(url).done(
         async paises => {
             $('#tbody-paises').empty();
@@ -59,9 +58,9 @@ const GuardarPais = () => {
                 alertPais.removeClass('visually-hidden').text('El pais ingresado ya existe');
             }
         }).fail(err => console.log('error en crear Pais: ', err));
-    } else {
-        alertPais.removeClass('visually-hidden').text('El campo nombre no puede estar vacio');
-    }
+
+    } else alertPais.removeClass('visually-hidden').text('El campo nombre no puede estar vacio');
+    
 }
 
 const BuscarPais = (paisID)=>{
@@ -70,14 +69,14 @@ const BuscarPais = (paisID)=>{
     $('#alertPais').addClass('visually-hidden');
     let url = '../../Paises/BuscarPais';
     let data = {PaisID: paisID};
-    $.post(url,data).
-    done(
+    $.post(url,data)
+    .done(
         pais => {
             $('#nombrePais').val(pais.nombrePais);
             $('#modalCrearPais').modal('show');
         }
-    ).
-    fail(e=>console.log(e))
+    )
+    .fail(e=>console.log(e))
 }
 
 const EliminarPais= (paisID, elimina)=>{

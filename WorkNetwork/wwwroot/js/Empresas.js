@@ -38,8 +38,8 @@ const GuardarEmpresa = () => {
     let nombreEmpresa = $('#nombreEmpresa').val();
     let cuitEmpresa = $('#cuitEmpresa').val();
     let correoEmpresa = $('#correoEmpresa').val();
-    let paisID = $('#PaisID').val();
-    let provinciaID = $('#ProvinciaID').val();
+    //let paisID = $('#PaisID').val();
+    //let provinciaID = $('#ProvinciaID').val();
     let localidadID = $('#LocalidadID').val();
     let telefono1Empresa = $('#telefono1Empresa').val();
     let telefono2Empresa = $('#telefono2Empresa').val();
@@ -61,14 +61,11 @@ const BuscarProvincia = () => {
     let url = '../../Provincias/ComboProvincia';
     let data = { id: paisId};
     $.post(url, data).done(provincias => {
-        if (provincias.length === 0) {
-            $('#ProvinciaID').append(`<option value=${0}>[NO EXISTEN PROVINCIAS]</option>`);
-        }
-        else {
-            $.each(provincias, (i, provincia) => {
+        provincias.length === 0
+            ? $('#ProvinciaID').append(`<option value=${0}>[NO EXISTEN PROVINCIAS]</option>`)
+            : $.each(provincias, (i, provincia) => {
                 $('#ProvinciaID').append(`<option value=${provincia.value}>${provincia.text}</option>`)
             });
-        }
     }).fail(e => console.log('error en combo provincias ' + e));
     return false
 }
@@ -80,14 +77,11 @@ const BuscarLocalidad = () => {
     let url = '../../Localidades/ComboLocalidades';
     let data = { id: $('#ProvinciaID').val() };
     $.post(url, data).done(localidades => {
-        if (localidades.length === 0) {
-            $('#LocalidadID').append(`<option value=${0}>[NO EXISTEN LOCALIDADES]</option>`);
-        }
-        else {
-            $.each(localidades, (i, localidad) => {
+        localidades.length === 0
+            ? $('#LocalidadID').append(`<option value=${0}>[NO EXISTEN LOCALIDADES]</option>`)
+            : $.each(localidades, (i, localidad) => {
                 $('#LocalidadID').append(`<option value=${localidad.value}>${localidad.text}</option>`)
             });
-        }
     }).fail(e => console.log('error en combo localidades' + e))
     return false
 }
@@ -97,17 +91,14 @@ $('#ProvinciaID').change(()=>BuscarLocalidad());
 const BuscarEmpresa = (EmpresaID)=> {
     $("#Titulo-Modal-").text("Editar Empresa");
     $("#EmpresaID").val(empresaID);
-    $.ajax({
-        type: "POST",
-        url: '../../Empresas/BuscarEmpresa',
-        data: { EmpresaID: empresaID },
-        success: function (empresa) {
+    let url = '../../Empresas/BuscarEmpresa';
+    let data = { EmpresaID: empresaID };
+    $.post(url, data)
+        .done(empresa => {
             $("#Nombre").val(rubro.descripcion);
             $("#exampleModal").modal("show");
-        },
-        error: function (data) {
-        }
-    });
+        })
+    .fail(e => console.log(e));
 }
 
 const AbrirModal = () => {

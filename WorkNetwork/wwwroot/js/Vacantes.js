@@ -31,7 +31,7 @@ const CompletarTablaVacantes = () => {
 
             )
         })
-    }).fail(e => console.error('Error al cargar tabla localidades ' + e));
+    }).fail(e => console.error('Error al cargar tabla localidades ', e));
 }
 
 const GuardarVacante= () => {
@@ -40,8 +40,8 @@ const GuardarVacante= () => {
     let tituloVacante =$('#tituloVacante')
     let descripcionVacante=$('#descripcionVacante').val();
     let expRequeridaVacante= $('#expRequeridaVacante').val();
-    let paisID = $('#PaisID').val();
-    let provinciaID = $('#ProvinciaID').val();
+    //let paisID = $('#PaisID').val();
+    //let provinciaID = $('#ProvinciaID').val();
     let localidadID = $('#LocalidadID').val();
     let fechaFinalizacionVacante =$('#fechaFinalizacionVacante').val();
     let idiomaVacante = $('#idiomaVacante').val();
@@ -69,32 +69,27 @@ const BuscarProvincia = () => {
     let url = '../../Provincias/ComboProvincia';
     let data = { id: $('#PaisID').val() };
     $.post(url, data).done(provincias => {
-        if (provincias.length === 0) {
-            $('#ProvinciaID').append(`<option value=${0}>[NO EXISTEN PROVINCIAS]</option>`);
-        }
-        else {
-            $.each(provincias, (i, provincia) => {
+        provincias.length === 0
+            ? $('#ProvinciaID').append(`<option value=${0}>[NO EXISTEN PROVINCIAS]</option>`)
+            : $.each(provincias, (i, provincia) => {
                 $('#ProvinciaID').append(`<option value=${provincia.value}>${provincia.text}</option>`)
-            });
-        }
+              });
     }).fail(e => console.log('error en combo provincias ' + e));
     return false
 }
 
 $('#ProvinciaID').change(() => BuscarLocalidad());
+
 const BuscarLocalidad = () => {
     $('#LocalidadID').empty();
     let url = '../../Localidades/ComboLocalidades';
     let data = { id: $('#ProvinciaID').val() };
     $.post(url, data).done(localidades => {
-        if (localidades.length === 0) {
-            $('#LocalidadID').append(`<option value=${0}>[NO EXISTEN LOCALIDADES]</option>`);
-        }
-        else {
-            $.each(localidades, (i, localidad) => {
+        localidades.length === 0
+            ? $('#LocalidadID').append(`<option value=${0}>[NO EXISTEN LOCALIDADES]</option>`)
+            : $.each(localidades, (i, localidad) => {
                 $('#LocalidadID').append(`<option value=${localidad.value}>${localidad.text}</option>`)
             });
-        }
     }).fail(e => console.log('error en combo localidades' + e))
     return false
 }

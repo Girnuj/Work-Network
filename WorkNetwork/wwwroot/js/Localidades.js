@@ -36,32 +36,27 @@ const GuardarLocalidad = () => {
     let alertLocalidad = $('#alertLocalidad')
     let url = '../../Localidades/GuardarLocalidad';
     let data = { IdLocalidad: idLocalidad, NombreLocalidad: nombreLocalidad, ProvinciaID: idProvincia, CP: parseInt(cpLocalidad) };
-    if (nombreLocalidad != '' && nombreLocalidad != null){
+    if (nombreLocalidad != '' && nombreLocalidad != null) {
+
         if(cpLocalidad != null && cpLocalidad != undefined && cpLocalidad !=0){
-            console.log(cpLocalidad)
-        if(idPais != 0){
-            if(idProvincia != 0){
-            $.post(url, data).done(resultado => {
-                if(resultado == 0){
-                    $('#modalCrearLocalidad').modal('hide');
-                    CompletarTablaLocalidades();
-                }
-                if (resultado == 2){
-                    alertLocalidad.removeClass('visually-hidden').text('La localidad ingresada ya existe.')
-                }
-            }).fail(e => console.log(`Error en guardar localidad ${e}`))
-            }else{
-                alertLocalidad.removeClass('visually-hidden').text('Debe seleccionar una provincia')
-            }
-        }else{
-            alertLocalidad.removeClass('visually-hidden').text('Debe seleccionar un pais.')
-        }
-        }else{
-            alertLocalidad.removeClass('visually-hidden').text('Debe ingresar un codigo postal.')
-        }
-    }else{
-        alertLocalidad.removeClass('visually-hidden').text('Debe ingresar un nombre para la localidad.')
-    }
+            if(idPais != 0){
+                if(idProvincia != 0){
+                    $.post(url, data).done(resultado => {
+                        if(resultado == 0){
+                            $('#modalCrearLocalidad').modal('hide');
+                            CompletarTablaLocalidades();
+                        }
+                        alertLocalidad.removeClass('visually-hidden').text('La localidad ingresada ya existe.')
+                    }).fail(e => console.log(`Error en guardar localidad ${e}`))
+
+                } else alertLocalidad.removeClass('visually-hidden').text('Debe seleccionar una provincia')
+                            
+            } else alertLocalidad.removeClass('visually-hidden').text('Debe seleccionar un pais.')
+            
+        } else alertLocalidad.removeClass('visually-hidden').text('Debe ingresar un codigo postal.')
+                 
+    }else alertLocalidad.removeClass('visually-hidden').text('Debe ingresar un nombre para la localidad.')
+    
 }
 
 $('#PaisID').change(() => BuscarProvincia())
@@ -71,14 +66,11 @@ const BuscarProvincia = () => {
     let url = '../../Provincias/ComboProvincia';
     let data = { id: $('#PaisID').val() };
     $.post(url, data).done(provincias => {
-        if (provincias.length === 0) {
-            $('#ProvinciaID').append(`<option value=${0}>[NO EXISTEN PROVINCIAS]</option>`);
-        }
-        else {
-            $.each(provincias, (i, provincia) => {
+        provincias.length === 0
+            ? $('#ProvinciaID').append(`<option value=${0}>[NO EXISTEN PROVINCIAS]</option>`)
+            : $.each(provincias, (i, provincia) => {
                 $('#ProvinciaID').append(`<option value=${provincia.value}>${provincia.text}</option>`)
             });
-        }
     }).fail(e => console.log('error en combo provincias ' + e))
     return false
 }
@@ -106,12 +98,9 @@ const EliminarLocalidad = (localidadID, elimina) => {
         url: '../../Localidades/EliminarLocalidad',
         data: { LocalidadID: localidadID, Elimina: elimina },
         success: function (resultado) {
-            if (resultado == 0) {
-                CompletarTablaLocalidades();
-            }
-            else {
-                alert("No se puede eliminar la localidad.");
-            }
+            resultado == 0
+                ? CompletarTablaLocalidades()
+                : alert("No se puede eliminar la localidad.");
         },
         error: function (data) {
         }
