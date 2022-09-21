@@ -1,7 +1,3 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using WorkNetwork.Data;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -48,10 +44,8 @@ builder.Services.ConfigureApplicationCookie(options =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseMigrationsEndPoint();
-}
+if (app.Environment.IsDevelopment()) app.UseMigrationsEndPoint();
+
 else
 {
     app.UseExceptionHandler("/Home/Error");

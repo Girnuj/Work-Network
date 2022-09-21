@@ -27,6 +27,15 @@
 		<Using Include="System.ComponentModel.DataAnnotations.Schema"/>
 	</ItemGroup>
 	
+	<!--using Identity manage-->
+	<ItemGroup>
+		<Using Include="Microsoft.AspNetCore.Authentication"/>
+		<Using Include="Microsoft.AspNetCore.Mvc.RazorPages"/>
+		<Using Include="Microsoft.AspNetCore.Identity.UI.Services"/>
+		<Using Include="Microsoft.AspNetCore.WebUtilities"/>
+		<Using Include="System.Text.Encodings.Web"/>
+		<Using Include="System.Text"/>
+	</ItemGroup>
 	
   <ItemGroup>
     <PackageReference Include="DotLiquid" Version="2.2.656" />
