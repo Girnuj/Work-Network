@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WorkNetwork.Data;
 
@@ -11,13 +12,14 @@ using WorkNetwork.Data;
 namespace WorkNetwork.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220821214205_CreacionEmpresaUsuarios")]
+    partial class CreacionEmpresaUsuarios
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.8")
+                .HasAnnotation("ProductVersion", "6.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -51,22 +53,22 @@ namespace WorkNetwork.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6b0481b6-31e3-442e-b168-d9c044700c00",
-                            ConcurrencyStamp = "c70d4066-d325-45e5-acb6-a8311e602dd7",
+                            Id = "a678a8fe-e381-47ed-bbbf-9c29d6175a66",
+                            ConcurrencyStamp = "ff56e097-8321-463c-9382-726910c884a0",
                             Name = "SuperUsuario",
                             NormalizedName = "SUPERUSUARIO"
                         },
                         new
                         {
-                            Id = "85997de6-8ab7-46f7-b6d0-0751e9cce1ba",
-                            ConcurrencyStamp = "f1b297f8-41d9-438b-9d2e-09cec64df1a3",
+                            Id = "bb4021b1-b66c-4083-8a70-42d766a69204",
+                            ConcurrencyStamp = "b5bef62f-4c86-4512-8248-cf999c3bb315",
                             Name = "Empresa",
                             NormalizedName = "EMPRESA"
                         },
                         new
                         {
-                            Id = "05ce26ee-dc2f-406d-aac3-adaea803bafc",
-                            ConcurrencyStamp = "92858a3c-b817-4d01-8db2-e0960289c419",
+                            Id = "48223681-7a4d-4c85-8e50-fa2aace41083",
+                            ConcurrencyStamp = "b4e40bc3-4fe0-4bbe-ba6f-380917ee1fce",
                             Name = "Usuario",
                             NormalizedName = "USUARIO"
                         });
@@ -234,8 +236,8 @@ namespace WorkNetwork.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "adf8a72b-f2ba-40c3-b69b-da1aaedde99c",
-                            RoleId = "6b0481b6-31e3-442e-b168-d9c044700c00"
+                            UserId = "21833b5b-632b-4063-9527-c3ad7e775ee3",
+                            RoleId = "a678a8fe-e381-47ed-bbbf-9c29d6175a66"
                         });
                 });
 
@@ -270,9 +272,6 @@ namespace WorkNetwork.Migrations
 
                     b.Property<int>("CUIT")
                         .HasColumnType("int");
-
-                    b.Property<bool>("Eliminado")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -341,9 +340,6 @@ namespace WorkNetwork.Migrations
                     b.Property<int>("CP")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Eliminado")
-                        .HasColumnType("bit");
-
                     b.Property<string>("NombreLocalidad")
                         .HasColumnType("nvarchar(max)");
 
@@ -398,9 +394,6 @@ namespace WorkNetwork.Migrations
                     b.Property<string>("DomicilioPersona")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Eliminado")
-                        .HasColumnType("bit");
-
                     b.Property<string>("EstadoCivil")
                         .HasColumnType("nvarchar(max)");
 
@@ -445,26 +438,6 @@ namespace WorkNetwork.Migrations
                     b.ToTable("Persona");
                 });
 
-            modelBuilder.Entity("WorkNetwork.Models.PersonaUsuario", b =>
-                {
-                    b.Property<int>("PersonaUsuarioID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PersonaUsuarioID"), 1L, 1);
-
-                    b.Property<int>("PersonaID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UsuarioID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("PersonaUsuarioID");
-
-                    b.ToTable("PersonaUsuarios");
-                });
-
             modelBuilder.Entity("WorkNetwork.Models.PersonaVacante", b =>
                 {
                     b.Property<int>("PersonaVacanteID")
@@ -497,9 +470,6 @@ namespace WorkNetwork.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProvinciaID"), 1L, 1);
-
-                    b.Property<bool>("Eliminado")
-                        .HasColumnType("bit");
 
                     b.Property<string>("NombreProvincia")
                         .HasColumnType("nvarchar(max)");
@@ -547,9 +517,6 @@ namespace WorkNetwork.Migrations
                     b.Property<int>("DisponibilidadHoraria")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Eliminado")
-                        .HasColumnType("bit");
-
                     b.Property<int>("EmpresaID")
                         .HasColumnType("int");
 
@@ -594,17 +561,17 @@ namespace WorkNetwork.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "adf8a72b-f2ba-40c3-b69b-da1aaedde99c",
+                            Id = "21833b5b-632b-4063-9527-c3ad7e775ee3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2b895e09-7392-435f-9582-af56dd66c9c6",
+                            ConcurrencyStamp = "ef9b8de4-1035-491b-8a8d-7bd5ea9b148c",
                             Email = "wkntk@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "WKNTK@GMAIL.COM",
                             NormalizedUserName = "WKNTK@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAE3T9so9UNG4cEtuD0XWMhR4vvuXI316puJPi8xmRFkjMOGMAKONjKYWICJmFeAsQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAclPne4jqLqTjbhwjiVPLKFU4l2pZq2Jle3nOSVSZ1YqcS07N2ihKFFGZ0sziHANA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "60599654-07a5-44b9-aa57-0e8f882685de",
+                            SecurityStamp = "349aa605-0cc6-4971-bf8c-36d5f0e7f567",
                             TwoFactorEnabled = false,
                             UserName = "wkntk@gmail.com"
                         });

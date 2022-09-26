@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using WorkNetwork.Data;
-using WorkNetwork.Models;
-
-namespace WorkNetwork.Controllers
+﻿namespace WorkNetwork.Controllers
 {
+    [Authorize(Roles = "SuperUsuario")]
     public class RubrosController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -30,7 +27,7 @@ namespace WorkNetwork.Controllers
             if (!string.IsNullOrEmpty(NombreRubro))
             {
                 NombreRubro = NombreRubro.ToUpper();
-                if (idRubro == 0)
+                if (idRubro is 0)
                 {
                     if (_context.Rubro.Any(e => e.NombreRubro == NombreRubro))
                     {
@@ -66,5 +63,49 @@ namespace WorkNetwork.Controllers
 
             return Json(resultado);
         }
+
+         public JsonResult BuscarRubro(int RubroID)
+        {
+            var rubro = _context.Rubro.FirstOrDefault(m => m.RubroID == RubroID);
+
+            return Json(rubro);
+        }
+
+        public JsonResult EliminarRubro(int RubroID, int Elimina)
+        {
+            int resultado = 0;
+
+            var rubro = _context.Rubro.Find(RubroID);
+            if (rubro is not null)
+            {
+                if (Elimina is 0)
+                {
+                    rubro.Eliminado = false;
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    //NO PUEDE ELIMINAR RUBRO SI TIENE SUBRUBROS ACTIVOS
+                    //var cantidadSubRubros = (from o in _context.Subrubros where o.RubroID == RubroID && o.Eliminado == false select o).Count();
+                    //if (cantidadSubRubros == 0)
+                    //{
+                        rubro.Eliminado = true;
+                        _context.SaveChanges();
+                    //}
+                    //else
+                    //{
+                      //  resultado = 1;
+                    //}
+                }                              
+            }
+
+            return Json(resultado);
+        }
+      
+        private bool RubroExists(int id)
+        {
+            return _context.Rubro.Any(e => e.RubroID == id);
+        }
+
     }
 }

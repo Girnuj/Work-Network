@@ -1,11 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using WorkNetwork.Data;
-using WorkNetwork.Models;
-
-
-namespace WorkNetwork.Controllers
+﻿namespace WorkNetwork.Controllers
 {
+    [Authorize(Roles = "SuperUsuario")]
     public class VacantesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -36,34 +31,31 @@ namespace WorkNetwork.Controllers
             return View();
         }
 
+
+
         public JsonResult TablaVacasntes()
         {
             var vacantes = _context.Vacante.ToList();
             return Json(vacantes);
         }
 
-        public JsonResult GuardarVacante(int idVacante,int idEmpresa, string NombreEmpresa,
+        public JsonResult GuardarVacante(int idVacante, int idEmpresa, string NombreEmpresa,
                string DescripcionVacante, string ExperienciaRequerida, int idLocalidad,
                DateTime FechaDeFinalizacion, string Idiomas, string ImagenString,
                string Estado, int DisponibilidadHorariaid, int TipoModalidadid)
         {
             bool resultado = true;
             var disponibilidadHorariaEnum = DisponibilidadHoraria.fulltime;
-            if (DisponibilidadHorariaid == 1)
-            {
-                disponibilidadHorariaEnum = DisponibilidadHoraria.partime;
-            }
+           
+            if (DisponibilidadHorariaid is 1) disponibilidadHorariaEnum = DisponibilidadHoraria.partime;
 
-          
             var tipoModalidadEnum = tipoModalidad.presencial;
-            if (TipoModalidadid == 1)
-            {
-                tipoModalidadEnum = tipoModalidad.semipresencial;
-            }
-            else
-            {
-                tipoModalidadEnum = tipoModalidad.remoto;
-            }
+
+            if (TipoModalidadid is 1) tipoModalidadEnum = tipoModalidad.semipresencial;
+  
+            else 
+              tipoModalidadEnum = tipoModalidad.remoto;
+            
 
             var nuevaVacante = new Vacante
             {
@@ -82,6 +74,50 @@ namespace WorkNetwork.Controllers
             _context.Add(nuevaVacante);
             _context.SaveChanges();
             return Json(resultado);
+        }
+
+
+        public JsonResult BuscarVacante(int VacanteID)
+        {
+            var vacante = _context.Vacante.FirstOrDefault(m => m.VacanteID == VacanteID);
+
+            return Json(vacante);
+        }
+
+        public JsonResult EliminarVacante(int VacanteID, int Elimina)
+        {
+            int resultado = 0;
+
+            var vacante = _context.Vacante.Find(VacanteID);
+            if (vacante is not null)
+            {
+                if (Elimina is 0)
+                {
+                    vacante.Eliminado = false;
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    //NO PUEDE ELIMINAR EMPRESA SI TIENE RUBROS ACTIVOS
+                    // var cantidadRubros = (from o in _context.Rubros where o.EmpresaID == EmpresaID && o.Eliminado == false select o).Count();
+                    //if (cantidadRubros == 0)
+                    //{
+                    //Vacante.Eliminado = true;
+                    //_context.SaveChanges();
+                    //}
+                    //else
+                    //{
+                    //   resultado = 1;
+                    //}
+                }
+            }
+
+            return Json(resultado);
+
+        }
+        private bool VacanteExists(int id)
+        {
+            return _context.Vacante.Any(e => e.VacanteID == id);
         }
     }
 }

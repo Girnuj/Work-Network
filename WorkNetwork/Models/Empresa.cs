@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace WorkNetwork.Models
+﻿namespace WorkNetwork.Models
 
 {
     public class Empresa
@@ -21,6 +18,8 @@ namespace WorkNetwork.Models
         [NotMapped]
         public string? ImagenString { get; set; }
         public int RubroID { get; set; }
+        public bool Eliminado { get; set; }
+
         public virtual Rubro? Rubro { get; set; }
         public TipoEmpresa TipoEmpresa { get; set; }
         public virtual ICollection<Vacante>? Vacantes { get; set; }

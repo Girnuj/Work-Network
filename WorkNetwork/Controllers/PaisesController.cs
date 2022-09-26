@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using WorkNetwork.Data;
-using WorkNetwork.Models;
-
-namespace WorkNetwork.Controllers
+﻿namespace WorkNetwork.Controllers
 {
+    [Authorize(Roles = "SuperUsuario")]
     public class PaisesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -16,6 +13,11 @@ namespace WorkNetwork.Controllers
         {
             return View(_context.Pais.ToList());
         }
+
+         //public JsonResult ComboPais(int id)
+       // {
+         ////  return Json(new SelectList(provincias, "ProvinciaID", "NombreProvincia"));
+      //  }
         public JsonResult TablaPaises()
         {
             var paises = _context.Pais.ToList();
@@ -30,12 +32,12 @@ namespace WorkNetwork.Controllers
             if (!string.IsNullOrEmpty(NombrePais))
             {
                 NombrePais = NombrePais.ToUpper(); 
-                if(PaisID == 0)
+                
+                if(PaisID is 0)
                 {
                     if(_context.Pais.Any(e=> e.NombrePais == NombrePais))
-                    {
                         resultado = 2;
-                    }
+         
                     else
                     {
                         //Creo el pais
@@ -50,10 +52,10 @@ namespace WorkNetwork.Controllers
                 }
                 else
                 {
-                    if(_context.Pais.Any(e => e.NombrePais == NombrePais && e.PaisID != PaisID))
-                    {
+                    //Editar el pais
+                    if(_context.Pais.Any(e => e.NombrePais == NombrePais && e.PaisID != PaisID))     
                         resultado=2;
-                    }
+                    
                     else
                     {
                         var pais = _context.Pais.Single(e=>e.PaisID == PaisID);
@@ -61,11 +63,23 @@ namespace WorkNetwork.Controllers
                         _context.SaveChanges();
                     }
                 }
-
             }
             return Json(resultado);
-
         }
 
+        // RETORNA LOS DATOS DEL CAMPO PAIS DE LA BASE DE DATOS PARA MOSTRARLOS DENTRO DEL MODAL
+        public JsonResult BuscarPais(int PaisID)
+        {
+            var pais = _context.Pais.FirstOrDefault(p => p.PaisID == PaisID);
+            return Json(pais);
+        }
+
+        public JsonResult EliminarPais(int PaisID, int Elimina)
+        {
+            bool resultado = true;
+            var pais = _context.Pais.Find();
+            return Json(resultado);
+        }
+        
     }
 }

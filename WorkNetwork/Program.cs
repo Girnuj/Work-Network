@@ -1,18 +1,14 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using WorkNetwork.Data;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-  options.UseSqlServer(connectionString));
+ options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 //var connection = @"Server=localhost;Database=WorkNetwork;ConnectRetryCount=0; User ID=sa;Password=Tominucho123";
 //builder.Services.AddDbContext<ApplicationDbContext>(options=>
-//    options.UseSqlServer(connection));
+ //   options.UseSqlServer(connection));
 //builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 
@@ -48,10 +44,8 @@ builder.Services.ConfigureApplicationCookie(options =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseMigrationsEndPoint();
-}
+if (app.Environment.IsDevelopment()) app.UseMigrationsEndPoint();
+
 else
 {
     app.UseExceptionHandler("/Home/Error");

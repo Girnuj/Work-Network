@@ -1,32 +1,61 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
+	<LangVersion>10</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>aspnet-WorkNetwork-4E5ED1D1-D666-4908-9557-E30270BD5811</UserSecretsId>
   </PropertyGroup>
 
+	<!--using Controllers-->
+	<ItemGroup>
+		<Using Include="Microsoft.AspNetCore.Authorization"/>
+		<Using Include="Microsoft.AspNetCore.Identity"/>
+		<Using Include="Microsoft.AspNetCore.Mvc"/>
+		<Using Include="Microsoft.AspNetCore.Mvc.Rendering"/>
+		<Using Include="WorkNetwork.Data"/>
+		<Using Include="WorkNetwork.Models"/>
+		<Using Include="System.Diagnostics"/>
+		<Using Include="Microsoft.EntityFrameworkCore"/>
+		<Using Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore"/>
+	</ItemGroup>
+	
+	<!--using Models-->
+	<ItemGroup>
+		<Using Include="System.ComponentModel.DataAnnotations"/>
+		<Using Include="System.ComponentModel.DataAnnotations.Schema"/>
+	</ItemGroup>
+	
+	<!--using Identity manage-->
+	<ItemGroup>
+		<Using Include="Microsoft.AspNetCore.Authentication"/>
+		<Using Include="Microsoft.AspNetCore.Mvc.RazorPages"/>
+		<Using Include="Microsoft.AspNetCore.Identity.UI.Services"/>
+		<Using Include="Microsoft.AspNetCore.WebUtilities"/>
+		<Using Include="System.Text.Encodings.Web"/>
+		<Using Include="System.Text"/>
+	</ItemGroup>
+	
   <ItemGroup>
     <PackageReference Include="DotLiquid" Version="2.2.656" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.7" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.7" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.7" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.7">
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.8">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SQLite" Version="6.0.7" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.7" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.7">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SQLite" Version="6.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.7" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.8" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
-
 </Project>

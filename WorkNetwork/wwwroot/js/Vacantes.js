@@ -7,6 +7,13 @@ const CompletarTablaVacantes = () => {
         $('#tbody-vacante').empty();
         $.each(vacantes, function (index, vacantes) {
             let claseEliminado = '';
+            let botones = `<btn type='button' class= 'btn btn-outline-success btn-sm me-3' onclick = "BuscarVacantes(${vacantes.idVacante})"><i class="bi bi-pencil-square"></i> Editar</btn>
+                                <btn type='button' class = 'btn btn-outline-danger btn-sm'onclick = "EliminarVacante(${vacantes.idVacante},1)"><i class="bi bi-trash3"></i> Eliminar</btn>`
+
+            if (vacantes.eliminado) {
+                claseEliminado = 'table-danger';
+                botones = `<btn type='button' class = 'btn btn-outline-warning btn-sm'onclick = "EliminarVacante(${vacantes.idVacante},0)"><i class="bi bi-recycle"></i> Activar</btn>`
+            }
             $("#tbody-vacante").append(
                 `<tr class= 'tabla-hover ${claseEliminado}'>
                         <td class='texto'>${vacante.tituloVacante}</td>
@@ -18,12 +25,13 @@ const CompletarTablaVacantes = () => {
                         <td class='texto'>${vacante.disponibilidadHoraria}</td>
                         <td class='texto'>${vacante.modalidadVacante}</td>
                         <td class = 'text-center'>
+                        ${botones}
                         </td>
                  </tr>`
 
             )
         })
-    }).fail(e => console.error('Error al cargar tabla localidades ' + e));
+    }).fail(e => console.error('Error al cargar tabla localidades ', e));
 }
 
 const GuardarVacante= () => {
@@ -32,8 +40,8 @@ const GuardarVacante= () => {
     let tituloVacante =$('#tituloVacante')
     let descripcionVacante=$('#descripcionVacante').val();
     let expRequeridaVacante= $('#expRequeridaVacante').val();
-    let paisID = $('#PaisID').val();
-    let provinciaID = $('#ProvinciaID').val();
+    //let paisID = $('#PaisID').val();
+    //let provinciaID = $('#ProvinciaID').val();
     let localidadID = $('#LocalidadID').val();
     let fechaFinalizacionVacante =$('#fechaFinalizacionVacante').val();
     let idiomaVacante = $('#idiomaVacante').val();
@@ -61,32 +69,27 @@ const BuscarProvincia = () => {
     let url = '../../Provincias/ComboProvincia';
     let data = { id: $('#PaisID').val() };
     $.post(url, data).done(provincias => {
-        if (provincias.length === 0) {
-            $('#ProvinciaID').append(`<option value=${0}>[NO EXISTEN PROVINCIAS]</option>`);
-        }
-        else {
-            $.each(provincias, (i, provincia) => {
+        provincias.length === 0
+            ? $('#ProvinciaID').append(`<option value=${0}>[NO EXISTEN PROVINCIAS]</option>`)
+            : $.each(provincias, (i, provincia) => {
                 $('#ProvinciaID').append(`<option value=${provincia.value}>${provincia.text}</option>`)
-            });
-        }
+              });
     }).fail(e => console.log('error en combo provincias ' + e));
     return false
 }
 
 $('#ProvinciaID').change(() => BuscarLocalidad());
+
 const BuscarLocalidad = () => {
     $('#LocalidadID').empty();
     let url = '../../Localidades/ComboLocalidades';
     let data = { id: $('#ProvinciaID').val() };
     $.post(url, data).done(localidades => {
-        if (localidades.length === 0) {
-            $('#LocalidadID').append(`<option value=${0}>[NO EXISTEN LOCALIDADES]</option>`);
-        }
-        else {
-            $.each(localidades, (i, localidad) => {
+        localidades.length === 0
+            ? $('#LocalidadID').append(`<option value=${0}>[NO EXISTEN LOCALIDADES]</option>`)
+            : $.each(localidades, (i, localidad) => {
                 $('#LocalidadID').append(`<option value=${localidad.value}>${localidad.text}</option>`)
             });
-        }
     }).fail(e => console.log('error en combo localidades' + e))
     return false
 }

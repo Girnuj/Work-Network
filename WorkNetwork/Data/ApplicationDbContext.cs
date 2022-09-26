@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using WorkNetwork.Models;
-
-namespace WorkNetwork.Data
+﻿namespace WorkNetwork.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
@@ -19,27 +15,13 @@ namespace WorkNetwork.Data
         public DbSet<PersonaVacante> PersonaVacante { get; set; }
         public DbSet<Rubro> Rubro { get; set; }
         public DbSet<Vacante> Vacante { get; set; }
+        public DbSet<EmpresaUsuario> EmpresaUsuarios { get; set; }
+        public DbSet<PersonaUsuario> PersonaUsuarios {get; set;}
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //if (modelBuilder == null)
-            //    throw new ArgumentNullException("modelBuilder");
-
-            //// for the other conventions, we do a metadata model loop
-            //foreach (var entityType in modelBuilder.Model.GetEntityTypes())
-            //{
-            //    // equivalent of modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-            //    entityType.SetTableName(entityType.DisplayName());
-
-            //    // equivalent of modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-            //    entityType.GetForeignKeys()
-            //        .Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade)
-            //        .ToList()
-            //        .ForEach(fk => fk.DeleteBehavior = DeleteBehavior.Restrict);
-            //}
             modelBuilder.Seed();
-
             base.OnModelCreating(modelBuilder);
         }
 

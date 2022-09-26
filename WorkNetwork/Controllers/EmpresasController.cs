@@ -1,18 +1,14 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using WorkNetwork.Data;
-using WorkNetwork.Models;
-
-namespace WorkNetwork.Controllers
+﻿namespace WorkNetwork.Controllers
 {
-    [Authorize(Roles = "Empresa")]
+    [Authorize(Roles = "Empresa, SuperUsuario")]
     public class EmpresasController : Controller
     {
         private readonly ApplicationDbContext _context;
-        public EmpresasController(ApplicationDbContext context)
+        private readonly UserManager<IdentityUser> _userManager;
+        public EmpresasController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
         public IActionResult Index()
         {
@@ -32,7 +28,16 @@ namespace WorkNetwork.Controllers
             rubros.Add(new Rubro { RubroID = 0, NombreRubro = "[SELECCIONE UN RUBRO]" });
             ViewBag.RubroID = new SelectList(rubros.OrderBy(x => x.NombreRubro), "RubroID", "NombreRubro");
 
-            return View();
+            // BUSCO EL USUARIO ACTUAL
+            var usuarioActual = _userManager.GetUserId(HttpContext.User);
+            
+            //EN BASE AL USUARIO BUSCO EN LA TABLA PARA VER SI ESTA RELACIONADO A ALGUAN PERSONA. 
+            var UsuarioRelacionado= _context.EmpresaUsuarios.Where(p => p.UsuarioID == usuarioActual).Count();
+            if(UsuarioRelacionado == 0 ){
+                return View();
+            }else{
+                return RedirectToAction("Index","Home");
+            }
         }
 
         public JsonResult TablaEmpresas()
@@ -63,7 +68,65 @@ namespace WorkNetwork.Controllers
             };
             _context.Add(nuevaEmpresa);
             _context.SaveChanges();
+
+            var usuarioActual = _userManager.GetUserId(HttpContext.User);
+            var nuevoEmpresaUsuario = new EmpresaUsuario
+            {
+                UsuarioID= usuarioActual,
+                EmpresaID = nuevaEmpresa.EmpresaID
+            };
+            _context.Add(nuevoEmpresaUsuario);
+            _context.SaveChanges();
             return Json(resultado);
         }
+    
+
+          public JsonResult BuscarEmpresa(int EmpresaID)
+        {
+            var empresa = _context.Empresa.FirstOrDefault(m => m.EmpresaID == EmpresaID);
+
+            return Json(empresa);
+        }
+
+         public JsonResult EliminarEmpresa(int EmpresaID, int Elimina)
+         {
+            int resultado = 0;
+
+            var empresa = _context.Empresa.Find(EmpresaID);
+            if (empresa != null)
+            {
+                if (Elimina == 0)
+                {
+                    empresa.Eliminado = false;
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    empresa.Eliminado = true;
+                    //NO PUEDE ELIMINAR EMPRESA SI TIENE RUBROS ACTIVOS
+                    //var cantidadRubros = (from o in _context.Rubro where o.EmpresaID == EmpresaID && o.Eliminado == false select o).Count();
+                    //if (cantidadRubros == 0)
+                    //{
+                    //    empresa.Eliminado = true;
+                    //    _context.SaveChanges();
+                    //}
+                    //else
+                    //{
+                    //    resultado = 1;
+                    //}
+                }
+                _context.SaveChanges();
+            }
+
+            return Json(resultado);
+
+
+         }
+               private bool RubroExists(int id)
+               {
+            return _context.Rubro.Any(e => e.RubroID == id);
+               }
+
     }
+
 }

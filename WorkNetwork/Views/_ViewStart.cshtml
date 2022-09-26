@@ -1,6 +1,6 @@
-﻿@*@{
-    Layout = "_LayoutDeIngreso";
-}*@
+﻿@{
+    Layout = "_Layout";
+}
 @*@{
     if(ViewData["Ingreso"] == "_LayoutDeIngreso")
     {
@@ -8,15 +8,15 @@
     Layout = "_LayoutDeIngreso";
     }
     else Layout = "_Layout";
-}*@
+}
 @{
 
     if (ViewData["Ingreso"] != null && !string.IsNullOrWhiteSpace(ViewData["Ingreso"].ToString()))
     {
-        Layout = "_Layout";
+        Layout = "ingreso";
     }
     else
     {
-        Layout = "_Layout";
+        Layout = "ingreso";
     }
-}
+}*@

@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace WorkNetwork.Models
+﻿namespace WorkNetwork.Models
 {
     public class Persona
     {
@@ -26,6 +23,8 @@ namespace WorkNetwork.Models
         public byte[]? Imagen { get; set; }
         [NotMapped]
         public string? ImagenString { get; set; }
+        public bool Eliminado { get; set; }
+
         //public virtual ICollection<PersonaVacante>? PersonaVacante { get; set; }
 
         //RELACION UNA PERSONA A MUCHOS RUBROS

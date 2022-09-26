@@ -33,13 +33,14 @@ gsap.timeline({
     }
 })
 
-    .from(".text1", { x: innerWidth * 1 })
+    .from(".text1", { x: innerWidth * 2 })
     .from(".text2", { x: innerWidth * -1 })
-    .from(".text3", { x: innerWidth * 1 })
+    .from(".text3", { x: innerWidth * 2 })
     .from(".logo3", {
         y: innerHeight * 1,
-        // rotate : 360
+     // rotate : 360
     })
+
 gsap.timeline({
     scrollTrigger: {
         trigger: ".box3",
@@ -51,6 +52,60 @@ gsap.timeline({
     }
 })
 
-    .from(".text4", { x: innerWidth * 1 })
-    .from(".text5", { x: innerWidth * -1 })
-    .from(".text6", { x: innerWidth * 1 })
+.from(".text4", { x: innerWidth * 1 })
+.from(".text5", { x: innerWidth * -1 })
+.from(".text6", { x: innerWidth * 1 })
+
+let switchCtn = document.querySelector("#switch-cnt");
+let switchCtn12 = document.querySelector("#switch-cnt12");
+let switchC1 = document.querySelector("#switch-c1");
+let switchC12 = document.querySelector("#switch-c12");
+let switchC2 = document.querySelector("#switch-c2");
+let switchC23 = document.querySelector("#switch-c23");
+let switchCircle = document.querySelectorAll(".switch__circle");
+let switchBtn = document.querySelectorAll(".switch-btn");
+let aContainer = document.querySelector("#a-container");
+let aContainer12 = document.querySelector("#a-container12");
+let bContainer = document.querySelector("#b-container");
+let bContainer12 = document.querySelector("#b-container12");
+let allButtons = document.querySelectorAll(".submit");
+
+let getButtons = (e) => e.preventDefault()
+
+let changeForm = (e) => {
+
+    switchCtn.classList.add("is-gx");
+    setTimeout(function () {
+        switchCtn.classList.remove("is-gx");
+    }, 1500)
+
+    switchCtn12.classList.add("is-gx");
+    setTimeout(function () {
+        switchCtn12.classList.remove("is-gx");
+    }, 1500)
+
+    switchCtn.classList.toggle("is-txr");
+    switchCtn12.classList.toggle("is-txr");
+    switchCircle[0].classList.toggle("is-txr");
+    switchCircle[1].classList.toggle("is-txr");
+
+    switchC1.classList.toggle("is-hidden");
+    switchC12.classList.toggle("is-hidden");
+    switchC2.classList.toggle("is-hidden");
+    switchC23.classList.toggle("is-hidden");
+    aContainer.classList.toggle("is-txl");
+    aContainer12.classList.toggle("is-txl");
+    bContainer.classList.toggle("is-txl");
+    bContainer.classList.toggle("is-z200");
+    bContainer12.classList.toggle("is-txl");
+    bContainer12.classList.toggle("is-z200");
+}
+
+let mainF = (e) => {
+    for (var i = 0; i < allButtons.length; i++)
+        allButtons[i].addEventListener("click", getButtons);
+    for (var i = 0; i < switchBtn.length; i++)
+        switchBtn[i].addEventListener("click", changeForm)
+}
+
+window.addEventListener("load", mainF);

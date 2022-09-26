@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace WorkNetwork.Models
+﻿namespace WorkNetwork.Models
 {
     public class Pais
     {

@@ -2,14 +2,13 @@
     await VaciarFormulario()
     let url = '../../Rubros/TablaRubros'
 
-
     $.get(url).done(async rubros => {
         $('#tbody-rubros').empty();
-        $.each(rubros, await function (i, rubro) {
+        $.each(rubros, function (i, rubro) {
 
             let claseEliminado = '';
             let botones = `<btn type='button' class= 'btn btn-outline-success btn-sm me-3' onclick = "BuscarRubro(${rubro.rubroID})"><i class="bi bi-pencil-square"></i> Editar</btn>
-                                <btn type='button' class = 'btn btn-outline-danger btn-sm'onclick = "EliminarRubro(${rubro.rubroID},1)"><i class="bi bi-trash3"></i> Eliminar</btn>`
+                           <btn type='button' class = 'btn btn-outline-danger btn-sm'onclick = "EliminarRubro(${rubro.rubroID},1)"><i class="bi bi-trash3"></i> Eliminar</btn>`
 
             if (rubro.eliminado) {
                 claseEliminado = 'table-danger';
@@ -17,11 +16,11 @@
             }
             $('#tbody-rubros').append(
                 `<tr class= 'tabla-hover ${claseEliminado}'>
-                        <td class='texto'>${rubro.nombreRubro}</td>
-                        <td class = 'text-center'>
-                            ${botones}
-                        </td>
-                    </tr>`
+                   <td class='texto'>${rubro.nombreRubro}</td>
+                   <td class = 'text-center'>
+                    ${botones}
+                   </td>
+                </tr>`
             )
         })
     })
@@ -60,3 +59,24 @@ const VaciarFormulario = () => {
     $('#nombreRubro').val('');
     $('#alertRubro').addClass('visually-hidden')
 }
+
+
+const BuscarRubro = (rubroID) => {
+    $("#titulo-modal-rubro").text("Editar Rubro");
+    $("#idRubro").val(rubroID);
+    let url = '../../Rubros/BuscarRubro';
+    let data = { RubroID: rubroID };
+
+    $.post(url, data).done(rubro => {
+        $("#nombreRubro").val(rubro.nombreRubro);
+        $("#modalCrearRubro").modal("show");
+    }).fail(e => console.log(e));
+}
+
+const EliminarRubro = (rubroID, elimina) => {
+    let url = '../../Rubros/EliminarRubro';
+    let data = {RubroID:rubroID, Elimina: elimina};
+    $.post(url,data).done(CompletarTablaRubro()).fail(e=>console.log(e))
+}
+
+

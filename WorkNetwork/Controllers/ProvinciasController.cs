@@ -1,12 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using WorkNetwork.Data;
-using WorkNetwork.Models;
-
-namespace WorkNetwork.Controllers
+﻿namespace WorkNetwork.Controllers
 {
+    [Authorize(Roles = "SuperUsuario,Empresa, Usuario")]
     public class ProvinciasController : Controller
     {
 
@@ -19,17 +13,17 @@ namespace WorkNetwork.Controllers
             _userManager = userManager;
         }
 
+        [Authorize(Roles = "SuperUsuario")]
         public async Task<IActionResult> Index()
         {
-            var userId = _userManager.GetUserId(HttpContext.User);
-            
-
             var paiss = _context.Pais.ToList();
             paiss.Add(new Pais { PaisID = 0, NombrePais = "[SELECCIONE UN PAIS]" });
             ViewBag.PaisID = new SelectList(paiss.OrderBy(e => e.NombrePais), "PaisID", "NombrePais");
             return View(await _context.Provincia.ToListAsync());
         }
 
+
+        [Authorize(Roles = "Usuario, Empresa")]
         public JsonResult ComboProvincia(int id)
         {
             var provincias = (from p in _context.Provincia where p.PaisID == id select p).ToList();
@@ -50,7 +44,7 @@ namespace WorkNetwork.Controllers
 
             if (!string.IsNullOrEmpty(NombreProvincia)){
                 NombreProvincia = NombreProvincia.ToUpper();
-                if(IdProvincia == 0){
+                if(IdProvincia is 0){
                     if(_context.Provincia.Any(e=>e.NombreProvincia == NombreProvincia && e.PaisID == PaisID )){
                         resultado = 2;
                     }else{
@@ -77,5 +71,50 @@ namespace WorkNetwork.Controllers
             return Json(resultado);
         }
 
+
+
+        public JsonResult BuscarProvincia(int ProvinciaID)
+        {
+            var provincia = _context.Provincia.FirstOrDefault(m => m.ProvinciaID == ProvinciaID);
+
+            return Json(provincia);
+        }
+
+        public JsonResult EliminarProvincia(int ProvinciaID, int Elimina)
+        {
+            int resultado = 0;
+
+            var provincia = _context.Provincia.Find(ProvinciaID);
+            if (provincia is not null)
+            {
+                if (Elimina is 0)
+                {
+                    provincia.Eliminado = false;
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    //NO PUEDE ELIMINAR LA PROVINCIA A SI TIENE LOCALIDADES
+                    var cantidadlocalidades = (from o in _context.Localidad where o.ProvinciaID == ProvinciaID && o.Eliminado == false select o).Count();
+                    if (cantidadlocalidades is 0)
+                    {
+                        provincia.Eliminado = true;
+                        _context.SaveChanges();
+                    }
+                    else
+                    {
+                        resultado = 1;
+                    }
+                }
+            }
+
+            return Json(resultado);
+
+            //private bool ProvinciaExists(int id)//
+            //  {
+            // return _context.Rubros.Any(e => e.RubroID == id);
+            // }//
+
+        }
     }
 }

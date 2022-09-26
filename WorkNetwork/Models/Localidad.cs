@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace WorkNetwork.Models
+﻿namespace WorkNetwork.Models
 {
     public class Localidad
     {
@@ -9,6 +7,8 @@ namespace WorkNetwork.Models
         public string? NombreLocalidad { get; set; }
         public int CP { get; set; }
         public int ProvinciaID { get; set; }
+        public bool Eliminado { get; set; }
+
         public virtual Provincia? Provincia { get; set; }
         public virtual ICollection<Persona>? Personas { get; set; }
         public virtual ICollection<Empresa>? Empresas { get; set; }

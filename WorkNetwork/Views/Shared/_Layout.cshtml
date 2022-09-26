@@ -82,6 +82,9 @@
                         <path d="M13.73 21a2 2 0 0 1-3.46 0" />
                     </svg>
                 </button>
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                    <button type="submit" class="nav-link btn btn-link text-dark">Cerrar Seision</button>
+                </form>
                 <button class="profile-btn">
                     <img src="https://assets.codepen.io/3306515/IMG_2025.jpg" />
                     <span>Julieta</span>
