@@ -33,3 +33,13 @@ function registerPerson(){
 		? $.post(url, data).done(resultado => resultado ? window.location.href = '/' : alert('usuario o contraseña incorrecta')).fail(e => console.log(e))
 		: alert('las contraseñas no coinciden');
 }
+function loginPersona(){	
+	event.preventDefault();
+	let correoPersona=	$('#correoPersona').val();
+	let passPersona= $('#passwordPersona').val();
+	let url = '../../GestionDeUsuarios/Ingresar';
+	let data = { email: correoPersona, password:passPersona};
+	$.post(url, data).done(resultado => {
+		resultado ? window.location.href='/' : alert('usuario o contraseña incorrecta')
+	}).fail(e => console.log(e))
+}

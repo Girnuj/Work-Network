@@ -11,6 +11,30 @@
             _userManager = userManager;
         }
 
+        public IActionResult Index()
+        {
+            // BUSCO EL USUARIO ACTUAL
+            var usuarioActual = _userManager.GetUserId(HttpContext.User);
+            
+            var rolUsuario = _context.UserRoles.Where(u => u.UserId == usuarioActual).FirstOrDefault();
+            //EN BASE A ESE ID BUSCAMOS EN LA TABLA DE RELACION USUARRIO-ROL QUE REGISTRO TIENE
+            var rolNombre = _context.Roles.Where(u => u.Id == rolUsuario.RoleId).Select(r=>r.Name).FirstOrDefault();
+            //EN BASE AL USUARIO BUSCO EN LA TABLA PARA VER SI ESTA RELACIONADO A ALGUAN PERSONA. 
+            if (rolNombre is "Usuario"){
+
+                var personaUsuario = (from p in _context.PersonaUsuarios where p.UsuarioID == usuarioActual select p).Count();
+                if(personaUsuario == 0){
+                     return RedirectToAction("NewPerson","Personas");
+                }
+            }
+            return View();
+        }
+
+        public IActionResult PerfilUser()
+        {
+            return View();
+        }
+
         public IActionResult NewPerson()
         {
             var paises = _context.Pais.ToList();
@@ -24,45 +48,9 @@
             var localidad = _context.Localidad.ToList();
             localidad.Add(new Localidad { LocalidadID = 0, NombreLocalidad = "[SELECCIONE UN PAIS]" });
             ViewBag.LocalidadID = new SelectList(localidad.OrderBy(x => x.NombreLocalidad), "LocalidadID", "NombreLocalidad");
-
-            // BUSCO EL USUARIO ACTUAL
-            var usuarioActual = _userManager.GetUserId(HttpContext.User);
             
-            //EN BASE AL USUARIO BUSCO EN LA TABLA PARA VER SI ESTA RELACIONADO A ALGUAN PERSONA. 
-            var UsuarioRelacionado= _context.PersonaUsuarios.Where(p => p.UsuarioID == usuarioActual).Count();
-            if(UsuarioRelacionado == 0 ){
-                return View();
-            }else{
-                return RedirectToAction("Index","Home");
-            }
+            return View();
         }
-
-        public IActionResult Index()
-        {
-            var paises = _context.Pais.ToList();
-            paises.Add(new Pais { PaisID = 0, NombrePais = "[SELECCIONE UN PAIS]" });
-            ViewBag.PaisID = new SelectList(paises.OrderBy(e => e.NombrePais), "PaisID", "NombrePais");
-
-            var provincias = _context.Provincia.ToList();
-            provincias.Add(new Provincia { ProvinciaID = 0, NombreProvincia = "[SELECCIONE UN PAIS]" });
-            ViewBag.ProvinciaID = new SelectList(provincias.OrderBy(x => x.NombreProvincia), "ProvinciaID", "NombreProvincia");
-
-            var localidad = _context.Localidad.ToList();
-            localidad.Add(new Localidad { LocalidadID = 0, NombreLocalidad = "[SELECCIONE UN PAIS]" });
-            ViewBag.LocalidadID = new SelectList(localidad.OrderBy(x => x.NombreLocalidad), "LocalidadID", "NombreLocalidad");
-
-            // BUSCO EL USUARIO ACTUAL
-            var usuarioActual = _userManager.GetUserId(HttpContext.User);
-            
-            //EN BASE AL USUARIO BUSCO EN LA TABLA PARA VER SI ESTA RELACIONADO A ALGUAN PERSONA. 
-            var UsuarioRelacionado= _context.PersonaUsuarios.Where(p => p.UsuarioID == usuarioActual).Count();
-            if(UsuarioRelacionado == 0 ){
-                return View();
-            }else{
-                return RedirectToAction("Index","Home");
-            }
-        }
-
         public JsonResult TablaPersonas()
         {
             var personas = _context.Persona.ToList();
@@ -85,66 +73,66 @@
         //--------------------PARAMETROS DEL GUARDAR PERSONA ---------------------------
 
 
-        public JsonResult GuardarPersona(int idPersona, string nombrePersona, string apellidoPersona,
-            int numeroDocumento, DateTime fechaNacimiento, string mailUser, string domicilioPersona,
-            int idLocalidad, int telefono1, int telefono2, string estadoCivil, string tituloAcademico,
-            int cantidadHijos, string ImagenString, int SituacionLaboralid, int Generoid, int TipoDocumentoid, IFormFile adjunto)
+        public JsonResult GuardarPersona(int idPersona, string nombrePersona, string apellidoPersona, int tipoDocumentoid, int numeroDocumento, int Generoid, DateTime fechaNacimiento,string mailUser,string domicilioPersona, int numeroDomicilio, int SituacionLaboralid, int LocalidadID, int telefono1, int telefono2, string estadoCivil, int cantidadHijos, string tituloAcademico, IFormFile adjunto)
         {
+            byte[] img = null;
+            string tipoImg = null; 
+            string domicilioCompleto = domicilioPersona + numeroDomicilio;
+            if (adjunto!= null){
             if (adjunto.Length > 0)
             {
                 using (var ms = new MemoryStream())
                 {
                     adjunto.CopyTo(ms);
-                    var fileBytes = ms.ToArray();
-                    var tipoDeArchivo = adjunto.ContentType;
-                    string base64 = Convert.ToBase64String(fileBytes);
+                    img = ms.ToArray();
+                    tipoImg = adjunto.ContentType;
                 }
             }
+        }
             bool resultado = true;
 
-            var situacionLaboralEnum = SituacionLaboral.Desempleado;
-            if (SituacionLaboralid is 1)
-            {
-                situacionLaboralEnum = SituacionLaboral.Empleado;
-            }
+             var situacionLaboralEnum = SituacionLaboral.Desempleado;
+             if (SituacionLaboralid is 1)
+             {
+                 situacionLaboralEnum = SituacionLaboral.Empleado;
+             }
 
-            var generoEnum = Genero.Masculino;
+             var generoEnum = Genero.Masculino;
 
-            if (Generoid is 1)
-            {
-                generoEnum = Genero.Femenino;
-            }
-            else
-            {
-                generoEnum = Genero.Otro;
-            }
+             if (Generoid is 1)
+             {
+                 generoEnum = Genero.Femenino;
+             }
+             if(Generoid is 2)
+             {
+                 generoEnum = Genero.Otro;
+             }
 
-            var tipoDocumentoEnum = TipoDocumento.dni;
-            if (TipoDocumentoid is 1)
-            {
-                tipoDocumentoEnum = TipoDocumento.LE;
-            }
+             var tipoDocumentoEnum = TipoDocumento.dni;
+             if (tipoDocumentoid is 1)
+             {
+                 tipoDocumentoEnum = TipoDocumento.LE;
+             }
 
             var persona = new Persona
             {
                 NombrePersona = nombrePersona,
-                ApellidoPersona = apellidoPersona,
-                TipoDocumento = tipoDocumentoEnum,
-                NumeroDocumento = numeroDocumento,
-                FechaNacimiento = fechaNacimiento,
-                CorreoElectronico = mailUser,
-                DomicilioPersona = domicilioPersona,
-                LocalidadID = idLocalidad,
-                SituacionLaboral = situacionLaboralEnum,
-                CantidadHijos = cantidadHijos,
-                Genero = generoEnum,
-                Telefono1 = telefono1,
-                Telefono2 = telefono2,
-                EstadoCivil = estadoCivil,
-                TituloAcademico = tituloAcademico,
-                ImagenString = ImagenString
-
-
+                 ApellidoPersona = apellidoPersona,
+                 TipoDocumento = tipoDocumentoEnum,
+                 NumeroDocumento = numeroDocumento,
+                 FechaNacimiento = fechaNacimiento,
+                 CorreoElectronico = mailUser,
+                 DomicilioPersona = domicilioPersona,
+                 LocalidadID = LocalidadID,
+                 SituacionLaboral = situacionLaboralEnum,
+                 CantidadHijos = cantidadHijos,
+                 Genero = generoEnum,
+                 Telefono1 = telefono1,
+                 Telefono2 = telefono2,
+                 EstadoCivil = estadoCivil,
+                 TituloAcademico = tituloAcademico,
+                 ImagenString = tipoImg,
+                 Imagen = img
             };
             resultado = false;
             _context.Add(persona);

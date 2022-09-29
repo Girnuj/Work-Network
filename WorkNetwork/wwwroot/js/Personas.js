@@ -1,12 +1,12 @@
-﻿const CompletarTablaPersonas = async () => {
+﻿const CompletarTablaPersonas = () => {
 
-    await VaciarFormulario();
+    VaciarFormulario();
 
     $.ajax({
         type: "POST",
         url: '../../Personas/TablaPersonas',
         data: {},
-        success: async (personas) => {
+        success: (personas) => {
             $('#tbody-personas').empty();
             $.each(personas, function (index, personas) {
                 let claseEliminado = '';
@@ -43,56 +43,21 @@
     });
 }
 
-//const GuardarPersona = () => {
-//    event.preventDefault();
-//    let idPersona = $('#idPersona').val();
-//    let nombrePersona = $('#nombrePersona').val().trim();
-//    let apellidoPersona = $('#apellidoPersona').val().trim();
-//    let tipoDoc = $('#tipoDoc').val();
-//    let nroDNI = $('#nroDNI').val();
-//    let fecNac = $('#fecNac').val();
-//    let mailUser = $('#mailUser').val();
-//    let idPais = $('#PaisID').val();
-//    let idProvincia = $('#ProvinciaID').val();
-//    let idLocalidad = $('#LocalidadID').val();
-//    let genre = $('#genre').val();
-//    let tel1 = $('#tel1').val();
-//    let tel2 = $('#tel2').val();
-//    let estCivil = $('#estCivil').val();
-//    let tituloAcadem = $('#tituloAcadem').val();
-//    let imagenUp = $('#imagenUp').val();
-//    let domicilio = $('#Domicilio').val()
-//    let numero = $('#numeroDomicilio').val()
-//    let domicilioCompleto = `${domicilio} ${numero}`
-//    let cantidadHijos = $('#cantidadHijos').val()
-
-//    let url = '../../Personas/GuardarPersona';
-//    let data = {
-//        IdPersona: idPersona, NombrePersona: nombrePersona, ApellidoPersona: apellidoPersona, TipoDocumentoid: tipoDoc,
-//        NumeroDocumento: nroDNI, FechaNacimiento: fecNac, MailUser: mailUser, DomicilioPersona: domicilioCompleto,
-//        IdLocalidad: idLocalidad, Generoid: genre, Telefono1: tel1, Telefono2: tel2, EstadoCivil: estCivil, TituloAcademico: tituloAcadem,
-//        ImagenUp: imagenUp, CantidadHijos: cantidadHijos
-//    };
-    
-//    const parametros = new FormData($('#frmFormulario')[0])
-//    $.ajax({
-//        type: "POST",
-//        url: url,
-//        data: parametros,
-//        contentType: false,
-//        processData: false,
-//        async: false,
-//        success: data => alert('archivo capturado'),
-//        error: e => alert('error')
-//    })
-//    ////j.query
-//    //$.post(url, data).done(await function (resultado) {
-//    //    if (resultado == false) {
-//    //        $('#modalCrearPersona').modal('hide')
-//    //        CompletarTablaPersonas()
-//    //    }
-//    //}).fail((err) => console.log("error en GuardarPersona", err))
-//}
+const guardarPrueba = ()=>{
+    event.preventDefault();
+    const parametros = new FormData($('#frmFormulario')[0]);
+    const url = '../../Personas/GuardarPersona';
+    $.ajax({
+        type:'POST',
+        url: url,
+        data: parametros,
+        contentType: false,
+        processData: false,
+        async: false,
+        success: e => window.location.href = '/',
+        error: e=>console.log('error'+e)
+    })
+}
 
 $('#PaisID').change(() => BuscarProvincia());
 
@@ -106,13 +71,13 @@ const BuscarProvincia = () => {
             : $.each(provincias, (i, provincia) => {
                 $('#ProvinciaID').append(`<option value=${provincia.value}>${provincia.text}</option>`)
             });
+        BuscarLocalidad()
     }).fail(e => console.log('error en combo provincias ' + e))
     return false
 }
 
-$('#ProvinciaID').change(() => BuscarLocalidad());
 
-$('#PaisID').change(() => BuscarLocalidad());
+$('#ProvinciaID').change(() => BuscarLocalidad());
 const BuscarLocalidad = () => {
     $('#LocalidadID').empty();
     let url = '../../Localidades/ComboLocalidades';
@@ -154,20 +119,3 @@ const VaciarFormulario = () => {
     $("#imagenUp").val('');
 }
 
-$('#frmFormulario').submit(e => {
-    e.preventDefault();
-
-    let url = '../../Personas/GuardarPersona';
-    const parametros = new FormData($(this)[0]);
-
-    $.ajax({
-        type: "POST",
-        url: url,
-        data: parametros,
-        contentType: false,
-        processData: false,
-        success: data => alert('exito'),
-        error: e => alert('EFE')
-
-    })
-})
