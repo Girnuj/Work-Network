@@ -5,25 +5,27 @@
 }
 
 .project-boxes::-webkit-scrollbar {
-    width: 9px;
-    border-radius: 10px;
+  /*  width: 9px;
+    border-radius: 10px;*/
+  display: none;
 }
 
-.project-boxes::-webkit-scrollbar-thumb {
+/*.project-boxes::-webkit-scrollbar-thumb {
     background: #f19d1f;
     border-radius: 10px;
 }
 
 .project-boxes::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.01);
-}
+}*/
 
 .projects-section::-webkit-scrollbar {
-    width: 9px;
-    border-radius: 10px;
+    /* width: 9px;
+    border-radius: 10px;*/
+    display: none;
 }
 
-.project-section::-webkit-scrollbar-thumb {
+/*.project-section::-webkit-scrollbar-thumb {
     background: #f19d1f;
     border-radius: 10px;
 }
@@ -44,7 +46,7 @@
 
 .messages-section::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.01);
-}
+}*/
 
 :root {
     --app-container: #f3f6fd;
@@ -123,7 +125,7 @@ button, a {
     display: flex;
     height: 100%;
     overflow: hidden;
-    padding: 8px 24px 24px 0;
+    padding: 0px 9px 10px 0px;
 }
 
 .app-header {
@@ -131,7 +133,7 @@ button, a {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding: 16px 24px;
+    padding: 4px 9px 7px 25px;
     position: relative;
 }
 
@@ -284,7 +286,7 @@ button, a {
 }
 
 .app-sidebar {
-    padding: 40px 16px;
+    padding: 23px 13px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -316,8 +318,8 @@ button, a {
 
 .projects-section {
     flex: 2;
-    background-color: var(--projects-section);
-    border-radius: 32px;
+  /*  background-color: var(--projects-section);*/
+    border-radius: 30px;
     /*padding: 16px 32px 0 32px;*/
     overflow: scroll;
     height: 100%;
