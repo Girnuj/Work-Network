@@ -131,7 +131,7 @@
                  Telefono2 = telefono2,
                  EstadoCivil = estadoCivil,
                  TituloAcademico = tituloAcademico,
-                 ImagenString = tipoImg,
+                 TipoImagen = tipoImg,
                  Imagen = img
             };
             resultado = false;

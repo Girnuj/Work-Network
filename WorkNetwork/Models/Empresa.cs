@@ -15,8 +15,8 @@
         public int Telefono1 { get; set; }
         public int? Telefono2 { get; set; }
         public byte[]? Imagen { get; set; }
-        [NotMapped]
-        public string? ImagenString { get; set; }
+        public string? TipoImagen { get; set; }
+        public string? ImagenRecortada {get; set;}
         public int RubroID { get; set; }
         public bool Eliminado { get; set; }
 

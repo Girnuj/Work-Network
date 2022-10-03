@@ -12,6 +12,25 @@
         }
         public IActionResult Index()
         {
+            // BUSCO EL USUARIO ACTUAL
+            var usuarioActual = _userManager.GetUserId(HttpContext.User);
+            
+            var rolUsuario = _context.UserRoles.Where(u => u.UserId == usuarioActual).FirstOrDefault();
+            //EN BASE A ESE ID BUSCAMOS EN LA TABLA DE RELACION USUARRIO-ROL QUE REGISTRO TIENE
+            var rolNombre = _context.Roles.Where(u => u.Id == rolUsuario.RoleId).Select(r=>r.Name).FirstOrDefault();
+            //EN BASE AL USUARIO BUSCO EN LA TABLA PARA VER SI ESTA RELACIONADO A ALGUAN PERSONA. 
+            if (rolNombre is "Empresa"){
+
+                var personaUsuario = (from p in _context.PersonaUsuarios where p.UsuarioID == usuarioActual select p).Count();
+                if(personaUsuario == 0){
+                     return RedirectToAction("NewEmpresa","Empresas");
+                }
+            }
+            return View();
+        }
+
+        public IActionResult NewEmpresa(){
+
             var paises = _context.Pais.ToList();
             paises.Add(new Pais { PaisID = 0, NombrePais = "[SELECCIONE UN PAIS]" });
             ViewBag.PaisID = new SelectList(paises.OrderBy(e => e.NombrePais), "PaisID", "NombrePais");
@@ -28,16 +47,7 @@
             rubros.Add(new Rubro { RubroID = 0, NombreRubro = "[SELECCIONE UN RUBRO]" });
             ViewBag.RubroID = new SelectList(rubros.OrderBy(x => x.NombreRubro), "RubroID", "NombreRubro");
 
-            // BUSCO EL USUARIO ACTUAL
-            var usuarioActual = _userManager.GetUserId(HttpContext.User);
-            
-            //EN BASE AL USUARIO BUSCO EN LA TABLA PARA VER SI ESTA RELACIONADO A ALGUAN PERSONA. 
-            var UsuarioRelacionado= _context.EmpresaUsuarios.Where(p => p.UsuarioID == usuarioActual).Count();
-            if(UsuarioRelacionado == 0 ){
-                return View();
-            }else{
-                return RedirectToAction("Index","Home");
-            }
+            return View();
         }
 
         public JsonResult TablaEmpresas()
@@ -46,23 +56,25 @@
             return Json(empresas);
         }
 
-        public JsonResult GuardarEmpresa(int idEmpresa, string RazonSocial, int CUIT, string Email, int LocalidadID, int Telefono1, int Telefono2, int RubroID, int TipoEmpresaID)
+        public JsonResult GuardarEmpresa(int empresaID, string empresaNombre, int empresaCuit, string empresaCorreo, int LocalidadID, int empresaTelefono1, int empresaTelefono2, int RubroID, int tipoEmpresa, IFormFile empresaFoto)
         {
+            
+
             var resultado = true;
             var tipoEmpresaEnum = TipoEmpresa.Unipersonal;
-            if (TipoEmpresaID == 1)
+            if (tipoEmpresa == 1)
             {
                 tipoEmpresaEnum = TipoEmpresa.Sociedad;
             }
 
             var nuevaEmpresa = new Empresa
             {
-                RazonSocial = RazonSocial,
-                CUIT = CUIT,
-                Email = Email,
+                RazonSocial = empresaNombre,
+                CUIT = empresaCuit,
+                Email = empresaCorreo,
                 LocalidadID = LocalidadID,
-                Telefono1 = Telefono1,
-                Telefono2 = Telefono2,
+                Telefono1 = empresaTelefono1,
+                Telefono2 = empresaTelefono2,
                 RubroID = RubroID,
                 TipoEmpresa = tipoEmpresaEnum,
             };

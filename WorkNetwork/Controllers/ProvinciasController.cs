@@ -23,7 +23,7 @@
         }
 
 
-        [Authorize(Roles = "Usuario, Empresa")]
+        [Authorize(Roles = "SuperUsuario ,Usuario, Empresa")]
         public JsonResult ComboProvincia(int id)
         {
             var provincias = (from p in _context.Provincia where p.PaisID == id select p).ToList();

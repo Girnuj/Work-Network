@@ -43,7 +43,7 @@
     });
 }
 
-const guardarPrueba = ()=>{
+const guardarPersona = () => {
     event.preventDefault();
     const parametros = new FormData($('#frmFormulario')[0]);
     const url = '../../Personas/GuardarPersona';
@@ -55,7 +55,7 @@ const guardarPrueba = ()=>{
         processData: false,
         async: false,
         success: e => window.location.href = '/',
-        error: e=>console.log('error'+e)
+        error: e=>console.log('error' + e)
     })
 }
 

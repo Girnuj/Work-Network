@@ -21,8 +21,8 @@
         public string? TituloAcademico { get; set; }
         public int? CantidadHijos { get; set; }
         public byte[]? Imagen { get; set; }
-        [NotMapped]
-        public string? ImagenString { get; set; }
+        public string? TipoImagen{ get; set; }
+        public string? ImagenRecortada {get; set;}
         public bool Eliminado { get; set; }
 
         //public virtual ICollection<PersonaVacante>? PersonaVacante { get; set; }
