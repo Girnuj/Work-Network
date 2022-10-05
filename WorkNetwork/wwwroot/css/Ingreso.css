@@ -17,7 +17,7 @@
 }
 
 body {
-    background: #1f1f1f;
+    background: #ecf0f3;
     font-family: 'Poppins', sans-serif;
     overflow-x: hidden;
 }
@@ -389,7 +389,7 @@ body {
 
     .el:nth-child(1) .el__bg:before {
         transition-delay: 0.1s;
-        background: url(undraw_interview_re_e5jn.svg) center center / 500px 500px no-repeat;
+        background: url(muchostipitos.svg) center center / 500px 500px no-repeat;
     }
 
 .el:nth-child(2) {
@@ -465,7 +465,7 @@ body {
     border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-@media (max-width: 1000px) {
+/*@media (max-width: 1000px) {
     .main12 {
         transform: scale(0.6);
     }
@@ -481,7 +481,7 @@ body {
     .main12 {
         transform: scale(0.4);
     }
-}
+}*/
 
 .container12 {
     display: flex;
@@ -703,9 +703,10 @@ body {
     min-height: 100vh;
     padding: 100px;
     /* background: #f3f6fd; */
-    background: #fefffe;
+    /*    background: #fefffe;
     background: -webkit-linear-gradient(0deg, #fefffe 0%, #1f1f1f 100%);
-    background: linear-gradient(0deg, #fefffe 0%, #1f1f1f 100%);
+    background: linear-gradient(0deg, #fefffe 0%, #1f1f1f 100%);*/
+    background: -webkit-linear-gradient(225deg, hsla(0, 7%, 86%, 1) 18%, hsla(173, 74%, 30%, 1) 100%);
 }
 
     .box2 h2 {

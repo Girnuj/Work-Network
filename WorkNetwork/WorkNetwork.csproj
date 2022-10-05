@@ -10,31 +10,31 @@
 
 	<!--using Controllers-->
 	<ItemGroup>
-		<Using Include="Microsoft.AspNetCore.Authorization"/>
-		<Using Include="Microsoft.AspNetCore.Identity"/>
-		<Using Include="Microsoft.AspNetCore.Mvc"/>
-		<Using Include="Microsoft.AspNetCore.Mvc.Rendering"/>
-		<Using Include="WorkNetwork.Data"/>
-		<Using Include="WorkNetwork.Models"/>
-		<Using Include="System.Diagnostics"/>
-		<Using Include="Microsoft.EntityFrameworkCore"/>
-		<Using Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore"/>
+		<Using Include="Microsoft.AspNetCore.Authorization" />
+		<Using Include="Microsoft.AspNetCore.Identity" />
+		<Using Include="Microsoft.AspNetCore.Mvc" />
+		<Using Include="Microsoft.AspNetCore.Mvc.Rendering" />
+		<Using Include="WorkNetwork.Data" />
+		<Using Include="WorkNetwork.Models" />
+		<Using Include="System.Diagnostics" />
+		<Using Include="Microsoft.EntityFrameworkCore" />
+		<Using Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
 	</ItemGroup>
 	
 	<!--using Models-->
 	<ItemGroup>
-		<Using Include="System.ComponentModel.DataAnnotations"/>
-		<Using Include="System.ComponentModel.DataAnnotations.Schema"/>
+		<Using Include="System.ComponentModel.DataAnnotations" />
+		<Using Include="System.ComponentModel.DataAnnotations.Schema" />
 	</ItemGroup>
 	
 	<!--using Identity manage-->
 	<ItemGroup>
-		<Using Include="Microsoft.AspNetCore.Authentication"/>
-		<Using Include="Microsoft.AspNetCore.Mvc.RazorPages"/>
-		<Using Include="Microsoft.AspNetCore.Identity.UI.Services"/>
-		<Using Include="Microsoft.AspNetCore.WebUtilities"/>
-		<Using Include="System.Text.Encodings.Web"/>
-		<Using Include="System.Text"/>
+		<Using Include="Microsoft.AspNetCore.Authentication" />
+		<Using Include="Microsoft.AspNetCore.Mvc.RazorPages" />
+		<Using Include="Microsoft.AspNetCore.Identity.UI.Services" />
+		<Using Include="Microsoft.AspNetCore.WebUtilities" />
+		<Using Include="System.Text.Encodings.Web" />
+		<Using Include="System.Text" />
 	</ItemGroup>
 	
   <ItemGroup>
@@ -57,5 +57,5 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
   </ItemGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 </Project>
