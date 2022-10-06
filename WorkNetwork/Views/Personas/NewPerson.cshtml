@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WorkNetwork.Models.Persona>
+﻿@model Persona
 
 @{
     ViewData["Title"] = "Personas";
@@ -37,8 +37,6 @@
 
     <b> Fecha de Nacimiento: </b>
     <input class="form-control" type="date" placeholder="Fecha de Nacimiento" id="fecNac" name='fechaNacimiento' />
-    <b>E-mail:</b>
-    <input type="email" class="form-control" placeholder="Email" id="mailUser" name='mailUser' />
     <div class="row">
         <div class='col-9 mb-3'>
             <b>Domicilio</b>
@@ -73,11 +71,9 @@
 
     <div>
         <b>Telefono:</b>
-        <input class="form-control" type="tel" placeholder="Telefono/Celular" id="tel1" required maxlength="13"
-            name="telefono1" />
-        <b>Otro:</b>
-        <input class="form-control" type="tel" placeholder="Otro (Opcional)" id="tel2" maxlength="13"
-            name="telefono2" />
+        <input type="tel" placeholder="Ingrese un numero de telefono" id="telefono1" asp-for="Telefono1" class="form-control" />
+        <b>Otro:</b> 
+        <input class="form-control" type="tel" placeholder="Otro (Opcional)" id="tel2" name="telefono2" />
     </div>
 
     <b>Estado Civil:</b>

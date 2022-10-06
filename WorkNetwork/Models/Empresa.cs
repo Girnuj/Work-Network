@@ -9,11 +9,10 @@
         public int CUIT { get; set; }
         public enum TipoDeDocumento { DNI, Pasaporte }
         public int? NumeroDeDocumento { get; set; }
-        public string? Email { get; set; }
         public int LocalidadID { get; set; }
         public virtual Localidad? Localidad { get; set; }
-        public int Telefono1 { get; set; }
-        public int? Telefono2 { get; set; }
+        public string Telefono1 { get; set; }
+        public string? Telefono2 { get; set; }
         public byte[]? Imagen { get; set; }
         public string? TipoImagen { get; set; }
         public string? ImagenRecortada {get; set;}

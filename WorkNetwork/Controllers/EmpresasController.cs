@@ -56,9 +56,23 @@
             return Json(empresas);
         }
 
-        public JsonResult GuardarEmpresa(int empresaID, string empresaNombre, int empresaCuit, string empresaCorreo, int LocalidadID, int empresaTelefono1, int empresaTelefono2, int RubroID, int tipoEmpresa, IFormFile empresaFoto)
+        //Metodo para limpiar el numero telefonico
+        static string ClearNumber (string numero)=> new string((numero ?? "").Where(c=> c == '+' || char.IsNumber(c)).ToArray());
+        public JsonResult GuardarEmpresa(int empresaID, string empresaNombre, int empresaCuit,  int LocalidadID, string empresaTelefono1, string empresaTelefono2, int RubroID, int tipoEmpresa, IFormFile empresaFoto)
         {
-            
+            byte[] img = null;
+            string tipoImg = null; 
+            if (empresaFoto!= null){
+            if (empresaFoto.Length > 0)
+            {
+                using (var ms = new MemoryStream())
+                {
+                    empresaFoto.CopyTo(ms);
+                    img = ms.ToArray();
+                    tipoImg = empresaFoto.ContentType;
+                }
+            }
+            }
 
             var resultado = true;
             var tipoEmpresaEnum = TipoEmpresa.Unipersonal;
@@ -67,14 +81,16 @@
                 tipoEmpresaEnum = TipoEmpresa.Sociedad;
             }
 
+            var telefono1Clean = ClearNumber(empresaTelefono1);
+            var telefono2Clean = ClearNumber(empresaTelefono2);
+
             var nuevaEmpresa = new Empresa
             {
                 RazonSocial = empresaNombre,
                 CUIT = empresaCuit,
-                Email = empresaCorreo,
                 LocalidadID = LocalidadID,
-                Telefono1 = empresaTelefono1,
-                Telefono2 = empresaTelefono2,
+                Telefono1 = telefono1Clean,
+                Telefono2 = telefono2Clean,
                 RubroID = RubroID,
                 TipoEmpresa = tipoEmpresaEnum,
             };
@@ -90,6 +106,7 @@
             _context.Add(nuevoEmpresaUsuario);
             _context.SaveChanges();
             return Json(resultado);
+            
         }
     
 

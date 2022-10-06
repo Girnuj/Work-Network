@@ -56,24 +56,12 @@
             var personas = _context.Persona.ToList();
             return Json(personas);
         }
-        //public JsonResult CrearPersona(int IdPersona, string NombrePersona, string ApellidoPersona)
-        //{
-        //    bool resultado = false;
-        //    var persona = new Persona
-        //    {
-        //        NombrePersona = NombrePersona,
-        //        ApellidoPersona = ApellidoPersona, 
-        //    };
-        //    _context.Add(persona);
-        //    _context.SaveChanges();
-        //    return Json(resultado);
-        //}
 
-
+    
         //--------------------PARAMETROS DEL GUARDAR PERSONA ---------------------------
-
-
-        public JsonResult GuardarPersona(int idPersona, string nombrePersona, string apellidoPersona, int tipoDocumentoid, int numeroDocumento, int Generoid, DateTime fechaNacimiento,string mailUser,string domicilioPersona, int numeroDomicilio, int SituacionLaboralid, int LocalidadID, int telefono1, int telefono2, string estadoCivil, int cantidadHijos, string tituloAcademico, IFormFile adjunto)
+        //Metodo para limpiar el numero telefonico
+        static string ClearNumber (string numero)=> new string((numero ?? "").Where(c=> c == '+' || char.IsNumber(c)).ToArray());
+        public JsonResult GuardarPersona(int idPersona, string nombrePersona, string apellidoPersona, int tipoDocumentoid, int numeroDocumento, int Generoid, DateTime fechaNacimiento,string domicilioPersona, int numeroDomicilio, int SituacionLaboralid, int LocalidadID, string telefono1, string telefono2, string estadoCivil, int cantidadHijos, string tituloAcademico, IFormFile adjunto)
         {
             byte[] img = null;
             string tipoImg = null; 
@@ -113,6 +101,8 @@
              {
                  tipoDocumentoEnum = TipoDocumento.LE;
              }
+            var telefono1Clean = ClearNumber(telefono1); 
+            var telefono2Clean = ClearNumber(telefono2);
 
             var persona = new Persona
             {
@@ -121,14 +111,13 @@
                  TipoDocumento = tipoDocumentoEnum,
                  NumeroDocumento = numeroDocumento,
                  FechaNacimiento = fechaNacimiento,
-                 CorreoElectronico = mailUser,
                  DomicilioPersona = domicilioPersona,
                  LocalidadID = LocalidadID,
                  SituacionLaboral = situacionLaboralEnum,
                  CantidadHijos = cantidadHijos,
                  Genero = generoEnum,
-                 Telefono1 = telefono1,
-                 Telefono2 = telefono2,
+                 Telefono1 = telefono1Clean,
+                 Telefono2 = telefono2Clean,
                  EstadoCivil = estadoCivil,
                  TituloAcademico = tituloAcademico,
                  TipoImagen = tipoImg,
