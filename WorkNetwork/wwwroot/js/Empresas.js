@@ -18,7 +18,6 @@
                 `<tr class= 'tabla-hover '>
                         <td class='texto'>${empresas.razonSocial}</td>
                         <td class='texto'>${empresas.cuit}</td>
-                        <td class='texto'>${empresas.email}</td>
                         <td class='texto'>${empresas.localidadID}</td>
                         <td class='texto'>${empresas.telefono1}</td>
                         <td class='texto'>${empresas.rubroID}</td>

@@ -21,7 +21,7 @@
             //EN BASE AL USUARIO BUSCO EN LA TABLA PARA VER SI ESTA RELACIONADO A ALGUAN PERSONA. 
             if (rolNombre is "Empresa"){
 
-                var personaUsuario = (from p in _context.PersonaUsuarios where p.UsuarioID == usuarioActual select p).Count();
+                var personaUsuario = (from p in _context.EmpresaUsuarios where p.UsuarioID == usuarioActual select p).Count();
                 if(personaUsuario == 0){
                      return RedirectToAction("NewEmpresa","Empresas");
                 }

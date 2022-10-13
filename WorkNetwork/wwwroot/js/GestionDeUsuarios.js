@@ -27,9 +27,7 @@ function registerPerson(){
 	let correoPersona = $('#EmailPersona').val()
 	let passPersona = $('#PasswordPersona').val();
 	let passConfirmPersona = $('#ConfirmPasswordPersona').val();
-	let loader = document.getElementById('loaderRegisterPersona') 
 	$("#registrarPersona").addClass('visually-hidden')
-	$('#errorRegisterPersona').text('holaaas')
 	$('#loaderRegisterPersona').removeClass('visually-hidden')
 	let url = '../../GestionDeUsuarios/Registrar';
 	let data = { email: correoPersona, password: passPersona, Rol: rol }
@@ -40,11 +38,17 @@ function registerPerson(){
 					window.location.href = '/'
 				}else{
 					$('#errorRegisterPersona').text('El usuario ya existe')
+					$('#errorRegisterPersona').removeClass('visually-hidden');
+					$('#loaderRegisterPersona').addClass('visually-hidden');
+					$("#registrarPersona").removeClass('visually-hidden');
 				}
 			}
 		)
 	}else{
 		$('#errorRegisterPersona').text('Las contraseñas no coinciden')
+		$('#errorRegisterPersona').removeClass('visually-hidden');
+		$('#loaderRegisterPersona').addClass('visually-hidden');
+		$("#registrarPersona").removeClass('visually-hidden');
 	}
 
 }
