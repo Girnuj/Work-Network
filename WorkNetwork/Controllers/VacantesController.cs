@@ -1,6 +1,7 @@
 ﻿namespace WorkNetwork.Controllers
 {
-    [Authorize(Roles = "Empresa, SuperUsuario")]
+//(Roles = "Empresa, SuperUsuario")
+    [Authorize]
     public class VacantesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -36,6 +37,12 @@
 
 
         public JsonResult TablaVacasntes()
+        {
+            var vacantes = _context.Vacante.ToList();
+            return Json(vacantes);
+        }
+        
+        public JsonResult MostrarVantes()
         {
             var vacantes = _context.Vacante.ToList();
             return Json(vacantes);

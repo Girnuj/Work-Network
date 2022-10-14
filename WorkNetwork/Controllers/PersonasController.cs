@@ -29,7 +29,16 @@
             }
             return View();
         }
-
+        public JsonResult PerfilInfo()
+        {
+            //BUSCO L USUARIO ACTUAL
+            var usuarioActual = _userManager.GetUserId(HttpContext.User);
+            //BUSCO LA RELACION ENTRE PERSONA USUARIO
+            var personaUsuario = _context.PersonaUsuarios.Where(u => u.UsuarioID == usuarioActual).FirstOrDefault();
+            //SEGUN EL ID DE LA PERSONA OBTENGO TODA LA COLUMNA
+            var persona= _context.Persona.Where(u => u.PersonaID == personaUsuario.PersonaID).FirstOrDefault();
+            return Json(persona);
+        }
         public IActionResult PerfilUser()
         {
             return View();
