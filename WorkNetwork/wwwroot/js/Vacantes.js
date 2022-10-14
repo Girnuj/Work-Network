@@ -34,32 +34,35 @@ const CompletarTablaVacantes = () => {
     }).fail(e => console.error('Error al cargar tabla localidades ', e));
 }
 
-const GuardarVacante= () => {
-    let idVacante= $('#idVacante').val();
-    let idEmpresa= $('#idEmpresa').val();
-    let tituloVacante =$('#tituloVacante')
-    let descripcionVacante=$('#descripcionVacante').val();
-    let expRequeridaVacante= $('#expRequeridaVacante').val();
-    //let paisID = $('#PaisID').val();
-    //let provinciaID = $('#ProvinciaID').val();
-    let localidadID = $('#LocalidadID').val();
-    let fechaFinalizacionVacante =$('#fechaFinalizacionVacante').val();
-    let idiomaVacante = $('#idiomaVacante').val();
-    let disponibilidadHoraria = $('#disponibilidadHoraria').val();
-    let modalidadVacante = $('#modalidadVacante').val();
-    let imagenVacante = $('#imagenVacante').val();
+const GuardarVacante = () => {
+    console.log('llega')
+    event.preventDefault();
+    //let idVacante= $('#idVacante').val();
+    //let idEmpresa= $('#idEmpresa').val();
+    //let tituloVacante =$('#tituloVacante')
+    //let descripcionVacante=$('#descripcionVacante').val();
+    //let expRequeridaVacante= $('#expRequeridaVacante').val();
+    ////let paisID = $('#PaisID').val();
+    ////let provinciaID = $('#ProvinciaID').val();
+    //let localidadID = $('#LocalidadID').val();
+    //let fechaFinalizacionVacante =$('#fechaFinalizacionVacante').val();
+    //let idiomaVacante = $('#idiomaVacante').val();
+    //let disponibilidadHoraria = $('#disponibilidadHoraria').val();
+    //let modalidadVacante = $('#modalidadVacante').val();
+    //let imagenVacante = $('#imagenVacante').val();
     const url = '../../Vacantes/GuardarVacante';
-    const data = {
-        VacanteID: idVacante, EmpresaID: idEmpresa, Nombre: tituloVacante,
-        Descripcion: descripcionVacante, ExperienciaRequerida: expRequeridaVacante,
-        LocalidadID: localidadID, FechaDeFinalizacion: fechaFinalizacionVacante,
-        Idiomas: idiomaVacante, DisponibilidadHorariaid: disponibilidadHoraria,
-        tipoModalidadid: modalidadVacante, Imagen: imagenVacante
-    }
-    $.post(url, data).done(resultado => {
-        $('#modalCrearVacante').modal('hide');
-        CompletarTablaVacantes()
-    }).fail(e => console.log('error en guardar vacante' + e))
+    const formulario = $('#nuevaVacante')[0];
+    const params = new FormData(formulario)
+    $.ajax({
+        type:'POST',
+        url: url,
+        data: params,
+        contentType: false,
+        processData: false,
+        async: false,
+        success: e => window.location.href = '/Vacantes',
+        error: e=>console.log('error'+e)
+    })
 }
 
 $('#PaisID').change(() => BuscarProvincia());

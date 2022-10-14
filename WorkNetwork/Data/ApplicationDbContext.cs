@@ -15,6 +15,7 @@
         public DbSet<PersonaVacante> PersonaVacante { get; set; }
         public DbSet<Rubro> Rubro { get; set; }
         public DbSet<Vacante> Vacante { get; set; }
+        public DbSet<VacanteEmpresa> VacanteEmpresas {get; set;}
         public DbSet<EmpresaUsuario> EmpresaUsuarios { get; set; }
         public DbSet<PersonaUsuario> PersonaUsuarios {get; set;}
 

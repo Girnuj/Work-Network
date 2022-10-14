@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WorkNetwork.Data;
 
@@ -11,9 +12,10 @@ using WorkNetwork.Data;
 namespace WorkNetwork.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221013233957_Vacante-Empresa")]
+    partial class VacanteEmpresa
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,22 +53,22 @@ namespace WorkNetwork.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3380b1f9-07df-401f-93a3-4e30701816bd",
-                            ConcurrencyStamp = "a4187714-f350-40aa-a6e9-40216da05548",
+                            Id = "f7dbac72-800e-430e-8212-2ac862413c77",
+                            ConcurrencyStamp = "2f49f318-ad9e-4382-aaa4-caae57d8b743",
                             Name = "SuperUsuario",
                             NormalizedName = "SUPERUSUARIO"
                         },
                         new
                         {
-                            Id = "b22909f5-c51b-4fe6-9e48-e3cb632c09a7",
-                            ConcurrencyStamp = "9d993b3d-78f1-4e02-98df-616235eee5f2",
+                            Id = "3a81805c-c9c0-479e-85a1-1b1fc7d93a35",
+                            ConcurrencyStamp = "80af536a-c300-4928-b99a-4e5b725656fa",
                             Name = "Empresa",
                             NormalizedName = "EMPRESA"
                         },
                         new
                         {
-                            Id = "8373f26b-34da-4a06-a658-5f4dfd2fbaba",
-                            ConcurrencyStamp = "ac08c022-0235-49f5-9f21-d74482d78bb9",
+                            Id = "b1f61120-73ea-4955-afa5-68452e8a384b",
+                            ConcurrencyStamp = "99648d74-6c8c-42e8-b5e2-bcaaf3891867",
                             Name = "Usuario",
                             NormalizedName = "USUARIO"
                         });
@@ -234,8 +236,8 @@ namespace WorkNetwork.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "b3ee778a-fc8e-4490-8451-7f0cdc6f8d5b",
-                            RoleId = "3380b1f9-07df-401f-93a3-4e30701816bd"
+                            UserId = "c813d0d8-e0da-42b2-a79b-c11bffe4a20b",
+                            RoleId = "f7dbac72-800e-430e-8212-2ac862413c77"
                         });
                 });
 
@@ -601,25 +603,6 @@ namespace WorkNetwork.Migrations
                     b.ToTable("Vacante");
                 });
 
-            modelBuilder.Entity("WorkNetwork.Models.VacanteEmpresa", b =>
-                {
-                    b.Property<int>("VacanteEmpresaId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VacanteEmpresaId"), 1L, 1);
-
-                    b.Property<int>("EmpresaID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VacanteID")
-                        .HasColumnType("int");
-
-                    b.HasKey("VacanteEmpresaId");
-
-                    b.ToTable("VacanteEmpresas");
-                });
-
             modelBuilder.Entity("WorkNetwork.Models.ApplicationUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
@@ -629,17 +612,17 @@ namespace WorkNetwork.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b3ee778a-fc8e-4490-8451-7f0cdc6f8d5b",
+                            Id = "c813d0d8-e0da-42b2-a79b-c11bffe4a20b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6d3ff0a5-5c27-44fe-95c2-7270a0161d13",
+                            ConcurrencyStamp = "04a773b0-b198-4469-baf5-fed720373385",
                             Email = "wkntk@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "WKNTK@GMAIL.COM",
                             NormalizedUserName = "WKNTK@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHL47gMg/YhBYnrXoACEK4kKqrt33zV/52h89T8gk97Q3HdwXRJRDkwWiuqpaje3dw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJcISW1z4i9CXivFT0o2Hr25BuoMBKPexAuX96345eZiuIgUItY7u0tfDnqzXiNLUA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f68f8548-1d8f-443b-9451-387dde865078",
+                            SecurityStamp = "32adea4b-57f3-4e81-9d7d-885a48c9c44f",
                             TwoFactorEnabled = false,
                             UserName = "wkntk@gmail.com"
                         });
