@@ -123,7 +123,6 @@ const PerfilPersona = () => {
     const url = '../../Personas/PerfilInfo';
     let nombre = $('#nombre')
     $.get(url).done(perfil => {
-        console.log(perfil)
         nombre.append(`${perfil.nombrePersona} ${perfil.apellidoPersona}`)
         $('#celularPersona').append(`${perfil.telefono1}`);
     }).fail(e => console.log(e))

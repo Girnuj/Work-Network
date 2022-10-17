@@ -1,4 +1,6 @@
-﻿
+﻿@{
+  var infoUser = ViewData["persona"] as Persona;
+}
 
 <div class="container256" x-data="{ rightSide: false, leftSide: false }">
 
@@ -38,6 +40,7 @@
                                     <path d="M9 22V12h6v10" />
                                 </svg>
                                 Vive En <a href="#">Morteros, Argentina</a>
+                                Pais <a href="#">@infoUser.DomicilioPersona</a>
                             </div>
                             <div class="info-item">
                                 <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill="currentColor">

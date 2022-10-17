@@ -81,6 +81,7 @@ const BuscarLocalidad = () => {
     return false
 }
 
+$('#ProvinciaID').change(() => BuscarLocalidad());
 const BuscarEmpresa = (EmpresaID)=> {
     $("#Titulo-Modal-").text("Editar Empresa");
     $("#EmpresaID").val(empresaID);
