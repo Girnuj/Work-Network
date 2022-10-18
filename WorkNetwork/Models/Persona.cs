@@ -9,20 +9,19 @@
         public TipoDocumento TipoDocumento { get; set; }
         public int NumeroDocumento { get; set; }
         public DateTime FechaNacimiento { get; set; }
-        public string CorreoElectronico { get; set; }
         public string? DomicilioPersona { get; set; }
         public int LocalidadID { get; set; }
         public virtual Localidad Localidad { get; set; }
         public SituacionLaboral SituacionLaboral { get; set; }
         public Genero Genero { get; set; }
-        public int Telefono1 { get; set; }
-        public int? Telefono2 { get; set; }
+        public string Telefono1 { get; set; }
+        public string   ? Telefono2 { get; set; }
         public string? EstadoCivil { get; set; }
         public string? TituloAcademico { get; set; }
         public int? CantidadHijos { get; set; }
         public byte[]? Imagen { get; set; }
-        [NotMapped]
-        public string? ImagenString { get; set; }
+        public string? TipoImagen{ get; set; }
+        public string? ImagenRecortada {get; set;}
         public bool Eliminado { get; set; }
 
         //public virtual ICollection<PersonaVacante>? PersonaVacante { get; set; }

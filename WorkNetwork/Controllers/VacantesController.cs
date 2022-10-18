@@ -1,12 +1,15 @@
 ﻿namespace WorkNetwork.Controllers
 {
-    [Authorize(Roles = "SuperUsuario")]
+//(Roles = "Empresa, SuperUsuario")
+    [Authorize]
     public class VacantesController : Controller
     {
         private readonly ApplicationDbContext _context;
-        public VacantesController(ApplicationDbContext context)
+        private readonly UserManager<IdentityUser> _userManager;
+        public VacantesController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -38,20 +41,26 @@
             var vacantes = _context.Vacante.ToList();
             return Json(vacantes);
         }
+        
+        public JsonResult MostrarVantes()
+        {
+            var vacantes = _context.Vacante.ToList();
+            return Json(vacantes);
+        }
 
-        public JsonResult GuardarVacante(int idVacante, int idEmpresa, string NombreEmpresa,
-               string DescripcionVacante, string ExperienciaRequerida, int idLocalidad,
-               DateTime FechaDeFinalizacion, string Idiomas, string ImagenString,
-               string Estado, int DisponibilidadHorariaid, int TipoModalidadid)
+        public JsonResult GuardarVacante(int vacanteID,string tituloVacante,
+               string descripcionVacante, string experienciaRequerida, int LocalidadID,int RubroID,
+               DateTime fechaFinalizacion, string idiomaVacante, string ImagenString,
+               string Estado, int disponibilidadHoraria, int modalidadVacante)
         {
             bool resultado = true;
             var disponibilidadHorariaEnum = DisponibilidadHoraria.fulltime;
            
-            if (DisponibilidadHorariaid is 1) disponibilidadHorariaEnum = DisponibilidadHoraria.partime;
+            if (disponibilidadHoraria is 1) disponibilidadHorariaEnum = DisponibilidadHoraria.partime;
 
             var tipoModalidadEnum = tipoModalidad.presencial;
 
-            if (TipoModalidadid is 1) tipoModalidadEnum = tipoModalidad.semipresencial;
+            if (modalidadVacante is 1) tipoModalidadEnum = tipoModalidad.semipresencial;
   
             else 
               tipoModalidadEnum = tipoModalidad.remoto;
@@ -59,19 +68,34 @@
 
             var nuevaVacante = new Vacante
             {
-                Nombre = NombreEmpresa,
-                Descripcion = DescripcionVacante,
-                ExperienciaRequerida = ExperienciaRequerida,
-                LocalidadID = idLocalidad,
-                FechaDeFinalizacion = FechaDeFinalizacion,
-                Idiomas = Idiomas,
-                ImagenString = ImagenString,
+                Nombre = tituloVacante,
+                Descripcion = descripcionVacante,
+                ExperienciaRequerida = experienciaRequerida,
+                LocalidadID = LocalidadID,
+                FechaDeFinalizacion = fechaFinalizacion,
+                Idiomas = idiomaVacante,
+                RubroID = RubroID,
                 Estado = Estado,
+                Eliminado = false,
                 DisponibilidadHoraria = disponibilidadHorariaEnum,
                 tipoModalidad = tipoModalidadEnum,
 
             };
             _context.Add(nuevaVacante);
+            _context.SaveChanges();
+
+            //BUSCO EL USUARIO ACTUAL
+            var usuarioActual = _userManager.GetUserId(HttpContext.User);
+            //EN BASE A ESE ID BUSCAMOS EN LA TABLA DE RELACION USUARRIO-EMPRESA QUE REGISTRO TIENE
+            var empresaUsuario = _context.EmpresaUsuarios.Where(u => u.UsuarioID == usuarioActual).FirstOrDefault();
+            //EN BASE A ESA VARIABLE RECURRIMOS AL ID DE LA EMPRESA ACTUAL PARA RELACIONARLA CON LA VACANTE 
+            var empresaID = _context.EmpresaUsuarios.Where(u => u.EmpresaID == empresaUsuario.EmpresaID).Select(r=>r.EmpresaID).FirstOrDefault();
+            var nuevaEmpresaVacante = new VacanteEmpresa
+            {
+                VacanteID = nuevaVacante.VacanteID,
+                EmpresaID = empresaID
+            };
+            _context.Add(nuevaEmpresaVacante);
             _context.SaveChanges();
             return Json(resultado);
         }

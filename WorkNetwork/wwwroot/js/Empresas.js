@@ -18,7 +18,6 @@
                 `<tr class= 'tabla-hover '>
                         <td class='texto'>${empresas.razonSocial}</td>
                         <td class='texto'>${empresas.cuit}</td>
-                        <td class='texto'>${empresas.email}</td>
                         <td class='texto'>${empresas.localidadID}</td>
                         <td class='texto'>${empresas.telefono1}</td>
                         <td class='texto'>${empresas.rubroID}</td>
@@ -33,26 +32,21 @@
     }).fail(e => console.error('Error al cargar tabla localidades ' + e));
 }
 
-const GuardarEmpresa = () => {
-    let idEmpresa = $('#idEmpresa').val();
-    let nombreEmpresa = $('#nombreEmpresa').val();
-    let cuitEmpresa = $('#cuitEmpresa').val();
-    let correoEmpresa = $('#correoEmpresa').val();
-    //let paisID = $('#PaisID').val();
-    //let provinciaID = $('#ProvinciaID').val();
-    let localidadID = $('#LocalidadID').val();
-    let telefono1Empresa = $('#telefono1Empresa').val();
-    let telefono2Empresa = $('#telefono2Empresa').val();
-    let rubroID = $('#RubroID').val();
-    let tipoEmpresa = $('#tipoEmpresa').val();
+const guardarEmpresa = () => {
+    event.preventDefault();
     const url = '../../Empresas/GuardarEmpresa'
-    const data = {
-        idEmpresa: idEmpresa, RazonSocial: nombreEmpresa, CUIT: cuitEmpresa, Email: correoEmpresa, LocalidadID: localidadID, Telefono1: telefono1Empresa, Telefono2: telefono2Empresa, RubroID: rubroID, TipoEmpresaID: tipoEmpresa
-    }
-    $.post(url, data).done(resultado => {
-        $('#modalCrearEmpresa').modal('hide');
-        CompletarTablaEmpresas()
-    }).fail(e => console.log('error en guardar empresa' + e))
+    const formulario = $('#registrarEmpresa')[0];
+    const params = new FormData(formulario)
+    $.ajax({
+        type:'POST',
+        url: url,
+        data: params,
+        contentType: false,
+        processData: false,
+        async: false,
+        success: e => window.location.href = '/',
+        error: e=>console.log('error'+e)
+    })
 }
 
 const BuscarProvincia = () => {
@@ -66,6 +60,7 @@ const BuscarProvincia = () => {
             : $.each(provincias, (i, provincia) => {
                 $('#ProvinciaID').append(`<option value=${provincia.value}>${provincia.text}</option>`)
             });
+            BuscarLocalidad()
     }).fail(e => console.log('error en combo provincias ' + e));
     return false
 }
@@ -86,8 +81,7 @@ const BuscarLocalidad = () => {
     return false
 }
 
-$('#ProvinciaID').change(()=>BuscarLocalidad());
-
+$('#ProvinciaID').change(() => BuscarLocalidad());
 const BuscarEmpresa = (EmpresaID)=> {
     $("#Titulo-Modal-").text("Editar Empresa");
     $("#EmpresaID").val(empresaID);
