@@ -15,7 +15,7 @@
                 botones = `<btn type='button' class = 'btn btn-outline-warning btn-sm'onclick = "EliminarEmpresa(${empresas.idEmpresa},0)"><i class="bi bi-recycle"></i> Activar</btn>`
             }
             $("#tbody-empresa").append(
-                `<tr class= 'tabla-hover '>
+                `<tr class= 'tabla-hover ${claseEliminado}'>
                         <td class='texto'>${empresas.razonSocial}</td>
                         <td class='texto'>${empresas.cuit}</td>
                         <td class='texto'>${empresas.localidadID}</td>
@@ -82,7 +82,7 @@ const BuscarLocalidad = () => {
 }
 
 $('#ProvinciaID').change(() => BuscarLocalidad());
-const BuscarEmpresa = (EmpresaID)=> {
+const BuscarEmpresa = (empresaID)=> {
     $("#Titulo-Modal-").text("Editar Empresa");
     $("#EmpresaID").val(empresaID);
     let url = '../../Empresas/BuscarEmpresa';
