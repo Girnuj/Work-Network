@@ -14,7 +14,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.NombreProvincia)
             </th>
-            <th>Pais</th>
+            <th>País</th>
             <th></th>
         </tr>
     </thead>
@@ -27,8 +27,8 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="titulo-modal-provincia">Crear provincia</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="titulo-modal-provincia">Crear provincia</h5>
             </div>
             <div class="modal-body">
                 <div>
@@ -36,14 +36,14 @@
                     <input type="hidden" id='idProvincia' />
                     <input placeholder="Ingrese la Provincia" type="text" id="nombreProvincia" class="form-control" />
                     <div>
-                        <label class="control-label"><b> Pais: </b></label>
+                        <label class="control-label"><b> País: </b></label>
                         @Html.DropDownList("PaisID", null, htmlAttributes: new {@class = "form-control"})
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-info" onclick='GuardarProvincia()'>Crear</button>
                 <button type="button" class="btn btn-outline-danger" onclick='VaciarFormulario()' data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-outline-info" onclick='GuardarProvincia()'>Crear</button>
             </div>
         </div>
     </div>
