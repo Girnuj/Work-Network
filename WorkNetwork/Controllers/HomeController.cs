@@ -31,14 +31,20 @@
 
             if (rolNombre is "Usuario"){
 
-                var personaUsuario = (from p in _context.PersonaUsuarios where p.UsuarioID == usuarioActual select p).Count();
-                if(personaUsuario == 0){
+                var personaUsuarioCount = (from p in _context.PersonaUsuarios where p.UsuarioID == usuarioActual select p).Count();
+                if(personaUsuarioCount == 0){
                     return RedirectToAction("NewPerson","Personas");
                 }
             }
+            var personaActual = _context.PersonaUsuarios.Where(u => u.UsuarioID == usuarioActual).FirstOrDefault();
+            var persona = _context.Persona.Where(u => u.PersonaID == personaActual!.PersonaID).FirstOrDefault();
+
+            //var empresaActual = _context.EmpresaUsuarios.Where(u => u.EmpresaID == usuarioActual).FirstOrDefault();
+            ViewData["persona"] = persona;
+
             return View();
         }
-
+      
         public IActionResult Privacy()
         {
             return View();
