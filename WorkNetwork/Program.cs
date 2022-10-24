@@ -6,7 +6,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
  options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-//var connection = @"Server=localhost;Database=WorkNetwork;ConnectRetryCount=0; User ID=sa;Password=Tominucho123";
+//var connection = @"Server=localhost;Database=WorkNetwork;ConnectRetryCount=0; User ID=sa;Password=Admin123.";
 //builder.Services.AddDbContext<ApplicationDbContext>(options=>
  //  options.UseSqlServer(connection));
 //builder.Services.AddDatabaseDeveloperPageExceptionFilter();

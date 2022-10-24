@@ -44,8 +44,26 @@
         
         public JsonResult MostrarVantes()
         {
+            var usuarioActual = _userManager.GetUserId(HttpContext.User);
+
+            var rolUsuario = _context.UserRoles.Where(u => u.UserId == usuarioActual).FirstOrDefault();
+            var rolNombre = _context.Roles.Where(u => u.Id == rolUsuario.RoleId).Select(r=>r.Name).FirstOrDefault();
+            var listaVacantes = new List<Vacante>();
+            if(rolNombre is "Usuario"){
+            //EN BASE A ESE ID BUSCAMOS EN LA TABLA DE RELACION USUARRIO-EMPRESA QUE REGISTRO TIENE
+            var personaUsuario = _context.PersonaUsuarios.Where(u => u.UsuarioID == usuarioActual).FirstOrDefault();
+            //EN BASE A ESA VARIABLE RECURRIMOS AL ID DE LA PERSONA PARA RETORNAR VACANTES A LAS QUE NO ESTE POSTULADO 
+            var vacantesPostuladas = _context.PersonaVacante.Where(u => u.PersonaID == personaUsuario.PersonaID).ToList();
             var vacantes = _context.Vacante.ToList();
-            return Json(vacantes);
+            foreach (var vacante in vacantes)
+            {
+                var existePostulacion = vacantesPostuladas.Where(v=> v.VacanteID == vacante.VacanteID).Count();
+                if(existePostulacion == 0){
+                    listaVacantes.Add(vacante);
+                }
+            }
+            }
+            return Json(listaVacantes);
         }
 
         public JsonResult GuardarVacante(int vacanteID,string tituloVacante,

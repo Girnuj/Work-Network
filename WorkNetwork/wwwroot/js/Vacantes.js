@@ -77,7 +77,7 @@ const MostrarVacantes = () => {
                             </button>
                         </div>
                         <div class="days-left" style="color: #ff942e">
-                           Postularse 
+                            <button class="add-participant" onclick="BuscarVacante(${vacante.vacanteID})" style="color: #ff942e">Postularse</button> 
                         </div>
                     </div>
                 </div>
@@ -89,22 +89,36 @@ const MostrarVacantes = () => {
     })
 }
 
+const BuscarVacante = (idVacante)=>{
+    $('#vacanteID').val(idVacante)
+    let url = '../../Vacantes/BuscarVacante';
+    let data = {vacanteID: idVacante};
+    $.post(url,data).done(vacante=>{
+        $("#modalPostularVacante").modal("show");
+        $('#tituloDeVacante').text(vacante.nombre);
+    })
+}
+
+const pustularVacante = ()=>{
+    const url = '../../PersonaVacante/postularVacante';
+    const descripcion = $('#descripcionVacante').val();
+    const vacanteID = $('#vacanteID').val();
+    const params = {vacanteID: vacanteID, descripcionVacante: descripcion};
+    $.ajax({
+        type:"POST",
+        url: url,
+        data: params,
+        success: vacante =>{
+            $('#modalPostularVacante').modal('hide');
+            MostrarVacantes();
+        },
+        error: e=> console.log("F")
+    })
+}
+
 const GuardarVacante = () => {
     console.log('llega')
     event.preventDefault();
-    //let idVacante= $('#idVacante').val();
-    //let idEmpresa= $('#idEmpresa').val();
-    //let tituloVacante =$('#tituloVacante')
-    //let descripcionVacante=$('#descripcionVacante').val();
-    //let expRequeridaVacante= $('#expRequeridaVacante').val();
-    ////let paisID = $('#PaisID').val();
-    ////let provinciaID = $('#ProvinciaID').val();
-    //let localidadID = $('#LocalidadID').val();
-    //let fechaFinalizacionVacante =$('#fechaFinalizacionVacante').val();
-    //let idiomaVacante = $('#idiomaVacante').val();
-    //let disponibilidadHoraria = $('#disponibilidadHoraria').val();
-    //let modalidadVacante = $('#modalidadVacante').val();
-    //let imagenVacante = $('#imagenVacante').val();
     const url = '../../Vacantes/GuardarVacante';
     const formulario = $('#nuevaVacante')[0];
     const params = new FormData(formulario)
@@ -131,6 +145,7 @@ const BuscarProvincia = () => {
             ? $('#ProvinciaID').append(`<option value=${0}>[NO EXISTEN PROVINCIAS]</option>`)
             : $.each(provincias, (i, provincia) => {
                 $('#ProvinciaID').append(`<option value=${provincia.value}>${provincia.text}</option>`)
+                BuscarLocalidad()
             });
     }).fail(e => console.log('error en combo provincias ' + e));
     return false
