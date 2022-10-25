@@ -1,29 +1,24 @@
 const CompletarTablaVacantes = () => {
     VaciarFormulario();
 
-    let url = '../../Vacante/TablaVacasntes'
+    let url = '../../Vacantes/TablaVacasntes'
 
     $.get(url).done(vacantes => {
         $('#tbody-vacante').empty();
-        $.each(vacantes, function (index, vacantes) {
+        $.each(vacantes, function (index, vacante) {
             let claseEliminado = '';
-            let botones = `<btn type='button' class= 'btn btn-outline-success btn-sm me-3' onclick = "BuscarVacantes(${vacantes.idVacante})"><i class="bi bi-pencil-square"></i> Editar</btn>
-                                <btn type='button' class = 'btn btn-outline-danger btn-sm'onclick = "EliminarVacante(${vacantes.idVacante},1)"><i class="bi bi-trash3"></i> Eliminar</btn>`
+            let botones = `<btn type='button' class= 'btn btn-outline-success btn-sm me-3' onclick = "EditarVacantes(${vacante.vacanteID})"><i class="bi bi-pencil-square"></i> Editar</btn>
+                                <btn type='button' class = 'btn btn-outline-danger btn-sm'onclick = "EliminarVacante(${vacante.vacanteID},1)"><i class="bi bi-trash3"></i> Eliminar</btn>`
 
             if (vacantes.eliminado) {
                 claseEliminado = 'table-danger';
-                botones = `<btn type='button' class = 'btn btn-outline-warning btn-sm'onclick = "EliminarVacante(${vacantes.idVacante},0)"><i class="bi bi-recycle"></i> Activar</btn>`
+                botones = `<btn type='button' class = 'btn btn-outline-warning btn-sm'onclick = "EliminarVacante(${vacante.vacanteID},0)"><i class="bi bi-recycle"></i> Activar</btn>`
             }
             $("#tbody-vacante").append(
-                `<tr class= 'tabla-hover ${claseEliminado}'>
-                        <td class='texto'>${vacante.tituloVacante}</td>
-                        <td class='texto'>${vacante.descripcionVacante}</td>
-                        <td class='texto'>${vacante.expRequeridaVacante}</td>
-                        <td class='texto'>${vacante.localidadID}</td>
-                        <td class='texto'>${vacante.fechaFinalizacionVacante}</td>
-                        <td class='texto'>${vacante.idiomaVacante}</td>
-                        <td class='texto'>${vacante.disponibilidadHoraria}</td>
-                        <td class='texto'>${vacante.modalidadVacante}</td>
+                `<tr class= 'tabla-hover${claseEliminado}'>
+                        <td class='texto'>${vacante.nombre}</td>
+                        <td class='texto'>${vacante.idiomas}</td>
+                        <td class='texto'>${vacante.experienciaRequerida}</td>
                         <td class = 'text-center'>
                         ${botones}
                         </td>
@@ -34,13 +29,43 @@ const CompletarTablaVacantes = () => {
     }).fail(e => console.error('Error al cargar tabla localidades ', e));
 }
 
+const BuscarVacante = idVacante=>{
+    $('#vacanteID').val(idVacante);
+    let data = {vacanteID: idVacante};
+    $.post(url,data).done(vacante=>{
+        $("#modalPostularVacante").modal("show");
+        $('#tituloDeVacante').text(vacante.nombre);
+    })
+}
+
+const EditarVacantes = vacanteID =>{
+//    #idVacante
+    $('#idVacante').val(vacanteID);
+    const url = '../../Vacantes/BuscarVacante';
+    const data = {vacanteID:vacanteID}
+    $.post(url,data).done(vacante =>{
+        console.log(vacante)
+        $('#modalCrearVacante').modal('show');
+        $('#titulo-modal-vacante').text('Editar Vacante')
+        $('#tituloVacante').val(vacante.nombre);
+        $('#descripcionVacante').val(vacante.descripcion);
+        $('#expRequeridaVacante').val(vacante.experienciaRequerida);
+        //ver como recuperar los valores de pais y provincia
+        $('#LocalidadID').val();
+        $('#RubroID').val(vacante.rubroID);
+        $('#fechaFinalizacionVacante') .val(vacante.fechaDeFinalizacion)
+        $('#idiomaVacante').val(vacante.idiomas)
+        $('#disponibilidadHoraria').val(vacante.disponibilidadHoraria)
+        $('#modalidadVacante').val(vacante.tipoModalidad)
+    })
+} 
+
 const MostrarVacantes = () => {
     console.log('ejecuto')
     const url = '../../Vacantes/MostrarVantes';
     $.get(url).done(vacantes => {
         $('#cardVacantes').empty();
         let color = '#e9e7fd'
-        console.log(vacantes)
         $.each(vacantes, function (index, vacante) {
             let operecion = index % 2
             $('#cardVacantes').append(
@@ -89,15 +114,7 @@ const MostrarVacantes = () => {
     })
 }
 
-const BuscarVacante = (idVacante)=>{
-    $('#vacanteID').val(idVacante)
-    let url = '../../Vacantes/BuscarVacante';
-    let data = {vacanteID: idVacante};
-    $.post(url,data).done(vacante=>{
-        $("#modalPostularVacante").modal("show");
-        $('#tituloDeVacante').text(vacante.nombre);
-    })
-}
+
 
 const pustularVacante = ()=>{
     const url = '../../PersonaVacante/postularVacante';
