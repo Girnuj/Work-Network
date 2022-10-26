@@ -15,7 +15,7 @@
                 Localidad
             </th>
             <th>
-                Codigo Postal
+                Código Postal
             </th>
             <th>
                 Opciones
@@ -30,17 +30,17 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="titulo-modal-">Crear localidad</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="titulo-modal-">Crear localidad</h5>
             </div>
             <div class="modal-body">
                 <div>
                     <div class="alert alert-danger "id='alertLocalidad'>El campo descripcion no puede estar vacio</div> 
                     <input type="hidden" id='idLocalidad' />
                     <input placeholder="Ingrese una localidad" type="text" id="nombreLocalidad" class="form-control" />
-                    <input placeholder="Codigo Postal" type="number" id="cpLocalidad" class='form-control' maxlength="4" />
+                    <input placeholder="Código Postal" type="number" id="cpLocalidad" class='form-control' maxlength="4" />
                     <div>
-                        <label class="control-label"><b> Pais: </b></label>
+                        <label class="control-label"><b> País: </b></label>
                         @Html.DropDownList("PaisID", null, htmlAttributes: new {@class = "form-control"})
                     </div>
                     <div>
@@ -50,8 +50,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-info" onclick='GuardarLocalidad()'>Crear</button>
                 <button type="button" class="btn btn-outline-danger" onclick='VaciarFormulario()' data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-outline-info" onclick='GuardarLocalidad()'>Crear</button>
             </div>
         </div>
     </div>

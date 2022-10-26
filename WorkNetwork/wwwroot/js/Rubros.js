@@ -76,7 +76,7 @@ const BuscarRubro = (rubroID) => {
 const EliminarRubro = (rubroID, elimina) => {
     let url = '../../Rubros/EliminarRubro';
     let data = {RubroID:rubroID, Elimina: elimina};
-    $.post(url,data).done(CompletarTablaRubro()).fail(e=>console.log(e))
+    $.post(url,data).done(() => CompletarTablaRubro()).fail(e=>console.log(e))
 }
 
 

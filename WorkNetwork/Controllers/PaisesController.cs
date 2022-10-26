@@ -74,12 +74,22 @@
             return Json(pais);
         }
 
-        public JsonResult EliminarPais(int PaisID, int Elimina)
+        public void EliminarPais(int PaisID, int Elimina)
         {
-            bool resultado = true;
-            var pais = _context.Pais.Find();
-            return Json(resultado);
+            ArgumentNullException.ThrowIfNull(nameof(PaisID));
+            var pais = _context.Pais.Find(PaisID);
+
+            if (pais is not null)
+            {
+                if (Elimina is 0)
+                {
+                    pais.Eliminado = false;
+                } else 
+                { 
+                    pais.Eliminado = true;               
+                }
+            }
+             _context.SaveChanges();
         }
-        
     }
 }

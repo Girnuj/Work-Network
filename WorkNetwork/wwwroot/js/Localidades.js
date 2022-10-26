@@ -59,8 +59,6 @@ const GuardarLocalidad = () => {
     
 }
 
-$('#PaisID').change(() => BuscarProvincia())
-
 const BuscarProvincia = () => {
     $('#ProvinciaID').empty();
     let url = '../../Provincias/ComboProvincia';
@@ -70,6 +68,22 @@ const BuscarProvincia = () => {
             ? $('#ProvinciaID').append(`<option value=${0}>[NO EXISTEN PROVINCIAS]</option>`)
             : $.each(provincias, (i, provincia) => {
                 $('#ProvinciaID').append(`<option value=${provincia.value}>${provincia.text}</option>`)
+            });
+    }).fail(e => console.log('error en combo provincias ' + e))
+    return false
+}
+
+$('#PaisID').change(() => BuscarProvincia())
+
+const BuscarLocalidad = () => {
+    $('#LocalidadID').empty();
+    let url = '../../PLocalidades/ComboLocalidades';
+    let data = { id: $('#ProvinciaID').val() };
+    $.post(url, data).done(localidades => {
+        localidades.length === 0
+            ? $('#LocalidadID').append(`<option value=${0}>[NO EXISTEN PROVINCIAS]</option>`)
+            : $.each(localidades, (i, localidad) => {
+                $('#LocalidadID').append(`<option value=${localidad.value}>${localidad.text}</option>`)
             });
     }).fail(e => console.log('error en combo provincias ' + e))
     return false

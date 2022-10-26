@@ -10,11 +10,11 @@ const CompletarTablaPaises = async () => {
                 
                 let claseEliminado = '';
                 let botones = `<btn type='button' class= 'btn btn-outline-success btn-sm me-3' onclick = "BuscarPais(${pais.paisID})"><i class="bi bi-pencil-square"></i> Editar</btn>
-                                <btn type='button' class = 'btn btn-outline-danger btn-sm'onclick = "EliminarPais(${pais.paisID},1)"><i class="bi bi-trash3"></i> Eliminar</btn>`
+                                <btn type='button' class = 'btn btn-outline-danger btn-sm' onclick = "EliminarPais(${pais.paisID},1)"><i class="bi bi-trash3"></i> Eliminar</btn>`
 
                 if (pais.eliminado) {
                     claseEliminado = 'table-danger';
-                    botones = `<btn type='button' class = 'btn btn-outline-warning btn-sm'onclick = "EliminarPais(${pais.paisID},0)"><i class="bi bi-recycle"></i> Activar</btn>`
+                    botones = `<btn type='button' class = 'btn btn-outline-warning btn-sm 'onclick = "EliminarPais(${pais.paisID},0)"><i class="bi bi-recycle"></i> Activar</btn>`
 
                 }
                 $('#tbody-paises').append(`<tr class= 'tabla-hover ${claseEliminado} '>
@@ -22,7 +22,8 @@ const CompletarTablaPaises = async () => {
                         <td class = 'text-center'>
                             ${botones}
                         </td>
-                    </tr>`)
+                    </tr>`
+                )
             })
         }
     ).fail(e => console.log('cargar paises', e))
@@ -65,7 +66,9 @@ const GuardarPais = () => {
 
 const BuscarPais = (paisID)=>{
     $('#titulo-modal-pais').text('Editar Pais');
+    $('#bottonEdit').text('Editar');
     $('#idPais').val(paisID);
+
     $('#alertPais').addClass('visually-hidden');
     let url = '../../Paises/BuscarPais';
     let data = {PaisID: paisID};
@@ -81,6 +84,7 @@ const BuscarPais = (paisID)=>{
 
 const EliminarPais= (paisID, elimina)=>{
     let url = '../../Paises/EliminarPais'
-    let data = {PaisID:paisID,}
+    let data = { PaisID: paisID, Elimina: elimina }
+    $.post(url, data).done(() => CompletarTablaPaises()).fail(e => console.log(e));
 }
 

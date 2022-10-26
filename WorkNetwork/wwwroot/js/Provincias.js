@@ -54,7 +54,7 @@ const GuardarProvincia = () => {
     }else alertProvincia.removeClass('visually-hidden').text("El campo nombre no puede estar vacio")  
 }
 
-const BuscarProvincia = () => {
+const BuscarProvincia = (provinciaID) => {
     $('#ProvinciaID').empty();
     let url = '../../Provincias/ComboProvincia';
     let data = { id: $('#PaisID').val() };
