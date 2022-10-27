@@ -34,6 +34,13 @@
             return View();
         }
 
+        public async Task<IActionResult> GestionDeVacante(int vacanteId)
+        {
+            var vacante = _context.Vacante.FirstOrDefault();
+            return View(vacante);
+        }
+
+        
 
         [Authorize(Roles = "Empresa")]
         public JsonResult TablaVacasntes()

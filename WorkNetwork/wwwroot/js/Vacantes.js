@@ -8,7 +8,8 @@ const CompletarTablaVacantes = () => {
         $.each(vacantes, function (index, vacante) {
             let claseEliminado = '';
             let botones = `<btn type='button' class= 'btn btn-outline-success btn-sm me-3' onclick = "EditarVacantes(${vacante.vacanteID})"><i class="bi bi-pencil-square"></i> Editar</btn>
-                                <btn type='button' class = 'btn btn-outline-danger btn-sm'onclick = "EliminarVacante(${vacante.vacanteID},1)"><i class="bi bi-trash3"></i> Eliminar</btn>`
+                                <btn type='button' class = 'btn btn-outline-danger btn-sm' onclick = "EliminarVacante(${vacante.vacanteID},1)"><i class="bi bi-trash3"></i> Eliminar</btn>
+                                <a class ='btn btn-outline-primary btn-sm' onclick = "GestionarVacante(${vacante.vacanteID})">Gestionar</a>`
 
             if (vacantes.eliminado) {
                 claseEliminado = 'table-danger';
@@ -28,10 +29,22 @@ const CompletarTablaVacantes = () => {
         })
     }).fail(e => console.error('Error al cargar tabla localidades ', e));
 }
-
+const GestionarVacante = vacanteID =>{
+    console.log('esta si')
+    $('#idVacante').val(vacanteID);
+    const url = '../../Vacantes/GestionDeVacante';
+    const data = {vacanteId:vacanteID}
+    $.post(url,data).done(vacante =>{
+        window.location.href='../Vacantes/GestionDeVacante'
+    }).fail(e=>console.log(e))
+}
+const prueba = (vacante)=>{
+    $('#vacanteGestion').append(`${vacante}`)
+}
 const BuscarVacante = idVacante=>{
     $('#vacanteID').val(idVacante);
     let data = {vacanteID: idVacante};
+    let url = '../../Vacantes/BuscarVacante'
     $.post(url,data).done(vacante=>{
         $("#modalPostularVacante").modal("show");
         $('#tituloDeVacante').text(vacante.nombre);

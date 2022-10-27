@@ -77,7 +77,7 @@ $('#PaisID').change(() => BuscarProvincia())
 
 const BuscarLocalidad = () => {
     $('#LocalidadID').empty();
-    let url = '../../PLocalidades/ComboLocalidades';
+    let url = '../../Localidades/ComboLocalidades';
     let data = { id: $('#ProvinciaID').val() };
     $.post(url, data).done(localidades => {
         localidades.length === 0
